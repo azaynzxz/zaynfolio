@@ -1,0 +1,250 @@
+[
+  {
+    "id": "01",
+    "slug": "explainer-2d-animations",
+    "title": "Explainer 2D Animations",
+    "client": "Eyes Wide Open Studio",
+    "category": ["Motion Graphics", "After Effects"],
+    "year": 2025,
+    "role": "Lead Motion Designer",
+    "duration": "10 months",
+    "poster": "/assets/work/project-01/poster.jpg",
+    "preview": "/assets/work/project-01/preview.mp4",
+    "previewWebm": "/assets/work/project-01/preview.webm",
+    "featured": true,
+    "stats": [
+      { "value": "90", "unit": "+", "label": "Videos delivered" },
+      { "value": "10", "unit": "months", "label": "Project duration" },
+      { "value": "3", "unit": "formats", "label": "Platform outputs" }
+    ],
+    "description": "Edited and delivered 90+ animated explainer videos, historical documentaries, and high-retention social media content. Established a scalable production pipeline using After Effects templates, batch rendering, and expression-driven motion systems.",
+    "images": [
+      "/assets/work/project-01/detail-01.jpg",
+      "/assets/work/project-01/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "02",
+    "slug": "cultural-heritage-animation",
+    "title": "Cultural Heritage Animation Promo",
+    "client": "Research Project",
+    "category": ["2D Animation", "Character Rigging"],
+    "year": 2023,
+    "role": "Animator & Rigger",
+    "duration": "12 weeks",
+    "poster": "/assets/work/project-05/poster.jpg",
+    "preview": "/assets/work/project-05/preview.mp4",
+    "previewWebm": "/assets/work/project-05/preview.webm",
+    "featured": true,
+    "stats": [
+      { "value": "12", "unit": "weeks", "label": "Production time" },
+      { "value": "4", "unit": "episodes", "label": "Series length" },
+      { "value": "6", "unit": "characters", "label": "Rigged assets" }
+    ],
+    "description": "Produced an explainer series utilizing 2D character rigging and kinetic data visualization to simplify complex cultural narratives. Each episode distills regional heritage into accessible animated storytelling.",
+    "images": [
+      "/assets/work/project-05/detail-01.jpg",
+      "/assets/work/project-05/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "03",
+    "slug": "reels-motion-promo",
+    "title": "Reels Motion Promotional Content",
+    "client": "Various Clients",
+    "category": ["Motion Graphics", "Social Media"],
+    "year": 2023,
+    "role": "Motion Designer",
+    "duration": "6 weeks",
+    "poster": "/assets/work/project-04/poster.jpg",
+    "preview": "/assets/work/project-04/preview.mp4",
+    "previewWebm": "/assets/work/project-04/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "6", "unit": "weeks", "label": "Project duration" },
+      { "value": "5", "unit": "assets", "label": "Deliverables" },
+      { "value": "1", "unit": "system", "label": "Identity framework" }
+    ],
+    "description": "Created an environmental motion identity system featuring parallax effects and responsive graphics. Designed for digital signage and promotional material across campus and social platforms.",
+    "images": [
+      "/assets/work/project-04/detail-01.jpg",
+      "/assets/work/project-04/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "04",
+    "slug": "kinetic-typography-series",
+    "title": "Kinetic Typography Series",
+    "client": "Personal Project",
+    "category": ["Motion Graphics", "Typography"],
+    "year": 2023,
+    "role": "Motion Designer",
+    "duration": "4 weeks",
+    "poster": "/assets/work/project-07/poster.jpg",
+    "preview": "/assets/work/project-07/preview.mp4",
+    "previewWebm": "/assets/work/project-07/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "5", "unit": "pieces", "label": "Compositions" },
+      { "value": "4", "unit": "weeks", "label": "Production time" },
+      { "value": "60", "unit": "fps", "label": "Render quality" }
+    ],
+    "description": "A personal exploration of typographic motion design, combining bold sans-serif letterforms with precise grid-based compositions. Each piece translates static editorial design principles into frame-perfect kinetic sequences.",
+    "images": [
+      "/assets/work/project-07/detail-01.jpg",
+      "/assets/work/project-07/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "05",
+    "slug": "social-media-content",
+    "title": "Social Media Content",
+    "client": "Various Clients",
+    "category": ["Video Editing", "Social Media"],
+    "year": 2022,
+    "role": "Video Editor",
+    "duration": "Ongoing",
+    "poster": "/assets/gallery/g13-idcard-lampung.webp",
+    "preview": "/assets/gallery/social-media-slideshow.mp4",
+    "previewWebm": "/assets/gallery/social-media-slideshow.webm",
+    "featured": false,
+    "stats": [
+      { "value": "50", "unit": "+", "label": "Videos produced" },
+      { "value": "5", "unit": "platforms", "label": "Format outputs" },
+      { "value": "2", "unit": "M+", "label": "Total impressions" }
+    ],
+    "description": "Developed a systematic approach to social media video content production, creating platform-optimized edits for Instagram, TikTok, YouTube, LinkedIn, and Twitter. Established reusable templates and motion presets.",
+    "images": [
+      "/assets/work/project-08/detail-01.jpg",
+      "/assets/work/project-08/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "06",
+    "slug": "automated-design-workflow",
+    "title": "Automated Design Workflow System",
+    "client": "ID Card Lampung",
+    "category": ["After Effects", "Automation"],
+    "year": 2023,
+    "role": "Technical Artist",
+    "duration": "3 weeks",
+    "poster": "/assets/work/project-06/poster.jpg",
+    "preview": "/assets/work/project-06/preview.mp4",
+    "previewWebm": "/assets/work/project-06/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "80", "unit": "%", "label": "Time saved" },
+      { "value": "200", "unit": "+", "label": "Previews generated" },
+      { "value": "3", "unit": "weeks", "label": "Build time" }
+    ],
+    "description": "Engineered automated workflows utilizing AE templates, expressions, and batch processing to generate dynamic ID card preview animations. Reduced manual production time by 80%.",
+    "images": [
+      "/assets/work/project-06/detail-01.jpg",
+      "/assets/work/project-06/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "07",
+    "slug": "ecommerce-idcardlampung",
+    "title": "E-Commerce Platform — idcardlampung.com",
+    "client": "ID Card Lampung",
+    "category": ["Web Development", "Marketing"],
+    "year": 2024,
+    "role": "Developer & Designer",
+    "duration": "4 weeks",
+    "poster": "/assets/work/project-02/poster.jpg",
+    "preview": "/assets/work/project-02/preview.mp4",
+    "previewWebm": "/assets/work/project-02/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "4", "unit": "weeks", "label": "Build time" },
+      { "value": "100", "unit": "%", "label": "AI-assisted" },
+      { "value": "12", "unit": "products", "label": "Listed at launch" }
+    ],
+    "description": "Built and deployed a fully functional e-commerce web platform using AI-assisted development tools, directly driving online sales and customer onboarding. Integrated payment processing and responsive product catalog.",
+    "images": [
+      "/assets/work/project-02/detail-01.jpg",
+      "/assets/work/project-02/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "08",
+    "slug": "pdin",
+    "title": "What is PDIN",
+    "client": "Pusat Desain Industri Nasional",
+    "category": ["Motion Graphics", "Video Editing"],
+    "year": 2024,
+    "role": "Motion Designer",
+    "duration": "2 weeks",
+    "poster": "/assets/work/project-08/poster.jpg",
+    "preview": "/assets/work/project-08/preview.mp4",
+    "previewWebm": "/assets/work/project-08/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "2", "unit": "weeks", "label": "Turnaround" },
+      { "value": "1", "unit": "video", "label": "Deliverable" }
+    ],
+    "description": "An engaging informational video detailing the purpose and services of the Pusat Desain Industri Nasional (PDIN), combining slick motion graphics with clear, concise messaging.",
+    "images": []
+  },
+  {
+    "id": "09",
+    "slug": "eyes-wide-open",
+    "title": "Eyes Wide Open Studio Showreel",
+    "client": "Eyes Wide Open Studio",
+    "category": ["Motion Graphics", "Showreel"],
+    "year": 2024,
+    "role": "Motion Designer",
+    "duration": "Ongoing",
+    "poster": "/assets/work/project-09/poster.jpg",
+    "preview": "/assets/work/project-09/preview.mp4",
+    "previewWebm": "/assets/work/project-09/preview.webm",
+    "featured": true,
+    "stats": [
+      { "value": "100", "unit": "%", "label": "Energy" },
+      { "value": "2D", "unit": "anim", "label": "Primary Medium" }
+    ],
+    "description": "A dynamic, high-energy showreel highlighting the best motion graphics and 2D animation work from the Eyes Wide Open Studio portfolio, timed perfectly to an upbeat soundtrack.",
+    "images": []
+  },
+  {
+    "id": "10",
+    "slug": "kelas-struktur-3",
+    "title": "Kelas Struktur 3",
+    "client": "Kelas Struktur",
+    "category": ["Social Media", "Video Editing"],
+    "year": 2023,
+    "role": "Video Editor",
+    "duration": "1 week",
+    "poster": "/assets/work/project-10/poster.jpg",
+    "preview": "/assets/work/project-10/preview.mp4",
+    "previewWebm": "/assets/work/project-10/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "15", "unit": "sec", "label": "Duration" },
+      { "value": "9:16", "unit": "ratio", "label": "Vertical Format" }
+    ],
+    "description": "Vertical short-form promotional content created specifically for Kelas Struktur, optimized to capture attention on Instagram Reels and TikTok algorithms.",
+    "images": []
+  },
+  {
+    "id": "11",
+    "slug": "donasi-bukber",
+    "title": "Donasi Bukber Campaign",
+    "client": "Charity Drive",
+    "category": ["Social Media", "Motion Graphics"],
+    "year": 2024,
+    "role": "Motion Designer",
+    "duration": "1 week",
+    "poster": "/assets/work/project-11/poster.jpg",
+    "preview": "/assets/work/project-11/preview.mp4",
+    "previewWebm": "/assets/work/project-11/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "3", "unit": "days", "label": "Fast Delivery" },
+      { "value": "1", "unit": "reel", "label": "Format" }
+    ],
+    "description": "A heartfelt and engaging promotional social media reel designed for a Ramadan donation campaign (Bukber), featuring smooth motion graphics and typography to drive charity participation.",
+    "images": []
+  }
+]

@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="404 — Page Not Found" description="The page you're looking for doesn't exist.">
+  <section class="not-found" id="not-found">
+    <div class="container">
+      <div class="not-found__content">
+        <span class="not-found__code">404</span>
+        <hr class="rule" />
+        <p class="not-found__message">The page you're looking for doesn't exist.</p>
+        <a href="/" class="not-found__link">Return to Work</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 64px;
+  }
+
+  .not-found .container {
+    width: 100%;
+  }
+
+  .not-found__content {
+    max-width: 480px;
+  }
+
+  .not-found__code {
+    font-size: clamp(6rem, 15vw, 12rem);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    line-height: 0.9;
+    display: block;
+    margin-bottom: var(--space-4);
+    color: var(--rule);
+  }
+
+  .not-found__message {
+    font-size: var(--fs-body);
+    color: var(--muted);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .not-found__link {
+    font-size: var(--fs-label);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--fg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--accent);
+  }
+
+  .not-found__link:hover {
+    text-decoration-color: var(--fg);
+  }
+</style>

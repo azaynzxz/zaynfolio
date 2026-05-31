@@ -1,0 +1,476 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Achmad Zaini — Motion Graphics Designer',
+  description = 'Portfolio of Achmad Zaini. Video Editor and Motion Graphics Designer with five years of experience in high-retention editing, 2D animation rigging, and automated After Effects workflows.'
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Achmad Zaini" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <title>{title}</title>
+
+    <!-- Fonts: DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Global Styles -->
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+  </head>
+  <body>
+    <!-- Decorative Grid Lines -->
+    <div class="grid-lines" aria-hidden="true">
+      <div class="container">
+        <div class="grid">
+          {Array.from({ length: 12 }).map(() => (
+            <div class="grid-lines__col"></div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="main-nav">
+      <div class="container">
+        <div class="nav__inner">
+          <a href="/" class="nav__logo" id="nav-logo">AZ</a>
+          <div class="nav__links">
+            <a href="/work" class:list={["nav__link", { "nav__link--active": currentPath === "/work" || currentPath === "/work/" }]} id="nav-work">Work</a>
+            <a href="/gallery" class:list={["nav__link", { "nav__link--active": currentPath === "/gallery" || currentPath === "/gallery/" }]} id="nav-gallery">Gallery</a>
+            <a href="/about" class:list={["nav__link", { "nav__link--active": currentPath === "/about" || currentPath === "/about/" }]} id="nav-about">CV / Resume</a>
+            <a href="/contact" class:list={["nav__link", { "nav__link--active": currentPath === "/contact" || currentPath === "/contact/" }]} id="nav-contact">Contact</a>
+            <button class="nav__theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 1a7 7 0 0 1 0 14V1z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile menu button -->
+          <button class="nav__mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+            <span class="nav__mobile-line"></span>
+            <span class="nav__mobile-line"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu__inner">
+        <a href="/work" class="mobile-menu__link">Work</a>
+        <a href="/gallery" class="mobile-menu__link">Gallery</a>
+        <a href="/about" class="mobile-menu__link">CV / Resume</a>
+        <a href="/contact" class="mobile-menu__link">Contact</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <hr class="rule" />
+        <div class="footer__inner">
+          <span class="footer__copy">&copy; {new Date().getFullYear()} Achmad Zaini</span>
+          <div class="footer__links">
+            <a href="/work" class="footer__link">Work</a>
+            <a href="/gallery" class="footer__link">Gallery</a>
+            <a href="/about" class="footer__link">CV / Resume</a>
+            <a href="/contact" class="footer__link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Theme toggle
+      const themeToggle = document.getElementById('theme-toggle');
+      const themes = ['light', 'dark', 'accent'];
+      let currentThemeIndex = 0;
+
+      // Load saved theme
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        currentThemeIndex = themes.indexOf(savedTheme);
+      }
+
+      themeToggle?.addEventListener('click', () => {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        const newTheme = themes[currentThemeIndex];
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+
+      // Mobile menu
+      const mobileToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      mobileToggle?.addEventListener('click', () => {
+        const isOpen = mobileMenu?.classList.toggle('mobile-menu--open');
+        mobileToggle.classList.toggle('nav__mobile-toggle--open');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+    </script>
+
+    <!-- Global Media Protection -->
+    <script>
+      document.addEventListener('contextmenu', (e) => {
+        if (e.target instanceof HTMLImageElement || e.target instanceof HTMLVideoElement) {
+          e.preventDefault();
+        }
+      });
+      document.addEventListener('dragstart', (e) => {
+        if (e.target instanceof HTMLImageElement || e.target instanceof HTMLVideoElement) {
+          e.preventDefault();
+        }
+      });
+    </script>
+
+    <script>
+      // GSAP + Lenis (loaded as module)
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Initialize Lenis smooth scroll
+      async function initLenis() {
+        const { default: Lenis } = await import('lenis');
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+      }
+
+      initLenis();
+
+      // Animate reveal elements
+      gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+          },
+        });
+      });
+
+      // Animate rule lines
+      gsap.utils.toArray<HTMLElement>('.reveal-line').forEach((el) => {
+        gsap.to(el, {
+          opacity: 1,
+          scaleX: 1,
+          duration: 1,
+          ease: 'power3.inOut',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+          },
+        });
+      });
+
+      // Stagger work rows
+      const workRows = gsap.utils.toArray<HTMLElement>('.work-row');
+      if (workRows.length) {
+        gsap.from(workRows, {
+          opacity: 0,
+          y: 30,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: workRows[0],
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      }
+
+      // Hero text reveal
+      const heroTitle = document.querySelector('.hero__title');
+      if (heroTitle) {
+        const words = heroTitle.textContent?.split(' ') || [];
+        heroTitle.innerHTML = words
+          .map((word) => `<span class="hero__word"><span class="hero__word-inner">${word}</span></span>`)
+          .join(' ');
+
+        gsap.from('.hero__word-inner', {
+          y: '110%',
+          duration: 1,
+          stagger: 0.08,
+          ease: 'power4.out',
+          delay: 0.3,
+        });
+      }
+
+      // Hero subtitle reveal
+      const heroSubtitle = document.querySelector('.hero__subtitle');
+      if (heroSubtitle) {
+        gsap.from(heroSubtitle, {
+          opacity: 0,
+          y: 20,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: 1,
+        });
+      }
+
+      // Hero meta reveal
+      const heroMeta = document.querySelector('.hero__meta');
+      if (heroMeta) {
+        gsap.from(heroMeta, {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: 1.2,
+        });
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  /* ── Navigation ────────────────────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bg);
+    transition: background-color var(--duration-slow) var(--ease-out);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav__logo {
+    font-size: 1.25rem;
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    color: var(--fg);
+  }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .nav__link {
+    font-size: var(--fs-label);
+    font-weight: var(--fw-regular);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+    position: relative;
+    padding-bottom: 2px;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--fg);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .nav__link:hover {
+    color: var(--fg);
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav__link--active {
+    color: var(--fg);
+  }
+
+  .nav__link--active::after {
+    transform: scaleX(1);
+  }
+
+  .nav__theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    padding: var(--space-1);
+    display: flex;
+    align-items: center;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__theme-toggle:hover {
+    color: var(--fg);
+  }
+
+  .nav__mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-1);
+    z-index: 110;
+  }
+
+  .nav__mobile-line {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--fg);
+    transition: transform var(--duration-normal) var(--ease-out),
+                opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .nav__mobile-toggle--open .nav__mobile-line:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  .nav__mobile-toggle--open .nav__mobile-line:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  /* ── Mobile Menu ───────────────────────────────────────────── */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-normal) var(--ease-out);
+  }
+
+  .mobile-menu--open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    text-align: center;
+  }
+
+  .mobile-menu__link {
+    font-size: var(--fs-h1);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    color: var(--fg);
+    text-transform: uppercase;
+  }
+
+  /* ── Footer ────────────────────────────────────────────────── */
+  .footer {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-3);
+  }
+
+  .footer__copy {
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer__links {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .footer__link {
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .footer__link:hover {
+    color: var(--fg);
+  }
+
+  /* ── Responsive ────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .nav__links {
+      display: none;
+    }
+
+    .nav__mobile-toggle {
+      display: flex;
+    }
+
+    .footer__inner {
+      flex-direction: column;
+      gap: var(--space-2);
+      text-align: center;
+    }
+  }
+</style>

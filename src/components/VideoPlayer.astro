@@ -1,0 +1,402 @@
+---
+interface Props {
+  src: string;
+  fallbackSrc?: string;
+  poster?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const {
+  src,
+  fallbackSrc,
+  poster,
+  autoplay = false,
+  loop = false,
+  muted = false,
+  class: className = '',
+  id,
+} = Astro.props;
+---
+
+<div class={`swiss-player ${className}`} id={id} data-swiss-player>
+  <div class="swiss-player__video-wrapper">
+    <video
+      src={src}
+      poster={poster}
+      autoplay={autoplay}
+      loop={loop}
+      muted={muted}
+      playsinline
+      class="swiss-player__video"
+      data-video
+    >
+      {fallbackSrc && <source src={fallbackSrc} type="video/mp4" />}
+    </video>
+
+    <!-- Overlay Play Button -->
+    <div class="swiss-player__overlay" data-play-overlay>
+      <button class="swiss-player__overlay-btn" aria-label="Play video">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 3L20 12L6 21V3Z" fill="currentColor" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Custom Controls Bar -->
+  <div class="swiss-player__controls">
+    <!-- Progress Bar (Scrubber) -->
+    <div class="swiss-player__progress-container" data-progress-container>
+      <div class="swiss-player__progress-bg"></div>
+      <div class="swiss-player__progress-fill" data-progress-fill></div>
+    </div>
+
+    <!-- Buttons & Meta -->
+    <div class="swiss-player__bar">
+      <div class="swiss-player__bar-left">
+        <!-- Play / Pause -->
+        <button class="swiss-player__btn" data-play-toggle aria-label="Play">
+          <!-- Play Icon -->
+          <svg class="icon-play" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 2L13 8L3 14V2Z" />
+          </svg>
+          <!-- Pause Icon -->
+          <svg class="icon-pause" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path d="M2 2H6V14H2V2ZM10 2H14V14H10V2Z" />
+          </svg>
+        </button>
+
+        <!-- Time Monospace Code -->
+        <div class="swiss-player__time">
+          <span data-current-time>00:00</span>
+          <span class="swiss-player__time-sep">/</span>
+          <span data-duration-time>00:00</span>
+        </div>
+      </div>
+
+      <div class="swiss-player__bar-right">
+        <!-- Mute Toggle -->
+        <button class="swiss-player__btn" data-mute-toggle aria-label="Mute">
+          <!-- Speaker Icon (Unmuted) -->
+          <svg class="icon-unmuted" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 5V11H5L9 14V2L5 5H2Z" fill="currentColor" />
+            <path d="M12 4.5C13 5.5 13 7.5 12 8.5" stroke-linecap="square" />
+            <path d="M14 2.5C15.5 4.5 15.5 8.5 14 10.5" stroke-linecap="square" />
+          </svg>
+          <!-- Speaker Icon (Muted) -->
+          <svg class="icon-muted" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <path d="M2 5V11H5L9 14V2L5 5H2Z" fill="currentColor" />
+            <path d="M12 6.5L15 9.5M15 6.5L12 9.5" stroke-linecap="square" />
+          </svg>
+        </button>
+
+        <!-- Fullscreen -->
+        <button class="swiss-player__btn" data-fullscreen-toggle aria-label="Fullscreen">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 5.5V1.5H5.5" stroke-linecap="square" />
+            <path d="M10.5 1.5H14.5V5.5" stroke-linecap="square" />
+            <path d="M14.5 10.5V14.5H10.5" stroke-linecap="square" />
+            <path d="M5.5 14.5H1.5V10.5" stroke-linecap="square" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .swiss-player {
+    position: relative;
+    width: 100%;
+    background: #000;
+    border: 1px solid var(--rule, #333);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .swiss-player__video-wrapper {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #000;
+    min-height: 0;
+  }
+
+  .swiss-player__video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+
+  /* Overlay Play State */
+  .swiss-player__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--duration-normal, 0.3s) var(--ease-out, ease);
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .swiss-player__overlay-btn {
+    background: var(--fg, #fff);
+    color: var(--bg, #000);
+    border: none;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform var(--duration-fast, 0.15s) var(--ease-out, ease);
+  }
+
+  .swiss-player__overlay-btn:hover {
+    transform: scale(1.08);
+  }
+
+  .swiss-player__overlay-btn svg {
+    margin-left: 2px; /* optical adjustment for play icon triangle */
+  }
+
+  /* Player controls bar */
+  .swiss-player__controls {
+    background: var(--bg, #000);
+    border-top: 1px solid var(--rule, #333);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    position: relative;
+  }
+
+  /* Progress scrubber bar */
+  .swiss-player__progress-container {
+    position: relative;
+    height: 4px;
+    width: 100%;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .swiss-player__progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--fg, #fff);
+    width: 0%;
+  }
+
+  /* Control buttons & meta text bar */
+  .swiss-player__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2, 8px) var(--space-3, 12px);
+    height: 40px;
+  }
+
+  .swiss-player__bar-left,
+  .swiss-player__bar-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 12px);
+  }
+
+  .swiss-player__btn {
+    background: transparent;
+    border: none;
+    color: var(--fg, #fff);
+    cursor: pointer;
+    padding: var(--space-1, 4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--duration-fast, 0.15s) var(--ease-out, ease);
+    opacity: 0.8;
+  }
+
+  .swiss-player__btn:hover {
+    opacity: 1;
+  }
+
+  /* Tabular Numerals font setting prevent layout jitter */
+  .swiss-player__time {
+    font-size: 11px;
+    font-weight: var(--fw-medium, 500);
+    letter-spacing: var(--tracking-wide, 0.05em);
+    color: var(--muted, #888);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .swiss-player__time-sep {
+    margin: 0 4px;
+    color: var(--rule, #333);
+  }
+
+  /* Hide custom play overlay when active playing */
+  .swiss-player--playing .swiss-player__overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  function initPlayers() {
+    const players = document.querySelectorAll('[data-swiss-player]');
+
+    players.forEach((player) => {
+      // Prevent duplicate event handlers
+      if (player.getAttribute('data-initialized') === 'true') return;
+      player.setAttribute('data-initialized', 'true');
+
+      const video = player.querySelector('[data-video]') as HTMLVideoElement;
+      const playToggle = player.querySelector('[data-play-toggle]') as HTMLButtonElement;
+      const overlayPlay = player.querySelector('[data-play-overlay]') as HTMLElement;
+      const muteToggle = player.querySelector('[data-mute-toggle]') as HTMLButtonElement;
+      const fullscreenToggle = player.querySelector('[data-fullscreen-toggle]') as HTMLButtonElement;
+      const progressContainer = player.querySelector('[data-progress-container]') as HTMLElement;
+      const progressFill = player.querySelector('[data-progress-fill]') as HTMLElement;
+      const currentTimeEl = player.querySelector('[data-current-time]') as HTMLElement;
+      const durationTimeEl = player.querySelector('[data-duration-time]') as HTMLElement;
+
+      if (!video) return;
+
+      // Icons
+      const playIcon = playToggle?.querySelector('.icon-play') as HTMLElement;
+      const pauseIcon = playToggle?.querySelector('.icon-pause') as HTMLElement;
+      const unmutedIcon = muteToggle?.querySelector('.icon-unmuted') as HTMLElement;
+      const mutedIcon = muteToggle?.querySelector('.icon-muted') as HTMLElement;
+
+      // Utility to pad numbers for timecode: e.g. 05:02
+      function formatTime(seconds: number) {
+        if (isNaN(seconds)) return '00:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      }
+
+      // Toggle Play State
+      function togglePlay() {
+        if (video.paused) {
+          video.play().catch(e => console.log('Autoplay or interaction block:', e));
+        } else {
+          video.pause();
+        }
+      }
+
+      // Handle play-state style updates
+      video.addEventListener('play', () => {
+        player.classList.add('swiss-player--playing');
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) pauseIcon.style.display = 'block';
+      });
+
+      video.addEventListener('pause', () => {
+        player.classList.remove('swiss-player--playing');
+        if (playIcon) playIcon.style.display = 'block';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+      });
+
+      // Overlay and Video Wrapper Click
+      overlayPlay?.addEventListener('click', togglePlay);
+      video.addEventListener('click', togglePlay);
+      playToggle?.addEventListener('click', togglePlay);
+
+      // Mute state
+      muteToggle?.addEventListener('click', () => {
+        video.muted = !video.muted;
+        if (video.muted) {
+          if (unmutedIcon) unmutedIcon.style.display = 'none';
+          if (mutedIcon) mutedIcon.style.display = 'block';
+        } else {
+          if (unmutedIcon) unmutedIcon.style.display = 'block';
+          if (mutedIcon) mutedIcon.style.display = 'none';
+        }
+      });
+
+      // Update Metadata: total length
+      video.addEventListener('loadedmetadata', () => {
+        if (durationTimeEl) durationTimeEl.textContent = formatTime(video.duration);
+      });
+
+      // Update progress bar & current timestamp
+      video.addEventListener('timeupdate', () => {
+        const percent = (video.currentTime / video.duration) * 100;
+        if (progressFill) {
+          progressFill.style.width = `${percent}%`;
+        }
+        if (currentTimeEl) {
+          currentTimeEl.textContent = formatTime(video.currentTime);
+        }
+      });
+
+      // Click to scrub/seek
+      progressContainer?.addEventListener('click', (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        const newTime = (clickX / width) * video.duration;
+        video.currentTime = newTime;
+      });
+
+      // Drag to scrub support
+      let isDragging = false;
+
+      progressContainer?.addEventListener('mousedown', () => {
+        isDragging = true;
+      });
+
+      window.addEventListener('mouseup', () => {
+        isDragging = false;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging || !progressContainer) return;
+        const rect = progressContainer.getBoundingClientRect();
+        let clickX = e.clientX - rect.left;
+        if (clickX < 0) clickX = 0;
+        if (clickX > rect.width) clickX = rect.width;
+        const newTime = (clickX / rect.width) * video.duration;
+        video.currentTime = newTime;
+      });
+
+      // Fullscreen support
+      fullscreenToggle?.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          player.requestFullscreen().catch((err) => {
+            console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      });
+
+      // Handle video load fallback trigger
+      if (video.readyState >= 1) {
+        if (durationTimeEl) durationTimeEl.textContent = formatTime(video.duration);
+      }
+    });
+  }
+
+  // Init on load and page transition changes (Astro View Transitions support)
+  initPlayers();
+  document.addEventListener('astro:page-load', initPlayers);
+</script>

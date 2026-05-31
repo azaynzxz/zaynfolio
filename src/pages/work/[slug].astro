@@ -1,0 +1,488 @@
+---
+import Base from '../../layouts/Base.astro';
+import projects from '../../data/projects.json';
+import VideoPlayer from '../../components/VideoPlayer.astro';
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+
+// Determine next and previous projects for the footer navigation
+const currentIndex = projects.findIndex((p) => p.id === project.id);
+const nextProject = projects[(currentIndex + 1) % projects.length];
+---
+
+<Base title={`${project.title} — Achmad Zaini`} description={project.description}>
+
+  <!-- ═══ Project Hero ═══ -->
+  <section class="project-hero">
+    <div class="project-hero__container">
+      <div class="project-hero__left">
+        <div class="project-hero__breadcrumbs">
+          <a href="/work">Work</a> / <span class="active">{project.title}</span>
+        </div>
+        
+        <span class="section-label hero-label">{project.client} · {project.year}</span>
+        <h1 class="project-hero__title">{project.title}</h1>
+        <p class="project-hero__desc">{project.description}</p>
+        
+        <div class="project-hero__meta-grid">
+          <div class="meta-item">
+            <span class="meta-label">Role</span>
+            <span class="meta-val">{project.role}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Duration</span>
+            <span class="meta-val">{project.duration}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Category</span>
+            <span class="meta-val">{project.category.join(' / ')}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="project-hero__right">
+        {project.preview ? (
+          <VideoPlayer
+            src={project.previewWebm || project.preview}
+            fallbackSrc={project.preview}
+            poster={project.poster}
+            autoplay={true}
+            loop={true}
+            muted={true}
+            class="project-hero__media"
+          />
+        ) : (
+          <img src={project.poster} alt={project.title} class="project-hero__media" />
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Bold Stats (Setna-style) ═══ -->
+  <section class="project-stats">
+    <div class="container">
+      <div class="stats-grid">
+        {project.stats && project.stats.map((stat: any) => (
+          <div class="stat-card">
+            <div class="stat-number">
+              {stat.value}<span class="stat-unit">{stat.unit}</span>
+            </div>
+            <span class="stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+      <hr class="rule" />
+    </div>
+  </section>
+
+  <!-- ═══ Alternating Process/Details (Setna-style) ═══ -->
+  <section class="project-details">
+    <div class="container">
+      {project.images && project.images.map((img: string, idx: number) => {
+        const isEven = idx % 2 === 0;
+        const isReels = project.slug === 'reels-motion-promo';
+        const isKinetic = project.slug === 'kinetic-typography-series';
+        
+        // Inject the secondary optimized videos provided by the user in the first detail block
+        const renderVideo = idx === 0 && (isReels || isKinetic);
+        const videoSrc = isReels ? '/assets/work/project-04/detail-video.webm' : (isKinetic ? '/assets/work/project-07/detail-video.webm' : null);
+        const videoFallback = isReels ? '/assets/work/project-04/detail-video.mp4' : (isKinetic ? '/assets/work/project-07/detail-video.mp4' : null);
+        
+        return (
+          <div class={`detail-row ${isEven ? 'detail-row--even' : 'detail-row--odd'}`}>
+            <div class="detail-row__text">
+              <span class="section-label">03 — Process // Phase 0{idx + 1}</span>
+              <h2 class="detail-row__title">{idx === 0 ? "Production Pipeline" : "Visual Delivery & Rigging"}</h2>
+              <p class="detail-row__desc">
+                {idx === 0 
+                  ? "Crafting custom animations and dynamic assets optimized for maximum audience retention. Built on top of robust expressions and high-fidelity rendering presets to ensure scalable and fluid visual storytelling."
+                  : "Deploying production-grade final renders optimized for modern platforms. Sound design, pacing, and visual accents are combined together to yield an extremely premium end-product."
+                }
+              </p>
+            </div>
+            
+            <div class="detail-row__media">
+              {renderVideo && videoSrc ? (
+                <VideoPlayer
+                  src={videoSrc}
+                  fallbackSrc={videoFallback || undefined}
+                  poster={img}
+                  autoplay={false}
+                  loop={true}
+                  muted={true}
+                  class="detail-video-player"
+                />
+              ) : (
+                <img src={img} alt={`${project.title} Showcase ${idx + 1}`} loading="lazy" />
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- ═══ Footer Navigation CTA ═══ -->
+  <section class="project-footer">
+    <div class="container">
+      <hr class="rule" />
+      <div class="project-footer__row">
+        <a href={nextProject.slug === 'social-media-content' ? '/gallery' : `/work/${nextProject.slug}`} class="footer-link footer-link--next">
+          <span class="footer-link__label">Next Project &rarr;</span>
+          <span class="footer-link__title">{nextProject.title}</span>
+        </a>
+        <a href="/work" class="footer-link footer-link--back">
+          <span class="footer-link__label">All Projects &uarr;</span>
+          <span class="footer-link__title">Back to Work</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ── Project Hero ─────────────────────────────────────────── */
+  .project-hero {
+    padding-top: 64px;
+    border-bottom: 1px solid var(--rule);
+    background-color: var(--bg);
+  }
+
+  .project-hero__container {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    min-height: calc(100vh - 64px);
+    width: 100%;
+  }
+
+  .project-hero__left {
+    padding: var(--space-6) var(--space-6) var(--space-6) max(var(--space-3), 5.5vw);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .project-hero__breadcrumbs {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: var(--space-4);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .project-hero__breadcrumbs a {
+    color: var(--muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .project-hero__breadcrumbs a:hover {
+    color: var(--fg);
+  }
+
+  .project-hero__breadcrumbs .active {
+    color: var(--fg);
+    font-weight: var(--fw-bold);
+  }
+
+  .hero-label {
+    margin-bottom: var(--space-3);
+  }
+
+  .project-hero__title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin-bottom: var(--space-4);
+  }
+
+  .project-hero__desc {
+    font-size: var(--fs-body);
+    line-height: var(--leading-relaxed);
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: var(--space-5);
+  }
+
+  .project-hero__meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    border-top: 1px solid var(--rule);
+    padding-top: var(--space-4);
+    max-width: 600px;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .meta-val {
+    font-size: 13px;
+    font-weight: var(--fw-medium);
+    color: var(--fg);
+  }
+
+  .project-hero__right {
+    position: relative;
+    background-color: #000;
+    overflow: hidden;
+    line-height: 0;
+    border-left: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  :global(.project-hero__media) {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  .project-hero__right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Stats Section ────────────────────────────────────────── */
+  .project-stats {
+    padding: var(--space-6) 0 0;
+    background-color: var(--bg);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+    padding-bottom: var(--space-6);
+  }
+
+  .stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stat-number {
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    line-height: 0.85;
+    color: var(--fg);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-unit {
+    font-size: 0.4em;
+    font-weight: var(--fw-bold);
+    color: var(--muted);
+    margin-left: 2px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: var(--tracking-wide);
+    margin-top: var(--space-2);
+  }
+
+  /* ── Dynamic Alternating Details ──────────────────────────── */
+  .project-details {
+    padding: var(--space-6) 0;
+    background-color: var(--bg);
+  }
+
+  .detail-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-5);
+    align-items: center;
+    padding: var(--space-6) 0;
+  }
+
+  .detail-row--even .detail-row__text {
+    grid-column: 1 / span 5;
+  }
+
+  .detail-row--even .detail-row__media {
+    grid-column: 7 / span 6;
+  }
+
+  .detail-row--odd .detail-row__text {
+    grid-column: 8 / span 5;
+    grid-row: 1;
+  }
+
+  .detail-row--odd .detail-row__media {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+
+  .detail-row__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-row__title {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-3);
+    text-transform: uppercase;
+  }
+
+  .detail-row__desc {
+    font-size: 15px;
+    line-height: var(--leading-relaxed);
+    color: var(--muted);
+  }
+
+  .detail-row__media {
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    line-height: 0;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+
+  .detail-row__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .detail-row__media:hover img {
+    transform: scale(1.02);
+  }
+
+  /* ── Footer Navigation ────────────────────────────────────── */
+  .project-footer {
+    padding: var(--space-6) 0 var(--space-7);
+    background-color: var(--bg);
+  }
+
+  .project-footer__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: var(--space-5);
+  }
+
+  .footer-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    color: inherit;
+    text-decoration: none;
+    transition: opacity var(--duration-fast) var(--ease-out);
+    max-width: 45%;
+  }
+
+  .footer-link:hover {
+    opacity: 0.8;
+  }
+
+  .footer-link__label {
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .footer-link__title {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: var(--fw-black);
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  .footer-link--back {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  /* ── Responsive Styling ─────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .project-hero__container {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .project-hero__right {
+      border-left: none;
+      border-top: 1px solid var(--rule);
+      aspect-ratio: 16 / 10;
+      height: auto;
+    }
+
+    .project-hero__left {
+      padding: var(--space-5) var(--space-3);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .detail-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+      padding: var(--space-4) 0;
+    }
+
+    .detail-row__text,
+    .detail-row__media {
+      grid-column: 1 / span 1 !important;
+      grid-row: auto !important;
+    }
+
+    .detail-row__media {
+      aspect-ratio: 4 / 3;
+    }
+
+    .project-footer__row {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .footer-link {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .footer-link--back {
+      text-align: left;
+      align-items: flex-start;
+    }
+  }
+</style>

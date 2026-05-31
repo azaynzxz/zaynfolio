@@ -1,0 +1,224 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Contact — Achmad Zaini" description="Get in touch with Achmad Zaini for motion graphics, video editing, and animation projects.">
+  <section class="contact-hero section--large" id="contact-hero">
+    <div class="container">
+      <div class="contact__top">
+        <span class="section-label">Contact</span>
+        <span class="contact__meta">&copy; {new Date().getFullYear()}</span>
+      </div>
+      <hr class="rule reveal-line" />
+    </div>
+  </section>
+
+  <section class="contact-content section" id="contact-content">
+    <div class="container">
+      <div class="contact__main">
+        <p class="contact__lead reveal">
+          Have a project in mind?<br />Let's work together.
+        </p>
+
+        <a href="mailto:contact.azaynz@gmail.com" class="contact__email reveal" id="contact-email">
+          contact.azaynz@gmail.com
+        </a>
+
+        <a href="tel:+6281343790990" class="contact__phone reveal">
+          +62 813 4379 0990
+        </a>
+      </div>
+
+      <hr class="rule reveal-line" />
+
+      <div class="contact__grid grid">
+        <div class="contact__col col-4 col-md-4 reveal">
+          <h3 class="contact__heading">Social</h3>
+          <div class="contact__links">
+            <a href="https://linkedin.com/in/achmadzaini" class="contact__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://behance.net/achmadzaini" class="contact__link" target="_blank" rel="noopener noreferrer">Behance</a>
+          </div>
+        </div>
+
+        <div class="contact__col col-4 col-md-4 reveal">
+          <h3 class="contact__heading">Location</h3>
+          <p class="contact__text">
+            Palembang,<br />
+            South Sumatra,<br />
+            Indonesia
+          </p>
+        </div>
+
+        <div class="contact__col col-4 col-md-4 reveal">
+          <h3 class="contact__heading">Availability</h3>
+          <p class="contact__text">
+            Open to freelance and full-time<br />
+            opportunities — remote or on-site.
+          </p>
+          <div class="contact__status">
+            <span class="contact__status-dot"></span>
+            <span class="contact__status-text">Available for work</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ── Contact Hero ────────────────────────────────────────── */
+  .contact-hero {
+    padding-top: calc(64px + var(--space-7));
+    padding-bottom: var(--space-3);
+  }
+
+  .contact__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--space-3);
+  }
+
+  .contact__meta {
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Contact Main ────────────────────────────────────────── */
+  .contact__main {
+    padding: var(--space-8) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact__lead {
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-bold);
+    line-height: var(--leading-snug);
+    color: var(--muted);
+  }
+
+  .contact__email {
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    font-weight: var(--fw-black);
+    letter-spacing: var(--tracking-tight);
+    line-height: 1.1;
+    color: var(--fg);
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .contact__email::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .contact__email:hover::after {
+    transform: scaleX(1);
+  }
+
+  .contact__phone {
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-medium);
+    color: var(--muted);
+    display: inline-block;
+    width: fit-content;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .contact__phone:hover {
+    color: var(--fg);
+  }
+
+  /* ── Contact Grid ────────────────────────────────────────── */
+  .contact__grid {
+    padding-top: var(--space-6);
+  }
+
+  .contact__heading {
+    font-size: var(--fs-label);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .contact__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .contact__link {
+    font-size: var(--fs-body);
+    color: var(--fg);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--rule);
+    transition: text-decoration-color var(--duration-fast) var(--ease-out);
+  }
+
+  .contact__link:hover {
+    text-decoration-color: var(--fg);
+  }
+
+  .contact__text {
+    font-size: var(--fs-body);
+    color: var(--fg);
+    line-height: var(--leading-relaxed);
+  }
+
+  .contact__status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+  }
+
+  .contact__status-dot {
+    width: 8px;
+    height: 8px;
+    background: #4CAF50;
+    border-radius: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .contact__status-text {
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .contact__main {
+      padding: var(--space-6) 0;
+    }
+
+    .contact__col {
+      grid-column: span 4;
+      margin-bottom: var(--space-4);
+    }
+  }
+</style>
