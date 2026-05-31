@@ -1,0 +1,212 @@
+%-------------------------
+% ATS-Friendly LaTeX Resume
+% Author: Achmad Zaini
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{multicol}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Ensure ATS readability
+\pdfgentounicode=1
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Achmad Zaini} \\ \vspace{4pt}
+    \small Palembang, South Sumatra, Indonesia $|$
+    \small +62 813 4379 0990 $|$
+    \href{mailto:contact.azaynz@gmail.com}{\underline{contact.azaynz@gmail.com}} $|$
+    \href{https://linkedin.com}{\underline{LinkedIn}} $|$
+    \href{https://behance.net}{\underline{Behance}}
+\end{center}
+
+%-----------SUMMARY-----------
+\section{Summary}
+\small{Video Editor and Motion Graphics Designer with five years of experience. Skilled in high-retention video editing, 2D animation rigging, and building automated After Effects workflows. Proven ability to manage efficient production pipelines and deliver high-volume digital content for agency clients.}
+
+%-----------CORE SKILLS-----------
+\section{Core Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{
+    \item \textbf{Technical \& Motion:} Adobe After Effects (Expressions \& Scripting), Premiere Pro, Blender 3D, 2D/3D Animation, Character Rigging, Kinetic Typography, SparkAR
+    \item \textbf{Development \& Automation:} AI-Assisted Web Development, Workflow Automation, Web Deployment
+    \item \textbf{Digital Marketing:} Social Media Management (Instagram), Local SEO, Google Business Profile, Google Maps Marketing
+    \item \textbf{Languages:} Indonesian (Native), English (Fluent)
+  }
+\end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Motion Graphics Designer / Video Editor}{Jul 2025 -- Present}
+      {PT. Mata Terbuka Lebar (Eyes Wide Open Studio)}{Palembang, Indonesia}
+      \resumeItemListStart
+        \resumeItem{Edited and delivered 90+ animated explainer videos, historical documentaries, and high-retention social media content within a 10-month period.}
+        \resumeItem{Managed a high-volume, rapid-turnaround post-production pipeline, strictly adhering to daily and weekly deadlines across up to 20 concurrent projects per month.}
+        \resumeItem{Collaborated directly with illustrators, scriptwriters, and project managers to integrate 2D character animations, kinetic typography, and sound design (SFX) into finalized client deliverables.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics \& Marketing Specialist}{Nov 2022 -- Jun 2025}
+      {ID Card Lampung}{Lampung, Indonesia}
+      \resumeItemListStart
+        \resumeItem{Built and deployed a fully functional e-commerce web platform (idcardlampung.com) using AI-assisted development tools, directly driving online sales and customer onboarding.}
+        \resumeItem{Engineered automated design workflows utilizing After Effects templates, expressions, and batch processing to generate dynamic ID card preview animations, increasing client satisfaction by 35\%.}
+        \resumeItem{Spearheaded local digital marketing initiatives by optimizing Google My Business and Google Maps profiles, driving local search visibility and customer acquisition.}
+        \resumeItem{Produced highly-retentive animated marketing assets and kinetic typography optimized for Instagram, boosting account engagement by 25\%.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Junior Motion Graphics Designer}{Apr 2021 -- Sep 2021}
+      {Tampia Group}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Delivered explainer videos, animated social media content, and kinetic promotional materials using After Effects.}
+        \resumeItem{Developed reusable motion graphics templates and automated overlays to accelerate video production cycles and eliminate redundant design tasks.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics Intern}{Jul 2023 -- Aug 2023}
+      {National Design Center}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Supported senior designers in producing motion graphics assets and visual content for national design initiatives.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics Intern}{Apr 2023 -- Jun 2023}
+      {PT. Petakumpet Creativerse}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Assisted in the development of animated content and motion design deliverables for agency clients.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics Intern}{Jun 2019 -- Sep 2019}
+      {PT. Linggau Media Group}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Gained foundational experience in video production, editing, and motion graphics within a media production environment.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Sumatera Institute of Technology (ITERA)}{Lampung, Indonesia}
+      {Bachelor of Visual Communication Design}{2020 -- 2024}
+      \resumeItemListStart
+        \resumeItem{GPA: 3.78 / 4.00}
+        \resumeItem{Specialization: Motion graphics, automation, and visual effects.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------SELECTED PROJECTS-----------
+\section{Selected Projects}
+  \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {\textbf{Interactive AR Learning Experience (Lampung Manuscripts)} $|$ \emph{Meta SparkAR}}{2024}
+      \resumeItemListStart
+        \resumeItem{Developed immersive AR motion graphics integrating particle systems and dynamic typography.}
+        \resumeItem{Designed animated feedback systems and progress loops, achieving an 81\% usability rate during user testing.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Animated Brand Identity System (Twin Building GKU 2 ITERA)}}{2023}
+      \resumeItemListStart
+        \resumeItem{Created an environmental motion identity system featuring parallax effects and responsive graphics that react to user presence.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Educational Motion Graphics Series (Cultural Heritage Animation)}}{2023}
+      \resumeItemListStart
+        \resumeItem{Produced an explainer series utilizing 2D character rigging and kinetic data visualization to simplify complex cultural narratives.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS & LEADERSHIP-----------
+\section{Achievements \& Leadership}
+  \resumeSubHeadingListStart
+    \resumeItem{\textbf{Core Team \& Grant Recipient, Student Entrepreneurship Development Program (P2MW):} Secured national Ministry of Education funding as part of the core team to launch and market the ID Card Lampung business.}
+    \resumeItem{\textbf{Awardee, Indonesian Bank Scholarship:} Selected among the top 50 students for academic excellence and leadership impact.}
+    \resumeItem{\textbf{1st Place Design Competitions:} World Earth Day (2023), Processed Fish Food (2023), and Indonesian Culture (2021).}
+    \resumeItem{\textbf{Leadership -- Community Service Program (KKN):} Led a 15-person team in Sidomakmur (Dec 2023).}
+    \resumeItem{\textbf{Motion Graphics Teaching Assistant, ITERA (Sep--Dec 2021):} Instructed 70+ students in After Effects workflow principles.}
+  \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}
