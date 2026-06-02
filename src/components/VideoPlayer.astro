@@ -113,7 +113,6 @@ const {
     position: relative;
     width: 100%;
     background: #000;
-    border: 1px solid var(--rule, #333);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -121,7 +120,6 @@ const {
 
   .swiss-player__video-wrapper {
     position: relative;
-    width: 100%;
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -129,13 +127,14 @@ const {
     cursor: pointer;
     background: #000;
     min-height: 0;
+    overflow: hidden;
   }
 
   .swiss-player__video {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
   }
@@ -184,6 +183,7 @@ const {
     flex-direction: column;
     z-index: 3;
     position: relative;
+    width: 100%;
   }
 
   /* Progress scrubber bar */
@@ -255,6 +255,42 @@ const {
   .swiss-player--playing .swiss-player__overlay {
     opacity: 0;
     pointer-events: none;
+  }
+
+  /* Aspect Ratio & Orientation Helpers */
+  .swiss-player--vertical {
+    width: 100%;
+    height: 100%;
+    max-height: 1080px;
+    align-items: center; /* Center the wrapper horizontally */
+  }
+  .swiss-player--vertical .swiss-player__video-wrapper {
+    height: 100%;
+    width: auto;
+  }
+  .swiss-player--vertical .swiss-player__controls {
+    align-self: stretch;
+  }
+
+  .swiss-player--horizontal {
+    width: 100%;
+    height: auto;
+  }
+  .swiss-player--horizontal .swiss-player__video-wrapper {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .swiss-player--vertical {
+      width: 100%;
+      height: auto;
+      max-height: none;
+    }
+    .swiss-player--vertical .swiss-player__video-wrapper {
+      width: 100%;
+      height: auto;
+    }
   }
 </style>
 
@@ -332,9 +368,27 @@ const {
         }
       });
 
-      // Update Metadata: total length
+      // Update Metadata: total length and reset progress UI for new videos
       video.addEventListener('loadedmetadata', () => {
         if (durationTimeEl) durationTimeEl.textContent = formatTime(video.duration);
+        if (currentTimeEl) currentTimeEl.textContent = '00:00';
+        if (progressFill) progressFill.style.width = '0%';
+        
+        // Ensure wrapper strictly perfectly conforms to video aspect ratio
+        if (video.videoWidth && video.videoHeight) {
+          const wrapper = player.querySelector('.swiss-player__video-wrapper') as HTMLElement;
+          if (wrapper) {
+            wrapper.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
+          }
+
+          if (video.videoHeight > video.videoWidth) {
+            player.classList.add('swiss-player--vertical');
+            player.classList.remove('swiss-player--horizontal');
+          } else {
+            player.classList.add('swiss-player--horizontal');
+            player.classList.remove('swiss-player--vertical');
+          }
+        }
       });
 
       // Update progress bar & current timestamp
