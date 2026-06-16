@@ -380,24 +380,29 @@
 
   .event-card__date-row {
     display: flex;
+    justify-content: space-between;
     align-items: flex-end;
-    gap: var(--space-1);
+    gap: var(--space-3);
     margin-bottom: var(--space-3);
   }
 
-  .event-card__number {
-    font-size: clamp(3rem, 5vw, 4.5rem);
+  .event-card__title {
+    font-size: clamp(1.1rem, 1.8vw, 1.45rem);
     font-weight: var(--fw-black);
     letter-spacing: var(--tracking-tight);
-    line-height: 0.85;
+    line-height: var(--leading-tight);
+    text-transform: uppercase;
     color: var(--fg);
+    margin: 0;
   }
 
   .event-card__date-meta {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
     gap: 1px;
-    padding-bottom: 6px;
+    padding-bottom: 2px;
+    flex-shrink: 0;
   }
 
   .event-card__year {
@@ -741,8 +746,8 @@
       border-right: 1px solid var(--rule);
     }
 
-    .event-card__number {
-      font-size: 2.5rem;
+    .event-card__title {
+      font-size: 1.15rem;
     }
 
     .listing-filter__tabs {
