@@ -92,8 +92,8 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
         
         // Inject the secondary optimized videos provided by the user in the first detail block
         const renderVideo = idx === 0 && (isReels || isKinetic);
-        const videoSrc = isReels ? '/assets/work/project-04/detail-video.webm' : (isKinetic ? '/assets/work/project-07/detail-video.webm' : null);
-        const videoFallback = isReels ? '/assets/work/project-04/detail-video.mp4' : (isKinetic ? '/assets/work/project-07/detail-video.mp4' : null);
+        const videoSrc = isReels ? '/assets/work/project-04/detail-video.webm' : (isKinetic ? '/assets/work/project-07/preview.webm' : null);
+        const videoFallback = isReels ? '/assets/work/project-04/detail-video.mp4' : (isKinetic ? '/assets/work/project-07/preview.mp4' : null);
         
         return (
           <div class={`detail-row ${isEven ? 'detail-row--even' : 'detail-row--odd'}`}>

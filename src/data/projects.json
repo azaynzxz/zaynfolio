@@ -95,6 +95,27 @@
   },
   {
     "id": "05",
+    "slug": "lampung-manuscript-ar-flashcard",
+    "title": "Lampung Manuscript AR Flashcard",
+    "client": "Research Project",
+    "category": ["Motion Graphics", "3D Animation", "Blender"],
+    "year": 2023,
+    "role": "3D & Motion Designer",
+    "duration": "12 weeks",
+    "poster": "/assets/work/project-05/poster.jpg",
+    "preview": "/assets/work/project-05/preview.mp4",
+    "previewWebm": "/assets/work/project-05/preview.webm",
+    "featured": true,
+    "stats": [
+      { "value": "3D", "unit": "Blender", "label": "Modeling & animation" },
+      { "value": "AR", "unit": "app", "label": "Interactive target" },
+      { "value": "12", "unit": "weeks", "label": "Production time" }
+    ],
+    "description": "A dynamic motion graphics promotional video for an Augmented Reality (AR) Flashcard project designed to help students learn the traditional Lampung Manuscript. Built in Blender, utilizing 3D fast-cut product animation, complex camera motion choreographies, and a precision sound design match-cut transition system.",
+    "images": []
+  },
+  {
+    "id": "12",
     "slug": "social-media-content",
     "title": "Social Media Content",
     "client": "Various Clients",
