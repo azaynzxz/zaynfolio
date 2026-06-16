@@ -103,6 +103,8 @@
     "role": "3D & Motion Designer",
     "duration": "12 weeks",
     "poster": "/assets/work/project-05/poster.jpg",
+    "preview": "/assets/work/project-05/preview.mp4",
+    "previewWebm": "/assets/work/project-05/preview.webm",
     "featured": true,
     "stats": [
       { "value": "3D", "unit": "Blender", "label": "Modeling & animation" },
