@@ -17,7 +17,7 @@ const currentIndex = projects.findIndex((p) => p.id === project.id);
 const nextProject = projects[(currentIndex + 1) % projects.length];
 ---
 
-<Base title={`${project.title} — Achmad Zaini`} description={project.description}>
+<Base title={`${project.title} — Achmad Zaini`} description={project.description} image={project.poster}>
 
   <!-- ═══ Project Hero ═══ -->
   <section class="project-hero">

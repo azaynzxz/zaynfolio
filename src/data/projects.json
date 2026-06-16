@@ -25,27 +25,25 @@
   },
   {
     "id": "02",
-    "slug": "cultural-heritage-animation",
-    "title": "Cultural Heritage Animation Promo",
-    "client": "Research Project",
-    "category": ["2D Animation", "Character Rigging"],
-    "year": 2023,
-    "role": "Animator & Rigger",
-    "duration": "12 weeks",
-    "poster": "/assets/work/project-05/poster.jpg",
-    "preview": "/assets/work/project-05/preview.mp4",
-    "previewWebm": "/assets/work/project-05/preview.webm",
+    "slug": "baraca-capital-interview",
+    "title": "Baraca Capital — CEO Interview",
+    "client": "Baraca Capital",
+    "category": ["Video Editing", "Multi-Camera", "Motion Graphics", "VFX"],
+    "year": 2025,
+    "role": "Video Editor",
+    "duration": "1 week",
+    "poster": "/assets/work/project-12/poster.jpg",
+    "preview": "/assets/work/project-12/preview.mp4",
+    "previewWebm": "/assets/work/project-12/preview.webm",
+    "video": "/assets/work/project-12/baraca-full.mp4",
     "featured": true,
     "stats": [
-      { "value": "12", "unit": "weeks", "label": "Production time" },
-      { "value": "4", "unit": "episodes", "label": "Series length" },
-      { "value": "6", "unit": "characters", "label": "Rigged assets" }
+      { "value": "Multi", "unit": "cam", "label": "Camera setup" },
+      { "value": "3D", "unit": "VFX", "label": "Motion graphics" },
+      { "value": "Dubai", "unit": "UAE", "label": "Client location" }
     ],
-    "description": "Produced an explainer series utilizing 2D character rigging and kinetic data visualization to simplify complex cultural narratives. Each episode distills regional heritage into accessible animated storytelling.",
-    "images": [
-      "/assets/work/project-05/detail-01.jpg",
-      "/assets/work/project-05/detail-02.jpg"
-    ]
+    "description": "Full-length CEO interview for Baraca Capital, a Dubai-based real estate investment firm. Edited with precision multi-camera switching, kinetic text animations, VFX motion graphics, and integrated 3D renders — delivering a high-end corporate video that reflects the client's premium brand in the Dubai property market.",
+    "images": []
   },
   {
     "id": "03",

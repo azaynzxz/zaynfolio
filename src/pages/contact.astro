@@ -1,9 +1,12 @@
 ---
-import Base from '../layouts/Base.astro';
-import '../styles/pages/contact.css';
+import Base from "../layouts/Base.astro";
+import "../styles/pages/contact.css";
 ---
 
-<Base title="Contact — Achmad Zaini" description="Get in touch with Achmad Zaini for motion graphics, video editing, and animation projects.">
+<Base
+  title="Contact — Achmad Zaini"
+  description="Get in touch with Achmad Zaini for motion graphics, video editing, and animation projects."
+>
   <section class="contact-hero section--large" id="contact-hero">
     <div class="container">
       <div class="contact__top">
@@ -21,13 +24,55 @@ import '../styles/pages/contact.css';
           Have a project in mind?<br />Let's work together.
         </p>
 
-        <a href="mailto:contact.azaynz@gmail.com" class="contact__email reveal" id="contact-email">
-          contact.azaynz@gmail.com
-        </a>
+        <!-- Email with copy button -->
+        <div class="contact-item contact-item--email reveal" id="contact-email-wrap">
+          <!-- Mail icon -->
+          <svg class="contact-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <a href="mailto:contact@zaynfolio.com" class="contact-item__text" id="contact-email">contact@zaynfolio.com</a>
+          <button class="contact-item__action" id="copy-email-btn" aria-label="Copy email address" title="Copy email">
+            <!-- Copy icon -->
+            <svg class="icon-copy" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="8" y="8" width="13" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M3 16V4a1 1 0 0 1 1-1h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <!-- Check icon (shown after copy) -->
+            <svg class="icon-check" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:none">
+              <path d="M4 12l5 5L20 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="contact-item__tooltip" id="copy-email-tooltip">Copy</span>
+          </button>
+        </div>
 
-        <a href="tel:+6281343790990" class="contact__phone reveal">
-          +62 813 4379 0990
-        </a>
+        <!-- Phone with WhatsApp/Call overlay -->
+        <div class="contact-item contact-item--phone reveal" id="contact-phone-wrap">
+          <!-- Phone icon -->
+          <svg class="contact-item__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6.6 10.8a14.4 14.4 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.58.58 1 1 0 0 1 1 1V17a1 1 0 0 1-1 1A17 17 0 0 1 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.58 1 1 0 0 1-.25 1L6.6 10.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="contact-item__text">+62 813 4379 0990</span>
+
+          <!-- Hover overlay: call or WhatsApp -->
+          <div class="phone-overlay" id="phone-overlay" aria-label="Contact options">
+            <a href="tel:+6281343790990" class="phone-overlay__btn" id="btn-call">
+              <!-- Phone handset icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6.6 10.8a14.4 14.4 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24 11.4 11.4 0 0 0 3.58.58 1 1 0 0 1 1 1V17a1 1 0 0 1-1 1A17 17 0 0 1 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.58 1 1 0 0 1-.25 1L6.6 10.8Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Call</span>
+            </a>
+            <a href="https://wa.me/6281343790990" class="phone-overlay__btn phone-overlay__btn--wa" id="btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <!-- WhatsApp icon -->
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.417A9.953 9.953 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8.5 9.5s.5-1 1.5-1 2 1 2 1l-1 2s1.5 2 3 2.5l1.5-1.5s1 .5 1 1.5-1.5 2-2 2C12 16 8 12 8 9.5 8 9 8.5 9.5 8.5 9.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
       </div>
 
       <hr class="rule reveal-line" />
@@ -36,8 +81,18 @@ import '../styles/pages/contact.css';
         <div class="contact__col col-4 col-md-4 reveal">
           <h3 class="contact__heading">Social</h3>
           <div class="contact__links">
-            <a href="https://www.linkedin.com/in/azaynz/" class="contact__link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="https://behance.net/azaynz" class="contact__link" target="_blank" rel="noopener noreferrer">Behance</a>
+            <a
+              href="https://www.linkedin.com/in/azaynz/"
+              class="contact__link"
+              target="_blank"
+              rel="noopener noreferrer">LinkedIn</a
+            >
+            <a
+              href="https://behance.net/azaynz"
+              class="contact__link"
+              target="_blank"
+              rel="noopener noreferrer">Behance</a
+            >
           </div>
         </div>
 
@@ -66,3 +121,29 @@ import '../styles/pages/contact.css';
   </section>
 </Base>
 
+<script>
+  const copyBtn = document.getElementById('copy-email-btn') as HTMLButtonElement | null;
+  const iconCopy = copyBtn?.querySelector('.icon-copy') as SVGElement | null;
+  const iconCheck = copyBtn?.querySelector('.icon-check') as SVGElement | null;
+  const tooltip = document.getElementById('copy-email-tooltip');
+
+  copyBtn?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText('contact@zaynfolio.com');
+      if (iconCopy) iconCopy.style.display = 'none';
+      if (iconCheck) iconCheck.style.display = 'block';
+      if (tooltip) tooltip.textContent = 'Copied!';
+      copyBtn.classList.add('contact-item__action--copied');
+      setTimeout(() => {
+        if (iconCopy) iconCopy.style.display = 'block';
+        if (iconCheck) iconCheck.style.display = 'none';
+        if (tooltip) tooltip.textContent = 'Copy';
+        copyBtn.classList.remove('contact-item__action--copied');
+      }, 2000);
+    } catch {
+      // fallback: focus the email link
+      (document.getElementById('contact-email') as HTMLElement)?.focus();
+    }
+  });
+</script>

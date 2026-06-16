@@ -2,6 +2,7 @@
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
 const {
@@ -24,6 +25,8 @@ const currentPath = Astro.url.pathname;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site || 'https://zaynfolio.pages.dev')} />
+    {Astro.props.image && <meta property="og:image" content={new URL(Astro.props.image, Astro.site || 'https://zaynfolio.pages.dev')} />}
 
     <title>{title}</title>
 

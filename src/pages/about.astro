@@ -50,6 +50,14 @@ const education = [
     gpa: '3.78 / 4.00',
     specialization: 'Motion graphics, automation, and visual effects',
   },
+  {
+    degree: 'Network & Computer Technology (TKJ)',
+    institution: 'Vocational High School 3 Lubuklinggau',
+    location: 'South Sumatra, Indonesia',
+    period: '2017 — 2020',
+    gpa: '',
+    specialization: 'Computer networking, hardware, and technical support',
+  },
 ];
 ---
 
@@ -166,7 +174,7 @@ const education = [
             <tr>
               <td class="cv-table__role">
                 {edu.degree}
-                <span class="cv-table__location">GPA: {edu.gpa}</span>
+                {edu.gpa && <span class="cv-table__location">GPA: {edu.gpa}</span>}
               </td>
               <td class="cv-table__company">
                 {edu.institution}

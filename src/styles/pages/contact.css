@@ -33,20 +33,41 @@
     color: var(--muted);
   }
 
-  .contact__email {
-    font-size: clamp(1.5rem, 4vw, 3.5rem);
+  .contact__email,
+  .contact__phone {
+    display: none; /* legacy selectors — replaced by contact-item */
+  }
+
+  /* ── Contact Item (email + phone rows) ──────────────────── */
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    position: relative;
+  }
+
+  .contact-item__icon {
+    flex-shrink: 0;
+    color: var(--muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .contact-item:hover .contact-item__icon {
+    color: var(--fg);
+  }
+
+  /* Email text */
+  .contact-item--email .contact-item__text {
+    font-size: clamp(1.4rem, 3.5vw, 3rem);
     font-weight: var(--fw-black);
     letter-spacing: var(--tracking-tight);
     line-height: 1.1;
     color: var(--fg);
     text-decoration: none;
     position: relative;
-    display: inline-block;
-    width: fit-content;
-    transition: color var(--duration-fast) var(--ease-out);
   }
 
-  .contact__email::after {
+  .contact-item--email .contact-item__text::after {
     content: '';
     position: absolute;
     bottom: -4px;
@@ -59,22 +80,124 @@
     transition: transform var(--duration-normal) var(--ease-out);
   }
 
-  .contact__email:hover::after {
+  .contact-item--email:hover .contact-item__text::after {
     transform: scaleX(1);
   }
 
-  .contact__phone {
+  /* Phone text */
+  .contact-item--phone .contact-item__text {
     font-size: var(--fs-h3);
     font-weight: var(--fw-medium);
     color: var(--muted);
-    display: inline-block;
-    width: fit-content;
     transition: color var(--duration-fast) var(--ease-out);
+    cursor: default;
   }
 
-  .contact__phone:hover {
+  .contact-item--phone:hover .contact-item__text {
     color: var(--fg);
   }
+
+  /* Copy button */
+  .contact-item__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 0;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out),
+                background var(--duration-fast) var(--ease-out);
+    position: relative;
+  }
+
+  .contact-item--email:hover .contact-item__action,
+  .contact-item__action:focus-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .contact-item__action:hover {
+    color: var(--fg);
+    border-color: var(--fg);
+  }
+
+  .contact-item__action--copied {
+    color: #4CAF50 !important;
+    border-color: #4CAF50 !important;
+  }
+
+  /* Tooltip */
+  .contact-item__tooltip {
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  /* ── Phone overlay ───────────────────────────────────────── */
+  .phone-overlay {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    opacity: 0;
+    transform: translateX(-8px);
+    pointer-events: none;
+    transition: opacity var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+  }
+
+  .contact-item--phone:hover .phone-overlay,
+  .contact-item--phone:focus-within .phone-overlay {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .phone-overlay__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--fg);
+    border: 1px solid var(--rule);
+    padding: 6px 12px;
+    transition: color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out),
+                background var(--duration-fast) var(--ease-out);
+  }
+
+  .phone-overlay__btn:hover {
+    border-color: var(--fg);
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  /* WhatsApp button gets green treatment */
+  .phone-overlay__btn--wa {
+    border-color: #25D366;
+    color: #25D366;
+  }
+
+  .phone-overlay__btn--wa:hover {
+    background: #25D366;
+    border-color: #25D366;
+    color: #fff;
+  }
+
+
 
   /* ── Contact Grid ────────────────────────────────────────── */
   .contact__grid {
