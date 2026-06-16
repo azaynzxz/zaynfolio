@@ -105,7 +105,7 @@
     "poster": "",
     "preview": "/assets/work/project-05/preview.mp4",
     "previewWebm": "/assets/work/project-05/preview.webm",
-    "featured": true,
+    "featured": false,
     "stats": [
       { "value": "3D", "unit": "Blender", "label": "Modeling & animation" },
       { "value": "AR", "unit": "app", "label": "Interactive target" },
