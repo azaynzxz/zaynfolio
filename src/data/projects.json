@@ -148,8 +148,6 @@
     "role": "Technical Artist",
     "duration": "3 weeks",
     "poster": "/assets/work/project-06/poster.jpg",
-    "preview": "/assets/work/project-06/preview.mp4",
-    "previewWebm": "/assets/work/project-06/preview.webm",
     "featured": false,
     "stats": [
       { "value": "80", "unit": "%", "label": "Time saved" },
@@ -172,8 +170,6 @@
     "role": "Developer & Designer",
     "duration": "4 weeks",
     "poster": "/assets/work/project-02/poster.png",
-    "preview": "/assets/work/project-02/preview.mp4",
-    "previewWebm": "/assets/work/project-02/preview.webm",
     "featured": false,
     "stats": [
       { "value": "4", "unit": "weeks", "label": "Build time" },
