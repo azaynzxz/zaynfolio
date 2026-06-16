@@ -223,11 +223,11 @@
         
         e.preventDefault();
         
-        if (projectId === '07') {
+        if (projectId === '06') {
           openRedirectModal('https://idcardlampung.com', 'idcardlampung.com — E-Commerce platform for ID Card Lampung');
           return;
         }
-        if (projectId === '06') {
+        if (projectId === '12') {
           openRedirectModal('https://github.com/azaynzxz/after-effects-expression-panel', 'GitHub Repository — Automated Design Workflow System (After Effects Expression Panel)');
           return;
         }

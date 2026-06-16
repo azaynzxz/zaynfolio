@@ -103,8 +103,6 @@
     "role": "3D & Motion Designer",
     "duration": "12 weeks",
     "poster": "/assets/work/project-05/poster.jpg",
-    "preview": "/assets/work/project-05/preview.mp4",
-    "previewWebm": "/assets/work/project-05/preview.webm",
     "featured": true,
     "stats": [
       { "value": "3D", "unit": "Blender", "label": "Modeling & animation" },
@@ -115,7 +113,109 @@
     "images": []
   },
   {
-    "id": "12",
+    "id": "06",
+    "slug": "ecommerce-idcardlampung",
+    "title": "E-Commerce Platform — idcardlampung.com",
+    "client": "ID Card Lampung",
+    "category": ["Web Development", "Marketing"],
+    "year": 2024,
+    "role": "Developer & Designer",
+    "duration": "4 weeks",
+    "poster": "/assets/work/project-02/poster.png",
+    "featured": false,
+    "stats": [
+      { "value": "4", "unit": "weeks", "label": "Build time" },
+      { "value": "100", "unit": "%", "label": "AI-assisted" },
+      { "value": "12", "unit": "products", "label": "Listed at launch" }
+    ],
+    "description": "Built and deployed a fully functional e-commerce web platform using AI-assisted development tools, directly driving online sales and customer onboarding. Integrated payment processing and responsive product catalog.",
+    "images": [
+      "/assets/work/project-02/detail-01.jpg",
+      "/assets/work/project-02/detail-02.jpg"
+    ]
+  },
+  {
+    "id": "07",
+    "slug": "pdin",
+    "title": "What is PDIN",
+    "client": "Pusat Desain Industri Nasional",
+    "category": ["Motion Graphics", "Video Editing"],
+    "year": 2024,
+    "role": "Motion Designer",
+    "duration": "2 weeks",
+    "poster": "/assets/work/project-08/poster.jpg",
+    "preview": "/assets/work/project-08/preview.mp4",
+    "previewWebm": "/assets/work/project-08/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "2", "unit": "weeks", "label": "Turnaround" },
+      { "value": "1", "unit": "video", "label": "Deliverable" }
+    ],
+    "description": "An engaging informational video detailing the purpose and services of the Pusat Desain Industri Nasional (PDIN), combining slick motion graphics with clear, concise messaging.",
+    "images": []
+  },
+  {
+    "id": "08",
+    "slug": "eyes-wide-open",
+    "title": "Eyes Wide Open Studio Showreel",
+    "client": "Eyes Wide Open Studio",
+    "category": ["Motion Graphics", "Showreel"],
+    "year": 2024,
+    "role": "Motion Designer",
+    "duration": "Ongoing",
+    "poster": "/assets/work/project-09/poster.jpg",
+    "preview": "/assets/work/project-09/preview.mp4",
+    "previewWebm": "/assets/work/project-09/preview.webm",
+    "featured": true,
+    "stats": [
+      { "value": "100", "unit": "%", "label": "Energy" },
+      { "value": "2D", "unit": "anim", "label": "Primary Medium" }
+    ],
+    "description": "A dynamic, high-energy showreel highlighting the best motion graphics and 2D animation work from the Eyes Wide Open Studio portfolio, timed perfectly to an upbeat soundtrack.",
+    "images": []
+  },
+  {
+    "id": "09",
+    "slug": "kelas-struktur-3",
+    "title": "Kelas Struktur 3",
+    "client": "Kelas Struktur",
+    "category": ["Social Media", "Video Editing"],
+    "year": 2023,
+    "role": "Video Editor",
+    "duration": "1 week",
+    "poster": "/assets/work/project-10/poster.jpg",
+    "preview": "/assets/work/project-10/preview.mp4",
+    "previewWebm": "/assets/work/project-10/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "15", "unit": "sec", "label": "Duration" },
+      { "value": "9:16", "unit": "ratio", "label": "Vertical Format" }
+    ],
+    "description": "Vertical short-form promotional content created specifically for Kelas Struktur, optimized to capture attention on Instagram Reels and TikTok algorithms.",
+    "images": []
+  },
+  {
+    "id": "10",
+    "slug": "donasi-bukber",
+    "title": "Donasi Bukber Campaign",
+    "client": "Charity Drive",
+    "category": ["Social Media", "Motion Graphics"],
+    "year": 2024,
+    "role": "Motion Designer",
+    "duration": "1 week",
+    "poster": "/assets/work/project-11/poster.jpg",
+    "preview": "/assets/work/project-11/preview.mp4",
+    "previewWebm": "/assets/work/project-11/preview.webm",
+    "featured": false,
+    "stats": [
+      { "value": "3", "unit": "days", "label": "Fast Delivery" },
+      { "value": "1", "unit": "reel", "label": "Format" }
+    ],
+    "description": "A heartfelt and engaging promotional social media reel designed for a Ramadan donation campaign (Bukber), featuring smooth motion graphics and typography to drive charity participation.",
+    "images": []
+  },
+  {
+    "id": "11",
     "slug": "social-media-content",
     "title": "Social Media Content",
     "client": "Various Clients",
@@ -139,12 +239,12 @@
     ]
   },
   {
-    "id": "06",
+    "id": "12",
     "slug": "automated-design-workflow",
     "title": "Automated Design Workflow System",
-    "client": "ID Card Lampung",
+    "client": "Personal Project",
     "category": ["After Effects", "Automation"],
-    "year": 2023,
+    "year": 2025,
     "role": "Technical Artist",
     "duration": "3 weeks",
     "poster": "/assets/work/project-06/poster.jpg",
@@ -159,107 +259,5 @@
       "/assets/work/project-06/detail-01.jpg",
       "/assets/work/project-06/detail-02.jpg"
     ]
-  },
-  {
-    "id": "07",
-    "slug": "ecommerce-idcardlampung",
-    "title": "E-Commerce Platform — idcardlampung.com",
-    "client": "ID Card Lampung",
-    "category": ["Web Development", "Marketing"],
-    "year": 2024,
-    "role": "Developer & Designer",
-    "duration": "4 weeks",
-    "poster": "/assets/work/project-02/poster.png",
-    "featured": false,
-    "stats": [
-      { "value": "4", "unit": "weeks", "label": "Build time" },
-      { "value": "100", "unit": "%", "label": "AI-assisted" },
-      { "value": "12", "unit": "products", "label": "Listed at launch" }
-    ],
-    "description": "Built and deployed a fully functional e-commerce web platform using AI-assisted development tools, directly driving online sales and customer onboarding. Integrated payment processing and responsive product catalog.",
-    "images": [
-      "/assets/work/project-02/detail-01.jpg",
-      "/assets/work/project-02/detail-02.jpg"
-    ]
-  },
-  {
-    "id": "08",
-    "slug": "pdin",
-    "title": "What is PDIN",
-    "client": "Pusat Desain Industri Nasional",
-    "category": ["Motion Graphics", "Video Editing"],
-    "year": 2024,
-    "role": "Motion Designer",
-    "duration": "2 weeks",
-    "poster": "/assets/work/project-08/poster.jpg",
-    "preview": "/assets/work/project-08/preview.mp4",
-    "previewWebm": "/assets/work/project-08/preview.webm",
-    "featured": false,
-    "stats": [
-      { "value": "2", "unit": "weeks", "label": "Turnaround" },
-      { "value": "1", "unit": "video", "label": "Deliverable" }
-    ],
-    "description": "An engaging informational video detailing the purpose and services of the Pusat Desain Industri Nasional (PDIN), combining slick motion graphics with clear, concise messaging.",
-    "images": []
-  },
-  {
-    "id": "09",
-    "slug": "eyes-wide-open",
-    "title": "Eyes Wide Open Studio Showreel",
-    "client": "Eyes Wide Open Studio",
-    "category": ["Motion Graphics", "Showreel"],
-    "year": 2024,
-    "role": "Motion Designer",
-    "duration": "Ongoing",
-    "poster": "/assets/work/project-09/poster.jpg",
-    "preview": "/assets/work/project-09/preview.mp4",
-    "previewWebm": "/assets/work/project-09/preview.webm",
-    "featured": true,
-    "stats": [
-      { "value": "100", "unit": "%", "label": "Energy" },
-      { "value": "2D", "unit": "anim", "label": "Primary Medium" }
-    ],
-    "description": "A dynamic, high-energy showreel highlighting the best motion graphics and 2D animation work from the Eyes Wide Open Studio portfolio, timed perfectly to an upbeat soundtrack.",
-    "images": []
-  },
-  {
-    "id": "10",
-    "slug": "kelas-struktur-3",
-    "title": "Kelas Struktur 3",
-    "client": "Kelas Struktur",
-    "category": ["Social Media", "Video Editing"],
-    "year": 2023,
-    "role": "Video Editor",
-    "duration": "1 week",
-    "poster": "/assets/work/project-10/poster.jpg",
-    "preview": "/assets/work/project-10/preview.mp4",
-    "previewWebm": "/assets/work/project-10/preview.webm",
-    "featured": false,
-    "stats": [
-      { "value": "15", "unit": "sec", "label": "Duration" },
-      { "value": "9:16", "unit": "ratio", "label": "Vertical Format" }
-    ],
-    "description": "Vertical short-form promotional content created specifically for Kelas Struktur, optimized to capture attention on Instagram Reels and TikTok algorithms.",
-    "images": []
-  },
-  {
-    "id": "11",
-    "slug": "donasi-bukber",
-    "title": "Donasi Bukber Campaign",
-    "client": "Charity Drive",
-    "category": ["Social Media", "Motion Graphics"],
-    "year": 2024,
-    "role": "Motion Designer",
-    "duration": "1 week",
-    "poster": "/assets/work/project-11/poster.jpg",
-    "preview": "/assets/work/project-11/preview.mp4",
-    "previewWebm": "/assets/work/project-11/preview.webm",
-    "featured": false,
-    "stats": [
-      { "value": "3", "unit": "days", "label": "Fast Delivery" },
-      { "value": "1", "unit": "reel", "label": "Format" }
-    ],
-    "description": "A heartfelt and engaging promotional social media reel designed for a Ramadan donation campaign (Bukber), featuring smooth motion graphics and typography to drive charity participation.",
-    "images": []
   }
 ]
