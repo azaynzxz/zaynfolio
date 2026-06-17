@@ -122,28 +122,34 @@ import "../styles/pages/contact.css";
 </Base>
 
 <script>
-  const copyBtn = document.getElementById('copy-email-btn') as HTMLButtonElement | null;
-  const iconCopy = copyBtn?.querySelector('.icon-copy') as SVGElement | null;
-  const iconCheck = copyBtn?.querySelector('.icon-check') as SVGElement | null;
-  const tooltip = document.getElementById('copy-email-tooltip');
+  function initContact() {
+    const copyBtn = document.getElementById('copy-email-btn') as HTMLButtonElement | null;
+    if (!copyBtn) return;
+    
+    const iconCopy = copyBtn.querySelector('.icon-copy') as SVGElement | null;
+    const iconCheck = copyBtn.querySelector('.icon-check') as SVGElement | null;
+    const tooltip = document.getElementById('copy-email-tooltip');
 
-  copyBtn?.addEventListener('click', async (e) => {
-    e.preventDefault();
-    try {
-      await navigator.clipboard.writeText('contact@zaynfolio.com');
-      if (iconCopy) iconCopy.style.display = 'none';
-      if (iconCheck) iconCheck.style.display = 'block';
-      if (tooltip) tooltip.textContent = 'Copied!';
-      copyBtn.classList.add('contact-item__action--copied');
-      setTimeout(() => {
-        if (iconCopy) iconCopy.style.display = 'block';
-        if (iconCheck) iconCheck.style.display = 'none';
-        if (tooltip) tooltip.textContent = 'Copy';
-        copyBtn.classList.remove('contact-item__action--copied');
-      }, 2000);
-    } catch {
-      // fallback: focus the email link
-      (document.getElementById('contact-email') as HTMLElement)?.focus();
-    }
-  });
+    copyBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText('contact@zaynfolio.com');
+        if (iconCopy) iconCopy.style.display = 'none';
+        if (iconCheck) iconCheck.style.display = 'block';
+        if (tooltip) tooltip.textContent = 'Copied!';
+        copyBtn.classList.add('contact-item__action--copied');
+        setTimeout(() => {
+          if (iconCopy) iconCopy.style.display = 'block';
+          if (iconCheck) iconCheck.style.display = 'none';
+          if (tooltip) tooltip.textContent = 'Copy';
+          copyBtn.classList.remove('contact-item__action--copied');
+        }, 2000);
+      } catch {
+        // fallback: focus the email link
+        (document.getElementById('contact-email') as HTMLElement)?.focus();
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initContact);
 </script>

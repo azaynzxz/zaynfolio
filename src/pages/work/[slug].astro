@@ -2,12 +2,24 @@
 import Base from '../../layouts/Base.astro';
 import projects from '../../data/projects.json';
 import VideoPlayer from '../../components/VideoPlayer.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro Image optimization
+const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/work/**/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+function getAsset(path: string) {
+  if (!path) return null;
+  const key = `/src${path}`;
+  return assets[key] ? assets[key].default : null;
+}
 
 export async function getStaticPaths() {
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project }
-  }));
+  return projects
+    .filter((project) => project.slug !== 'social-media-content')
+    .map((project) => ({
+      params: { slug: project.slug },
+      props: { project }
+    }));
 }
 
 const { project } = Astro.props;
@@ -59,7 +71,16 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
             class="project-hero__media"
           />
         ) : (
-          <img src={project.poster} alt={project.title} class="project-hero__media" />
+          getAsset(project.poster) ? (
+            <Image
+              src={getAsset(project.poster) as ImageMetadata}
+              alt={project.title}
+              class="project-hero__media"
+              loading="eager"
+            />
+          ) : (
+            <img src={project.poster} alt={project.title} class="project-hero__media" />
+          )
         )}
       </div>
     </div>
@@ -120,7 +141,15 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
                   class="detail-video-player"
                 />
               ) : (
-                <img src={img} alt={`${project.title} Showcase ${idx + 1}`} loading="lazy" />
+                getAsset(img) ? (
+                  <Image
+                    src={getAsset(img) as ImageMetadata}
+                    alt={`${project.title} Showcase ${idx + 1}`}
+                    loading="lazy"
+                  />
+                ) : (
+                  <img src={img} alt={`${project.title} Showcase ${idx + 1}`} loading="lazy" />
+                )
               )}
             </div>
           </div>

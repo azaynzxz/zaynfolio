@@ -22,9 +22,24 @@
   // ── Stagger entrance for peek cards ─────────────────────
   const cards = gsap.utils.toArray<HTMLElement>('.peek-card');
   if (cards.length) {
-    gsap.from(cards, {
-      opacity: 0, y: 30, duration: 0.6, stagger: 0.1,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.peek__grid', start: 'top 85%', once: true }
-    });
+    gsap.fromTo(cards, 
+      { autoAlpha: 0, y: 30 },
+      {
+        autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.peek__grid', start: 'top 85%', once: true }
+      }
+    );
   }
+
+  // ── Scroll to Work ──────────────────────────────────────
+  const scrollBtn = document.getElementById('scroll-to-work');
+  scrollBtn?.addEventListener('click', () => {
+    const target = document.getElementById('work-peek');
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - 64, // offset for nav
+        behavior: 'smooth'
+      });
+    }
+  });

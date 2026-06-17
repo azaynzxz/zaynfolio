@@ -32,7 +32,7 @@ const categorizedGallery = allCategories.map((cat) => ({
         <span class="section-label gallery-label">02 — Social & Feed Design</span>
         <div class="gallery-header__right">
           <div class="gallery-nav" id="gallery-nav">
-            {categorizedGallery.map((group) => (
+            {categorizedGallery.map((group, groupIdx) => (
               <a href={`#${group.slug}`} class="gallery-nav__tab">{group.name}</a>
             ))}
           </div>
@@ -53,7 +53,7 @@ const categorizedGallery = allCategories.map((cat) => ({
   </section>
 
   <!-- ═══ Categorized Sections ═══ -->
-  {categorizedGallery.map((group) => (
+  {categorizedGallery.map((group, groupIdx) => (
     <section class="gallery-grid-section" id={group.slug}>
       <div class="container">
         <div class="category-meta">
@@ -62,7 +62,7 @@ const categorizedGallery = allCategories.map((cat) => ({
         </div>
         
         <div class="gallery-grid">
-          {group.items.map((item: any) => (
+          {group.items.map((item: any, itemIdx: number) => (
             <article
               class="gallery-cell"
               data-category={item.category}
@@ -98,16 +98,16 @@ const categorizedGallery = allCategories.map((cat) => ({
                       alt={`${item.title} — ${item.client}`}
                       width={600}
                       quality={75}
-                      loading="lazy"
-                      decoding="async"
+                      loading={groupIdx === 0 && itemIdx < 12 ? 'eager' : 'lazy'}
+                      decoding={groupIdx === 0 && itemIdx < 12 ? 'sync' : 'async'}
                       class="cell-img"
                     />
                   ) : (
                     <img
                       src={item.poster}
                       alt={`${item.title} — ${item.client}`}
-                      loading="lazy"
-                      decoding="async"
+                      loading={groupIdx === 0 && itemIdx < 12 ? 'eager' : 'lazy'}
+                      decoding={groupIdx === 0 && itemIdx < 12 ? 'sync' : 'async'}
                       class="cell-img"
                     />
                   )
@@ -148,3 +148,5 @@ const categorizedGallery = allCategories.map((cat) => ({
 </Base>
 
 <script src="../scripts/pages/gallery.ts"></script>
+
+

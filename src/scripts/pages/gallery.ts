@@ -1,8 +1,10 @@
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
+function initGallery() {
   const cells = document.querySelectorAll<HTMLElement>('.gallery-cell');
+  if (!cells.length) return; // Only run on gallery page!
 
   // ── Hover-to-Play Video ──────────────────────────────
   const hoverVideos = document.querySelectorAll<HTMLVideoElement>('[data-hover-video]');
@@ -10,14 +12,11 @@
     const cell = video.closest('.gallery-cell');
     if (!cell) return;
 
-    cell.addEventListener('mouseenter', () => {
-      video.play().catch(() => {});
-    });
+    const playVideo = () => { video.play().catch(() => {}); };
+    const pauseVideo = () => { video.pause(); video.currentTime = 0; };
 
-    cell.addEventListener('mouseleave', () => {
-      video.pause();
-      video.currentTime = 0;
-    });
+    cell.addEventListener('mouseenter', playVideo);
+    cell.addEventListener('mouseleave', pauseVideo);
   });
 
   // ── Lightbox ─────────────────────────────────────────
@@ -47,6 +46,7 @@
     lightbox.classList.add('lightbox--active');
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', handleKeyDown);
   }
 
   function showLightboxItem(index: number) {
@@ -89,6 +89,7 @@
     if (lbPlayerVideo) {
       lbPlayerVideo.pause();
     }
+    document.removeEventListener('keydown', handleKeyDown);
   }
 
   function navigateLb(dir: number) {
@@ -99,6 +100,12 @@
         gsap.to(lbMedia, { opacity: 1, duration: 0.2 });
       }
     });
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateLb(-1);
+    if (e.key === 'ArrowRight') navigateLb(1);
   }
 
   // Cell click → open lightbox
@@ -115,26 +122,16 @@
   lbPrev.addEventListener('click', () => navigateLb(-1));
   lbNext.addEventListener('click', () => navigateLb(1));
 
-  // Keyboard nav
-  document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('lightbox--active')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') navigateLb(-1);
-    if (e.key === 'ArrowRight') navigateLb(1);
-  });
-
   // ── Entry Animation ──────────────────────────────────
   // Title slides up
-  gsap.set('.gallery-title', { y: '100%' });
-  gsap.to('.gallery-title', { y: '0%', duration: 0.8, ease: 'power4.out' });
+  gsap.fromTo('.gallery-title', { y: '100%', autoAlpha: 0 }, { y: '0%', autoAlpha: 1, duration: 0.8, ease: 'power4.out' });
 
   // Stagger each category section as it scrolls into view
   document.querySelectorAll('.gallery-grid-section').forEach(section => {
     const gridCells = section.querySelectorAll('.gallery-cell');
-    gsap.set(gridCells, { opacity: 0, y: 16 });
 
-    gsap.to(gridCells, {
-      opacity: 1,
+    gsap.fromTo(gridCells, { autoAlpha: 0, y: 16 }, {
+      autoAlpha: 1,
       y: 0,
       duration: 0.4,
       stagger: 0.035,
@@ -146,3 +143,6 @@
       }
     });
   });
+}
+
+document.addEventListener('astro:page-load', initGallery);

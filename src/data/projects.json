@@ -35,7 +35,7 @@
     "poster": "/assets/work/project-12/poster.jpg",
     "preview": "/assets/work/project-12/preview.mp4",
     "previewWebm": "/assets/work/project-12/preview.webm",
-    "video": "/assets/work/project-12/baraca-full.mp4",
+    "video": "/assets/work/project-12/baraca-full.webm",
     "featured": true,
     "stats": [
       { "value": "Multi", "unit": "cam", "label": "Camera setup" },

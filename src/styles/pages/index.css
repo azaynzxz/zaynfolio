@@ -42,13 +42,13 @@
     overflow: hidden;
   }
 
-  :global(.hero__word) {
+  .hero__word {
     display: inline-block;
     overflow: hidden;
     vertical-align: bottom;
   }
 
-  :global(.hero__word-inner) {
+  .hero__word-inner {
     display: inline-block;
   }
 
@@ -67,6 +67,12 @@
     padding-top: var(--space-5);
   }
 
+  .hero__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
   .hero__tagline {
     font-size: var(--fs-body);
     color: var(--muted);
@@ -80,6 +86,68 @@
     text-transform: uppercase;
     color: var(--muted);
     white-space: nowrap;
+  }
+
+  .hero__scroll-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    background-color: transparent;
+    border: 1px solid var(--rule);
+    padding: var(--space-2) var(--space-4);
+    cursor: pointer;
+    color: var(--fg);
+    font-family: var(--font-family);
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    transition: background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+    
+    /* 1.5-second pulsing load animation */
+    animation: btnPulse 1.5s ease-in-out;
+  }
+
+  @keyframes btnPulse {
+    0% {
+      background-color: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
+    33% {
+      background-color: transparent;
+      color: var(--fg);
+      border-color: var(--rule);
+    }
+    66% {
+      background-color: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
+    100% {
+      background-color: transparent;
+      color: var(--fg);
+      border-color: var(--rule);
+    }
+  }
+
+  .hero__scroll-btn:hover {
+    background-color: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .hero__scroll-btn svg {
+    animation: bounceSubtle 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  @keyframes bounceSubtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+  }
+
+  .hero__scroll-text {
+    font-weight: var(--fw-medium);
   }
 
   /* ══════════════════════════════════════════════════════════════

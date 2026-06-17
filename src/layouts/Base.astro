@@ -1,4 +1,6 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
 interface Props {
   title?: string;
   description?: string;
@@ -42,6 +44,10 @@ const currentPath = Astro.url.pathname;
     <style is:global>
       @import '../styles/global.css';
     </style>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+    <ClientRouter />
   </head>
   <body>
     <!-- Decorative Grid Lines -->
@@ -115,34 +121,34 @@ const currentPath = Astro.url.pathname;
 
     <!-- Scripts -->
     <script>
-      // Theme toggle
-      const themeToggle = document.getElementById('theme-toggle');
-      const themes = ['light', 'dark', 'accent'];
-      let currentThemeIndex = 0;
-
-      // Load saved theme
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
+      function initBase() {
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themes = ['light', 'dark', 'accent'];
+        
+        const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
-        currentThemeIndex = themes.indexOf(savedTheme);
+        let currentThemeIndex = themes.indexOf(savedTheme);
+
+        themeToggle?.addEventListener('click', () => {
+          currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+          const newTheme = themes[currentThemeIndex];
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+        });
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileToggle?.addEventListener('click', () => {
+          const isOpen = mobileMenu?.classList.toggle('mobile-menu--open');
+          mobileToggle.classList.toggle('nav__mobile-toggle--open');
+          document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
       }
 
-      themeToggle?.addEventListener('click', () => {
-        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-        const newTheme = themes[currentThemeIndex];
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-      });
-
-      // Mobile menu
-      const mobileToggle = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-
-      mobileToggle?.addEventListener('click', () => {
-        const isOpen = mobileMenu?.classList.toggle('mobile-menu--open');
-        mobileToggle.classList.toggle('nav__mobile-toggle--open');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-      });
+      document.addEventListener('astro:page-load', initBase);
     </script>
 
     <!-- Global Media Protection -->
@@ -166,107 +172,138 @@ const currentPath = Astro.url.pathname;
 
       gsap.registerPlugin(ScrollTrigger);
 
-      // Initialize Lenis smooth scroll
+      let lenisInstance: any = null;
+
+      // Asynchronous Lenis initialization in the background
       async function initLenis() {
+        if (lenisInstance) {
+          lenisInstance.destroy();
+          lenisInstance = null;
+        }
+
         const { default: Lenis } = await import('lenis');
-        const lenis = new Lenis({
+        lenisInstance = new Lenis({
           duration: 1.2,
           easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         });
 
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        lenisInstance.on('scroll', ScrollTrigger.update);
+        
+        const tickHandler = (time: number) => {
+          if (lenisInstance) {
+            lenisInstance.raf(time * 1000);
+          }
+        };
+        gsap.ticker.add(tickHandler);
+        
+        document.addEventListener('astro:before-preparation', () => {
+          gsap.ticker.remove(tickHandler);
+          ScrollTrigger.getAll().forEach(t => t.kill());
+        }, { once: true });
+
         gsap.ticker.lagSmoothing(0);
       }
 
-      initLenis();
+      // Synchronous layout animation initialization
+      function initScrollAndAnimations() {
 
-      // Animate reveal elements
-      gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
-        gsap.to(el, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            once: true,
-          },
+        // Animate reveal elements
+        gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+          gsap.fromTo(el, { autoAlpha: 0, y: 20 }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              once: true,
+            },
+          });
         });
-      });
 
-      // Animate rule lines
-      gsap.utils.toArray<HTMLElement>('.reveal-line').forEach((el) => {
-        gsap.to(el, {
-          opacity: 1,
-          scaleX: 1,
-          duration: 1,
-          ease: 'power3.inOut',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            once: true,
-          },
+        // Animate rule lines
+        gsap.utils.toArray<HTMLElement>('.reveal-line').forEach((el) => {
+          gsap.fromTo(el, { scaleX: 0, autoAlpha: 0 }, {
+            autoAlpha: 1,
+            scaleX: 1,
+            duration: 1,
+            ease: 'power3.inOut',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              once: true,
+            },
+          });
         });
-      });
 
-      // Stagger work rows
-      const workRows = gsap.utils.toArray<HTMLElement>('.work-row');
-      if (workRows.length) {
-        gsap.from(workRows, {
-          opacity: 0,
-          y: 30,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: workRows[0],
-            start: 'top 85%',
-            once: true,
-          },
-        });
+        // Stagger work rows
+        const workRows = gsap.utils.toArray<HTMLElement>('.work-row');
+        if (workRows.length) {
+          gsap.fromTo(workRows, { autoAlpha: 0, y: 30 }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: workRows[0],
+              start: 'top 85%',
+              once: true,
+            },
+          });
+        }
+
+        // Hero text reveal
+        const heroTitle = document.querySelector('.hero__title');
+        if (heroTitle) {
+          const words = heroTitle.textContent?.split(' ') || [];
+          heroTitle.innerHTML = words
+            .map((word) => `<span class="hero__word"><span class="hero__word-inner">${word}</span></span>`)
+            .join(' ');
+
+          gsap.fromTo('.hero__word-inner', { y: '110%' }, {
+            y: '0%',
+            duration: 1,
+            stagger: 0.08,
+            ease: 'power4.out',
+            delay: 0.3,
+          });
+        }
+
+        // Hero subtitle reveal
+        const heroSubtitle = document.querySelector('.hero__subtitle');
+        if (heroSubtitle) {
+          gsap.fromTo(heroSubtitle, { autoAlpha: 0, y: 20 }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            delay: 1,
+          });
+        }
+
+        // Hero meta reveal
+        const heroMeta = document.querySelector('.hero__meta');
+        if (heroMeta) {
+          gsap.fromTo(heroMeta, { autoAlpha: 0 }, {
+            autoAlpha: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            delay: 1.2,
+          });
+        }
+
+        // Initialize Lenis scroll asynchronously in the background
+        initLenis();
+
+        // Refresh ScrollTrigger once DOM layout has fully settled
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 150);
       }
 
-      // Hero text reveal
-      const heroTitle = document.querySelector('.hero__title');
-      if (heroTitle) {
-        const words = heroTitle.textContent?.split(' ') || [];
-        heroTitle.innerHTML = words
-          .map((word) => `<span class="hero__word"><span class="hero__word-inner">${word}</span></span>`)
-          .join(' ');
-
-        gsap.from('.hero__word-inner', {
-          y: '110%',
-          duration: 1,
-          stagger: 0.08,
-          ease: 'power4.out',
-          delay: 0.3,
-        });
-      }
-
-      // Hero subtitle reveal
-      const heroSubtitle = document.querySelector('.hero__subtitle');
-      if (heroSubtitle) {
-        gsap.from(heroSubtitle, {
-          opacity: 0,
-          y: 20,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: 1,
-        });
-      }
-
-      // Hero meta reveal
-      const heroMeta = document.querySelector('.hero__meta');
-      if (heroMeta) {
-        gsap.from(heroMeta, {
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: 1.2,
-        });
-      }
+      document.addEventListener('astro:page-load', initScrollAndAnimations);
     </script>
   </body>
 </html>

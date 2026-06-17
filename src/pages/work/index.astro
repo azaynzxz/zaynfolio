@@ -10,20 +10,19 @@ const allCategories = [...new Set(projects.flatMap((p: any) => p.category))];
 const years = [...new Set(projects.map((p: any) => p.year))].sort((a, b) => b - a);
 import '../../styles/pages/work.css';
 import VideoPlayer from '../../components/VideoPlayer.astro';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro Image optimization
+const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/work/**/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+function getAsset(path: string) {
+  if (!path) return null;
+  const key = `/src${path}`;
+  return assets[key] ? assets[key].default : null;
+}
 ---
 
 <Base title="Work — Achmad Zaini" description="Selected work by Achmad Zaini. Motion graphics, video editing, 2D animation, and interactive experiences.">
-
-  <!-- ═══ Oversized Page Title (Khazar reference) ═══ -->
-  <div class="work-hero-title" aria-hidden="true">Work</div>
-
-  <!-- ═══ Side Marquee (Khazar reference) ═══ -->
-  <div class="side-marquee" aria-hidden="true">
-    <div class="side-marquee__track">
-      <span>Achmad Zaini · Achmad Zaini · Achmad Zaini · Achmad Zaini · Achmad Zaini · Achmad Zaini ·&nbsp;</span>
-      <span>Achmad Zaini · Achmad Zaini · Achmad Zaini · Achmad Zaini · Achmad Zaini · Achmad Zaini ·&nbsp;</span>
-    </div>
-  </div>
 
   <!-- ═══ Page Header ═══ -->
   <section class="work-header">
@@ -31,14 +30,14 @@ import VideoPlayer from '../../components/VideoPlayer.astro';
       <div class="work-header__breadcrumb">
         <a href="/">Home</a> / <span>Work</span>
       </div>
-      <div class="work-header__row">
-        <div class="work-header__left">
-          <h1 class="work-header__title">Work</h1>
-          <p class="work-header__desc">
-            Selected projects spanning motion graphics, video editing,
-            2D animation rigging, and interactive experiences.
-          </p>
-        </div>
+    </div>
+  </section>
+
+  <!-- ═══ Big Display Title (Gallery-style) ═══ -->
+  <section class="work-title-section">
+    <div class="container">
+      <div class="work-title-clip">
+        <h1 class="work-big-title">Work</h1>
       </div>
     </div>
   </section>
@@ -52,7 +51,7 @@ import VideoPlayer from '../../components/VideoPlayer.astro';
       <div class="featured-grid">
         {featured.map((project: any) => (
           <article class="event-card" id={`featured-${project.slug}`}>
-            <a href={project.slug === 'social-media-content' ? '/gallery' : '#'} class="event-card__link" data-id={project.id}>
+            <a href={project.slug === 'social-media-content' ? '/gallery' : project.id === '06' ? 'https://idcardlampung.com' : project.id === '12' ? 'https://github.com/azaynzxz/after-effects-expression-panel' : `/work/${project.slug}`} class="event-card__link" data-id={project.id}>
               <p class="event-card__desc">{project.description}</p>
 
               <div class="event-card__date-row">
@@ -75,7 +74,18 @@ import VideoPlayer from '../../components/VideoPlayer.astro';
                     class="work-thumbnail-video"
                   />
                 ) : (
-                  <img src={project.poster} alt={project.title} loading="lazy" />
+                  getAsset(project.poster) ? (
+                    <Image
+                      src={getAsset(project.poster) as ImageMetadata}
+                      alt={project.title}
+                      width={400}
+                      height={250}
+                      quality={80}
+                      loading="eager"
+                    />
+                  ) : (
+                    <img src={project.poster} alt={project.title} width="400" height="250" loading="eager" />
+                  )
                 )}
               </div>
 
@@ -120,7 +130,7 @@ import VideoPlayer from '../../components/VideoPlayer.astro';
             data-year={project.year}
             id={`row-${project.slug}`}
           >
-            <a href={project.slug === 'social-media-content' ? '/gallery' : '#'} class="listing-row__link" data-id={project.id}>
+            <a href={project.slug === 'social-media-content' ? '/gallery' : project.id === '06' ? 'https://idcardlampung.com' : project.id === '12' ? 'https://github.com/azaynzxz/after-effects-expression-panel' : `/work/${project.slug}`} class="listing-row__link" data-id={project.id}>
               <!-- Col 1: Thumbnail -->
               <div class="listing-row__thumb">
                 {project.preview ? (
@@ -134,7 +144,18 @@ import VideoPlayer from '../../components/VideoPlayer.astro';
                     class="work-thumbnail-video"
                   />
                 ) : (
-                  <img src={project.poster} alt={project.title} loading="lazy" />
+                  getAsset(project.poster) ? (
+                    <Image
+                      src={getAsset(project.poster) as ImageMetadata}
+                      alt={project.title}
+                      width={96}
+                      height={72}
+                      quality={75}
+                      loading={idx < 4 ? 'eager' : 'lazy'}
+                    />
+                  ) : (
+                    <img src={project.poster} alt={project.title} width="96" height="72" loading={idx < 4 ? 'eager' : 'lazy'} />
+                  )
                 )}
               </div>
 
@@ -223,7 +244,7 @@ import VideoPlayer from '../../components/VideoPlayer.astro';
       </div>
       <div class="redirect-modal__actions">
         <button class="redirect-modal__btn" id="rm-cancel">Cancel</button>
-        <a href="#" class="redirect-modal__btn redirect-modal__btn--primary" id="rm-go" target="_blank" rel="noopener noreferrer">Go</a>
+        <a href="about:blank" class="redirect-modal__btn redirect-modal__btn--primary" id="rm-go" target="_blank" rel="noopener noreferrer">Go</a>
       </div>
     </div>
   </div>

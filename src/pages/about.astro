@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import myPhoto from '../assets/my_photo.webp';
 import '../styles/pages/about.css';
 
 const experience = [
@@ -82,7 +84,15 @@ const education = [
         <div class="about__image-col col-5 col-md-4">
           <div class="about__image-wrapper reveal">
             <div class="about__image-placeholder" aria-label="Portrait of Achmad Zaini">
-              <img src="/img/my_photo.webp" alt="Portrait of Achmad Zaini" class="about__image" />
+              <Image
+                src={myPhoto}
+                alt="Portrait of Achmad Zaini"
+                class="about__image"
+                width={600}
+                quality={80}
+                loading="eager"
+                decoding="async"
+              />
             </div>
           </div>
         </div>

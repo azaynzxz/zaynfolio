@@ -336,3 +336,43 @@ img {
   height: auto;
   border-radius: 0;
 }
+
+/* ── Prevent FOUC during GSAP animations ───────────────────── */
+html.js .reveal,
+html.js .reveal-line,
+html.js .work-row,
+html.js .hero__subtitle,
+html.js .hero__meta,
+html.js .work-big-title,
+html.js .event-card,
+html.js .listing-row,
+html.js .peek-card,
+html.js .gallery-title,
+html.js .gallery-cell {
+  visibility: hidden;
+}
+
+/* ── Seamless Page Transitions (View Transition API) ───────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: fadeOutAndScale;
+}
+
+::view-transition-new(root) {
+  animation-name: fadeInAndScale;
+}
+
+@keyframes fadeOutAndScale {
+  from { opacity: 1; transform: scale(1); filter: blur(0px); }
+  to { opacity: 0; transform: scale(0.98); filter: blur(4px); }
+}
+
+@keyframes fadeInAndScale {
+  from { opacity: 0; transform: scale(1.02); filter: blur(4px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0px); }
+}

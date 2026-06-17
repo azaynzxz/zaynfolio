@@ -2,6 +2,16 @@
 import Base from '../layouts/Base.astro';
 import projects from '../data/projects.json';
 import '../styles/pages/index.css';
+import { Image } from 'astro:assets';
+
+// Import local assets for Astro Image optimization
+const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/work/**/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+function getAsset(path: string) {
+  if (!path) return null;
+  const key = `/src${path}`;
+  return assets[key] ? assets[key].default : null;
+}
 
 const featured = projects.filter((p: any) => p.featured);
 ---
@@ -20,13 +30,22 @@ const featured = projects.filter((p: any) => p.featured);
         <p class="hero__subtitle">
           Motion Graphics Designer<br />&amp; Video Editor
         </p>
+        
+        <button class="hero__scroll-btn reveal" id="scroll-to-work" aria-label="Scroll to Selected Work">
+          <span class="hero__scroll-text">Selected Work</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 4v16m0 0l-6-6m6 6l6-6"/>
+          </svg>
+        </button>
       </div>
       <div class="hero__bottom">
-        <p class="hero__tagline reveal">
-          Five years crafting high-retention video content,<br />
-          2D animation systems, and automated workflows.
-        </p>
-        <span class="hero__location reveal">Palembang, Indonesia</span>
+        <div class="hero__info">
+          <p class="hero__tagline reveal">
+            Five years crafting high-retention video content,<br />
+            2D animation systems, and automated workflows.
+          </p>
+          <span class="hero__location reveal">Palembang, Indonesia</span>
+        </div>
       </div>
     </div>
   </section>
@@ -64,7 +83,17 @@ const featured = projects.filter((p: any) => p.featured);
                     preload="auto"
                   />
                 ) : (
-                  <img src={project.poster} alt={project.title} loading="lazy" />
+                  getAsset(project.poster) ? (
+                    <Image
+                      src={getAsset(project.poster) as ImageMetadata}
+                      alt={project.title}
+                      width={600}
+                      quality={80}
+                      loading="eager"
+                    />
+                  ) : (
+                    <img src={project.poster} alt={project.title} loading="eager" />
+                  )
                 )}
               </div>
 
