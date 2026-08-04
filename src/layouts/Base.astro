@@ -27,8 +27,8 @@ const currentPath = Astro.url.pathname;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site || 'https://zaynfolio.pages.dev')} />
-    {Astro.props.image && <meta property="og:image" content={new URL(Astro.props.image, Astro.site || 'https://zaynfolio.pages.dev')} />}
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site || 'https://zaynfolio.com')} />
+    {Astro.props.image && <meta property="og:image" content={Astro.props.image.startsWith('http') ? Astro.props.image : new URL(Astro.props.image, Astro.site || 'https://zaynfolio.com')} />}
 
     <title>{title}</title>
 
@@ -48,6 +48,8 @@ const currentPath = Astro.url.pathname;
       document.documentElement.classList.add('js');
     </script>
     <ClientRouter />
+    <!-- Named slot for per-page <head> additions (canonical, extra OG, LD+JSON) -->
+    <slot name="head" />
   </head>
   <body>
     <!-- Decorative Grid Lines -->

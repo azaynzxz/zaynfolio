@@ -1,0 +1,99 @@
+2026-06-16T15:37:09.331767Z	Cloning repository...
+2026-06-16T15:37:26.890905Z	From https://github.com/azaynzxz/zaynfolio
+2026-06-16T15:37:26.891293Z	 * branch            9264d1ce87c842774cebd6b216942ea312183df7 -> FETCH_HEAD
+2026-06-16T15:37:26.8914Z	
+2026-06-16T15:37:27.667169Z	HEAD is now at 9264d1c style: change listing row thumbnail aspect ratio to 4:3
+2026-06-16T15:37:27.667752Z	
+2026-06-16T15:37:27.713214Z	
+2026-06-16T15:37:27.71367Z	Using v2 root directory strategy
+2026-06-16T15:37:27.72742Z	Success: Finished cloning repository files
+2026-06-16T15:37:29.299142Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-06-16T15:37:29.299623Z	
+2026-06-16T15:37:29.299805Z	Found wrangler.toml file. Reading build configuration...
+2026-06-16T15:37:29.450378Z	A Wrangler configuration file was found but it does not appear to be valid. Did you mean to use wrangler.toml to configure Pages? If so, then make sure the file is valid and contains the `pages_build_output_dir` property. Skipping file and continuing.
+2026-06-16T15:37:30.387675Z	Preparing yarn@3.6.3 for immediate activation...
+2026-06-16T15:37:30.592628Z	Preparing pnpm@8.7.1 for immediate activation...
+2026-06-16T15:37:30.768353Z	Detected the following tools from environment: nodejs@22.12.0, npm@9.6.7
+2026-06-16T15:37:30.768649Z	Installing nodejs 22.12.0
+2026-06-16T15:37:31.631164Z	Trying to update node-build... ok
+2026-06-16T15:37:31.689057Z	To follow progress, use 'tail -f /tmp/node-build.20260616153731.1431.log' or pass --verbose
+2026-06-16T15:37:31.738116Z	Downloading node-v22.12.0-linux-x64.tar.gz...
+2026-06-16T15:37:31.882701Z	-> https://nodejs.org/dist/v22.12.0/node-v22.12.0-linux-x64.tar.gz
+2026-06-16T15:37:34.487147Z	
+2026-06-16T15:37:34.487481Z	WARNING: node-v22.12.0-linux-x64 is in LTS Maintenance mode and nearing its end of life.
+2026-06-16T15:37:34.487578Z	It only receives *critical* security updates, *critical* bug fixes and documentation updates.
+2026-06-16T15:37:34.487653Z	
+2026-06-16T15:37:34.488344Z	Installing node-v22.12.0-linux-x64...
+2026-06-16T15:37:34.987226Z	Installed node-v22.12.0-linux-x64 to /opt/buildhome/.asdf/installs/nodejs/22.12.0
+2026-06-16T15:37:34.987629Z	
+2026-06-16T15:37:35.561851Z	Installing project dependencies: npm clean-install --progress=false
+2026-06-16T15:37:41.879166Z	
+2026-06-16T15:37:41.879437Z	added 259 packages, and audited 260 packages in 6s
+2026-06-16T15:37:41.879497Z	
+2026-06-16T15:37:41.879538Z	141 packages are looking for funding
+2026-06-16T15:37:41.879574Z	  run `npm fund` for details
+2026-06-16T15:37:41.902978Z	
+2026-06-16T15:37:41.903305Z	4 vulnerabilities (1 moderate, 3 high)
+2026-06-16T15:37:41.903415Z	
+2026-06-16T15:37:41.903486Z	To address all issues, run:
+2026-06-16T15:37:41.903548Z	  npm audit fix
+2026-06-16T15:37:41.903616Z	
+2026-06-16T15:37:41.903671Z	Run `npm audit` for details.
+2026-06-16T15:37:41.925044Z	Executing user command: npm run build
+2026-06-16T15:37:42.226002Z	
+2026-06-16T15:37:42.226281Z	> tremendous-telescope@0.0.1 build
+2026-06-16T15:37:42.226368Z	> astro build
+2026-06-16T15:37:42.226425Z	
+2026-06-16T15:37:43.617113Z	[2m15:37:43[22m [34m[types][39m Generated [2m167ms[22m
+2026-06-16T15:37:43.618511Z	[2m15:37:43[22m [34m[build][39m output: [34m"static"[39m
+2026-06-16T15:37:43.618667Z	[2m15:37:43[22m [34m[build][39m mode: [34m"static"[39m
+2026-06-16T15:37:43.618743Z	[2m15:37:43[22m [34m[build][39m directory: [34m/opt/buildhome/repo/dist/[39m
+2026-06-16T15:37:43.618809Z	[2m15:37:43[22m [34m[build][39m Collecting build info...
+2026-06-16T15:37:43.618863Z	[2m15:37:43[22m [34m[build][39m [32m✓ Completed in 188ms.[39m
+2026-06-16T15:37:43.620133Z	[2m15:37:43[22m [34m[build][39m Building static entrypoints...
+2026-06-16T15:37:45.158771Z	[2m15:37:45[22m [34m[vite][39m [32m✓ built in 1.49s[39m
+2026-06-16T15:37:48.322784Z	[2m15:37:48[22m [34m[vite][39m [32m✓ built in 3.16s[39m
+2026-06-16T15:37:48.32905Z	[2m15:37:48[22m [34m[build][39m Rearranging server assets...
+2026-06-16T15:37:48.345426Z	
+2026-06-16T15:37:48.345722Z	[42m[30m generating static routes [39m[49m
+2026-06-16T15:37:48.351718Z	[33m[1m15:37:48[22m [WARN] [build][39m Could not render `/work/social-media-content` from route `/work/[slug]` as it conflicts with higher priority route `/work/social-media-content`.
+2026-06-16T15:37:48.361453Z	[2m15:37:48[22m   [34m├─[39m [2m/404.html[22m [2m(+10ms)[22m 
+2026-06-16T15:37:48.364935Z	[2m15:37:48[22m   [34m├─[39m [2m/about/index.html[22m [2m(+3ms)[22m 
+2026-06-16T15:37:48.367813Z	[2m15:37:48[22m   [34m├─[39m [2m/contact/index.html[22m [2m(+3ms)[22m 
+2026-06-16T15:37:48.370033Z	[2m15:37:48[22m   [34m├─[39m [2m/cv/index.html[22m [2m(+2ms)[22m 
+2026-06-16T15:37:48.377584Z	[2m15:37:48[22m   [34m├─[39m [2m/gallery/index.html[22m [2m(+8ms)[22m 
+2026-06-16T15:37:48.379955Z	[2m15:37:48[22m   [34m├─[39m [2m/work/social-media-content/index.html[22m [2m(+2ms)[22m 
+2026-06-16T15:37:48.382909Z	[2m15:37:48[22m   [34m├─[39m [2m/work/explainer-2d-animations/index.html[22m [2m(+3ms)[22m 
+2026-06-16T15:37:48.386056Z	[2m15:37:48[22m   [34m├─[39m [2m/work/baraca-capital-interview/index.html[22m [2m(+3ms)[22m 
+2026-06-16T15:37:48.38939Z	[2m15:37:48[22m   [34m├─[39m [2m/work/reels-motion-promo/index.html[22m [2m(+3ms)[22m 
+2026-06-16T15:37:48.391806Z	[2m15:37:48[22m   [34m├─[39m [2m/work/kinetic-typography-series/index.html[22m [2m(+2ms)[22m 
+2026-06-16T15:37:48.393415Z	[2m15:37:48[22m   [34m├─[39m [2m/work/lampung-manuscript-ar-flashcard/index.html[22m [2m(+2ms)[22m 
+2026-06-16T15:37:48.394706Z	[2m15:37:48[22m   [34m├─[39m [2m/work/ecommerce-idcardlampung/index.html[22m [2m(+1ms)[22m 
+2026-06-16T15:37:48.395939Z	[2m15:37:48[22m   [34m├─[39m [2m/work/pdin/index.html[22m [2m(+1ms)[22m 
+2026-06-16T15:37:48.397137Z	[2m15:37:48[22m   [34m├─[39m [2m/work/eyes-wide-open/index.html[22m [2m(+1ms)[22m 
+2026-06-16T15:37:48.398444Z	[2m15:37:48[22m   [34m├─[39m [2m/work/kelas-struktur-3/index.html[22m [2m(+1ms)[22m 
+2026-06-16T15:37:48.399519Z	[2m15:37:48[22m   [34m├─[39m [2m/work/donasi-bukber/index.html[22m [2m(+1ms)[22m 
+2026-06-16T15:37:48.40066Z	[2m15:37:48[22m   [34m├─[39m [2m/work/automated-design-workflow/index.html[22m [2m(+1ms)[22m 
+2026-06-16T15:37:48.407468Z	[2m15:37:48[22m   [34m├─[39m [2m/work/index.html[22m [2m(+7ms)[22m 
+2026-06-16T15:37:48.409952Z	[2m15:37:48[22m   [34m├─[39m [2m/index.html[22m [2m(+2ms)[22m 
+2026-06-16T15:37:48.41008Z	[2m15:37:48[22m [32m✓ Completed in 80ms.
+2026-06-16T15:37:48.410136Z	[39m
+2026-06-16T15:37:48.412519Z	[2m15:37:48[22m [34m[build][39m [32m✓ Completed in 4.79s.[39m
+2026-06-16T15:37:48.41308Z	[2m15:37:48[22m [34m[build][39m 19 page(s) built in [1m4.98s[22m
+2026-06-16T15:37:48.413339Z	[2m15:37:48[22m [34m[build][39m [1mComplete![22m
+2026-06-16T15:37:48.453557Z	Finished
+2026-06-16T15:37:48.960078Z	Checking for configuration in a Wrangler configuration file (BETA)
+2026-06-16T15:37:48.960558Z	
+2026-06-16T15:37:48.960663Z	Found wrangler.toml file. Reading build configuration...
+2026-06-16T15:37:49.093454Z	A Wrangler configuration file was found but it does not appear to be valid. Did you mean to use wrangler.toml to configure Pages? If so, then make sure the file is valid and contains the `pages_build_output_dir` property. Skipping file and continuing.
+2026-06-16T15:37:49.094127Z	Note: No functions dir at /functions found. Skipping.
+2026-06-16T15:37:49.09439Z	Validating asset output directory
+2026-06-16T15:37:50.844044Z	
+2026-06-16T15:37:50.947942Z	[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mError: Pages only supports files up to 25 MiB in size[0m
+2026-06-16T15:37:50.948232Z	
+2026-06-16T15:37:50.948403Z	  assets/work/project-12/baraca-full.mp4 is 35.2 MiB in size
+2026-06-16T15:37:50.948507Z	
+2026-06-16T15:37:50.948651Z	
+2026-06-16T15:37:50.984301Z	🪵  Logs were written to "/root/.config/.wrangler/logs/wrangler-2026-06-16_15-37-49_651.log"
+2026-06-16T15:37:51.054402Z	Failed to validate assets in the output directory with code: 1
+2026-06-16T15:37:51.860529Z	Failed: error occurred while validating assets in your output directory. Check the logs above for more information.

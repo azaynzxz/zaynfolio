@@ -1,0 +1,349 @@
+---
+import Base from '../../layouts/Base.astro';
+import store from '../../data/store.json';
+import { Image } from 'astro:assets';
+import '../../styles/pages/store.css';
+import '../../styles/pages/store-product.css';
+
+// Import local assets
+const assets = import.meta.glob<{ default: ImageMetadata | string }>(
+  '/src/assets/store/*.{jpeg,jpg,png,gif,webp}',
+  { eager: true }
+);
+
+function getAsset(path: string) {
+  const key = `/src${path}`;
+  return assets[key] ? assets[key].default : null;
+}
+
+export async function getStaticPaths() {
+  return store.map((item: any) => ({
+    params: { slug: item.slug },
+    props: { product: item },
+  }));
+}
+
+const { product } = Astro.props as { product: any };
+
+const siteBase = 'https://zaynfolio.com';
+const productUrl = `${siteBase}/store/${product.slug}`;
+const ogImage = product.poster.startsWith('/')
+  ? `${siteBase}${product.poster}`
+  : product.poster;
+
+// Related products (same category, excluding current)
+const related = store
+  .filter((p: any) => p.category === product.category && p.slug !== product.slug)
+  .slice(0, 4);
+---
+
+<Base
+  title={`${product.title} — Store · Achmad Zaini`}
+  description={product.description}
+  image={ogImage}
+>
+  <!-- Extra OG / Twitter meta injected into <head> via slot -->
+  <Fragment slot="head">
+    <!-- Canonical -->
+    <link rel="canonical" href={productUrl} />
+    <!-- Open Graph -->
+    <meta property="og:url"         content={productUrl} />
+    <meta property="og:type"        content="product" />
+    <meta property="og:title"       content={`${product.title} — ${product.price}`} />
+    <meta property="og:description" content={product.description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <!-- Twitter / X -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={`${product.title} — ${product.price}`} />
+    <meta name="twitter:description" content={product.description} />
+    <meta name="twitter:image"       content={ogImage} />
+    <!-- Product structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.title,
+      "description": product.description,
+      "image": ogImage,
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "IDR",
+        "url": product.checkoutLink,
+        "availability": "https://schema.org/InStock"
+      }
+    })} />
+  </Fragment>
+
+  <!-- ═══ Breadcrumb ═══ -->
+  <section class="product-page">
+    <div class="container">
+
+      <nav class="product-breadcrumb" aria-label="Breadcrumb">
+        <a href="/store">Store</a>
+        <span aria-hidden="true"> / </span>
+        <span class="product-breadcrumb__current">{product.category}</span>
+        <span aria-hidden="true"> / </span>
+        <span class="product-breadcrumb__current">{product.title}</span>
+      </nav>
+
+      <div class="product-layout">
+
+        <!-- ── Left: Media ── -->
+        <div class="product-media">
+          {getAsset(product.poster) ? (
+            <Image
+              src={getAsset(product.poster) as ImageMetadata}
+              alt={`${product.title} — digital product by Achmad Zaini`}
+              width={800}
+              quality={80}
+              loading="eager"
+              class="product-media__img"
+            />
+          ) : (
+            <img
+              src={product.poster}
+              alt={`${product.title} — digital product by Achmad Zaini`}
+              loading="eager"
+              class="product-media__img"
+            />
+          )}
+        </div>
+
+        <!-- ── Right: Info ── -->
+        <div class="product-info">
+          <span class="product-info__category section-label">{product.category}</span>
+          <h1 class="product-info__title">{product.title}</h1>
+          <p class="product-info__desc">{product.description}</p>
+
+          {product.features && product.features.length > 0 && (
+            <ul class="product-features">
+              {product.features.map((f: string) => (
+                <li class="product-features__item">
+                  <span class="product-features__dot" aria-hidden="true">—</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div class="product-info__price-row">
+            <span class="product-info__price">{product.price}</span>
+          </div>
+
+          <!-- Actions -->
+          <div class="product-actions">
+            <button
+              class="product-actions__buy"
+              id="product-buy-btn"
+              data-checkout-link={product.checkoutLink}
+              data-title={product.title}
+              data-price={product.price}
+              type="button"
+            >
+              Buy Now →
+            </button>
+
+            <button
+              class="product-actions__share"
+              id="product-share-btn"
+              data-url={productUrl}
+              data-title={product.title}
+              type="button"
+              aria-label="Copy shareable link"
+            >
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="10.5" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="10.5" cy="10.5" r="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="2.5" cy="6.5" r="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M4 6.5h4M9 3.5l-3 2.5M9 9.5l-3-2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span id="product-share-label">Share</span>
+            </button>
+          </div>
+
+          <!-- Shareable link display -->
+          <div class="product-link-box" id="product-link-box" hidden>
+            <span class="product-link-box__label">Shareable Link</span>
+            <div class="product-link-box__row">
+              <input
+                type="text"
+                class="product-link-box__input"
+                id="product-link-input"
+                value={productUrl}
+                readonly
+                aria-label="Shareable product URL"
+              />
+              <button class="product-link-box__copy" id="product-link-copy" type="button" aria-label="Copy link">
+                Copy
+              </button>
+            </div>
+          </div>
+
+          <p class="product-info__trust">
+            <span class="product-info__trust-dot" aria-hidden="true"></span>
+            Secure checkout via Lynk.id
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Related Products ── -->
+      {related.length > 0 && (
+        <section class="product-related">
+          <hr class="rule" />
+          <div class="product-related__header">
+            <h2 class="product-related__title">More {product.category} Products</h2>
+            <a href="/store" class="product-related__all">View All →</a>
+          </div>
+          <div class="store-grid">
+            {related.map((item: any) => (
+              <a
+                href={`/store/${item.slug}`}
+                class="store-cell"
+                id={`related-cell-${item.id}`}
+                aria-label={`${item.title} — ${item.price}`}
+              >
+                <div class="cell-meta">
+                  <span class="cell-title">{item.title}</span>
+                  <span class="cell-desc meta-muted">{item.description}</span>
+                  <span class="cell-price">{item.price}</span>
+                </div>
+                <hr class="cell-rule" />
+                <div class="cell-media">
+                  {getAsset(item.poster) ? (
+                    <Image
+                      src={getAsset(item.poster) as ImageMetadata}
+                      alt={item.title}
+                      width={400}
+                      quality={70}
+                      loading="lazy"
+                      class="cell-img"
+                    />
+                  ) : (
+                    <img src={item.poster} alt={item.title} loading="lazy" class="cell-img" />
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+    </div>
+  </section>
+
+  <!-- ═══ Redirect Prompt Modal ═══ -->
+  <div class="redirect-prompt" id="redirect-prompt" aria-modal="true" role="dialog" aria-label="Checkout confirmation" aria-hidden="true">
+    <div class="redirect-prompt__backdrop" id="rp-backdrop"></div>
+    <div class="redirect-prompt__dialog">
+      <span class="redirect-prompt__icon" aria-hidden="true">🔒</span>
+      <p class="redirect-prompt__title">Secure Checkout</p>
+      <p class="redirect-prompt__product" id="rp-product-name"></p>
+      <p class="redirect-prompt__body">
+        You are about to be redirected to <strong>Lynk.id</strong> to complete your purchase. Lynk.id is a trusted Indonesian payment platform.
+      </p>
+      <span class="redirect-prompt__price" id="rp-product-price"></span>
+      <div class="redirect-prompt__actions">
+        <button class="redirect-prompt__btn redirect-prompt__btn--cancel" id="rp-cancel" type="button">Cancel</button>
+        <button class="redirect-prompt__btn redirect-prompt__btn--confirm" id="rp-confirm" type="button">Continue to Checkout →</button>
+      </div>
+      <p class="redirect-prompt__trust">Powered by Lynk.id · Secure &amp; Trusted Payment</p>
+    </div>
+  </div>
+
+</Base>
+
+<script>
+  function initProductPage() {
+    // ── Buy button → redirect modal ──
+    const buyBtn = document.getElementById('product-buy-btn') as HTMLButtonElement | null;
+    const prompt = document.getElementById('redirect-prompt');
+    const promptBackdrop = document.getElementById('rp-backdrop');
+    const promptTitle   = document.getElementById('rp-product-name');
+    const promptPrice   = document.getElementById('rp-product-price');
+    const promptConfirm = document.getElementById('rp-confirm');
+    const promptCancel  = document.getElementById('rp-cancel');
+
+    let pendingUrl = '';
+
+    function openPrompt(title: string, price: string, url: string) {
+      pendingUrl = url;
+      if (promptTitle) promptTitle.textContent = title;
+      if (promptPrice) promptPrice.textContent = price;
+      prompt?.classList.add('redirect-prompt--active');
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('keydown', handleKey);
+    }
+
+    function closePrompt() {
+      prompt?.classList.remove('redirect-prompt--active');
+      document.body.style.overflow = '';
+      pendingUrl = '';
+      document.removeEventListener('keydown', handleKey);
+    }
+
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') closePrompt();
+    }
+
+    buyBtn?.addEventListener('click', () => {
+      const { checkoutLink, title, price } = buyBtn.dataset;
+      openPrompt(title || 'Product', price || '', checkoutLink || '');
+    });
+
+    promptConfirm?.addEventListener('click', () => {
+      if (pendingUrl) window.open(pendingUrl, '_blank', 'noopener,noreferrer');
+      closePrompt();
+    });
+    promptCancel?.addEventListener('click', closePrompt);
+    promptBackdrop?.addEventListener('click', closePrompt);
+
+    // ── Share button ──
+    const shareBtn   = document.getElementById('product-share-btn') as HTMLButtonElement | null;
+    const shareLabel = document.getElementById('product-share-label');
+    const linkBox    = document.getElementById('product-link-box');
+    const linkInput  = document.getElementById('product-link-input') as HTMLInputElement | null;
+    const linkCopy   = document.getElementById('product-link-copy');
+
+    shareBtn?.addEventListener('click', async () => {
+      const url   = shareBtn.dataset.url || window.location.href;
+      const title = shareBtn.dataset.title || document.title;
+
+      // Try native share sheet first (mobile)
+      if (navigator.share) {
+        try {
+          await navigator.share({ title, url });
+          return;
+        } catch { /* user cancelled or API unavailable */ }
+      }
+
+      // Fallback: show the link box
+      if (linkBox) {
+        const isOpen = !linkBox.hidden;
+        linkBox.hidden = isOpen;
+        shareBtn.setAttribute('aria-expanded', String(!isOpen));
+        if (!isOpen && linkInput) {
+          linkInput.select();
+          linkInput.focus();
+        }
+        if (shareLabel) shareLabel.textContent = isOpen ? 'Share' : 'Hide Link';
+      }
+    });
+
+    linkCopy?.addEventListener('click', async () => {
+      const url = linkInput?.value || window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        if (linkCopy) {
+          const orig = linkCopy.textContent;
+          linkCopy.textContent = 'Copied!';
+          setTimeout(() => { if (linkCopy) linkCopy.textContent = orig; }, 2000);
+        }
+      } catch {
+        linkInput?.select();
+      }
+    });
+  }
+
+  document.addEventListener('astro:page-load', initProductPage);
+</script>

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "prod_expr_v2",
+    "slug": "expression-panel-v2",
+    "title": "Expression Panel V2",
+    "description": "Supercharge your AE workflow with advanced expression management and quick-apply presets.",
+    "price": "Rp 150.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/expr_panel.png",
+    "category": "Motion Design",
+    "featured": true,
+    "features": [
+      "100+ Built-in Expressions",
+      "One-click Apply",
+      "Custom Expression Saving"
+    ]
+  },
+  {
+    "id": "prod_envato_sync",
+    "slug": "envato-music-sync",
+    "title": "Envato Music Sync",
+    "description": "Instantly search, preview, and download Envato Elements music directly inside Premiere Pro.",
+    "price": "Rp 95.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/envato_sync.png",
+    "category": "Video Editing",
+    "featured": true,
+    "features": [
+      "Native Premiere Panel",
+      "Auto Timeline Sync",
+      "High-Quality Previews"
+    ]
+  },
+  {
+    "id": "prod_audio_grabber",
+    "slug": "audio-grabber-ext",
+    "title": "Audio Grabber",
+    "description": "One-click Chrome extension to download high-quality audio formats from any webpage.",
+    "price": "Rp 45.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/audio_grabber.png",
+    "category": "Productivity",
+    "featured": true,
+    "features": [
+      "Lossless Extraction",
+      "Batch Download",
+      "No Ads or Tracking"
+    ]
+  },
+  {
+    "id": "prod_yt_fetcher",
+    "slug": "yt-fetcher",
+    "title": "YT Fetcher",
+    "description": "Fast, ad-free desktop app for downloading YouTube videos in up to 4K resolution.",
+    "price": "Rp 75.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/yt_fetcher.png",
+    "category": "Productivity",
+    "featured": false,
+    "features": [
+      "4K / 8K Support",
+      "Playlist Downloader",
+      "Subtitles Extraction"
+    ]
+  },
+  {
+    "id": "prod_whisper",
+    "slug": "whisper-transcribe",
+    "title": "Whisper Transcribe",
+    "description": "Offline, privacy-first audio transcription powered by OpenAI's Whisper model.",
+    "price": "Rp 250.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/whisper.png",
+    "category": "AI Tools",
+    "featured": false,
+    "features": [
+      "100% Offline Mode",
+      "99% Accuracy",
+      "SRT/VTT Export"
+    ]
+  },
+  {
+    "id": "prod_scribble",
+    "slug": "scribble-studio",
+    "title": "Scribble Studio",
+    "description": "Create trendy hand-drawn scribble animations over your videos in seconds.",
+    "price": "Rp 120.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/scribble.png",
+    "category": "Motion Design",
+    "featured": false,
+    "features": [
+      "50+ Animated Assets",
+      "Frame-by-Frame Look",
+      "Drag & Drop UI"
+    ]
+  },
+  {
+    "id": "prod_opal",
+    "slug": "opal-generator",
+    "title": "Opal Generator",
+    "description": "Generate stunning images instantly using Google's Nano Banana model API integration.",
+    "price": "Rp 180.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/opal.png",
+    "category": "AI Tools",
+    "featured": false,
+    "features": [
+      "Nano Banana Integration",
+      "Batch Generation",
+      "Commercial Use License"
+    ]
+  },
+  {
+    "id": "prod_live_scribe",
+    "slug": "live-scribe",
+    "title": "Live Scribe",
+    "description": "Real-time browser-based speech-to-text transcription using native Web APIs.",
+    "price": "Rp 50.000",
+    "checkoutLink": "http://lynk.id/azaynz/qgmnqzl2xwm2/checkout",
+    "poster": "/assets/store/live_scribe.png",
+    "category": "Productivity",
+    "featured": false,
+    "features": [
+      "Zero Latency",
+      "Multi-language Support",
+      "Text Export"
+    ]
+  }
+]

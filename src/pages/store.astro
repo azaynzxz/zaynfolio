@@ -1,0 +1,304 @@
+---
+import Base from '../layouts/Base.astro';
+import storeData from '../data/store.json';
+import '../styles/pages/store.css';
+import { Image } from 'astro:assets';
+
+const products = storeData.sort((a: any, b: any) => {
+  if (a.featured && !b.featured) return -1;
+  if (!a.featured && b.featured) return 1;
+  return 0;
+});
+
+// Import local assets for Astro Image optimization
+const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/store/*.{jpeg,jpg,png,gif,webp}', { eager: true });
+
+function getAsset(path: string) {
+  const key = `/src${path}`;
+  return assets[key] ? assets[key].default : null;
+}
+
+// Group store items by category
+const allCategories = [...new Set(products.map((item: any) => item.category))];
+
+const categorizedStore = allCategories.map((cat) => ({
+  name: cat,
+  slug: (cat as string).toLowerCase().replace(/[^a-z0-9]/g, '-'),
+  items: products.filter((item: any) => item.category === cat)
+}));
+---
+
+<Base title="Store — Achmad Zaini" description="Digital products by Achmad Zaini. Templates, presets, and design assets available for purchase via Lynk.id.">
+
+  <!-- ═══ Page Header ═══ -->
+  <section class="store-header">
+    <div class="container">
+
+      <!-- Banner image -->
+      <div class="store-banner-img-wrap">
+        <img src="/img/store-banner.png" alt="Achmad Zaini Digital Store" class="store-banner-img" loading="eager" />
+      </div>
+
+      <!-- Controls row -->
+      <div class="store-controls">
+        <div class="store-controls__left">
+          <!-- Category Dropdown -->
+          <div class="store-dropdown" id="store-dropdown">
+            <button class="store-dropdown__trigger" id="store-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="store-dropdown__label" id="store-dropdown-label">All Categories</span>
+              <svg class="store-dropdown__arrow" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M1.5 3.5L5 7L8.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="store-dropdown__menu" id="store-dropdown-menu" role="listbox" aria-label="Product categories">
+              <li class="store-dropdown__item store-dropdown__item--active" role="option" data-slug="all" aria-selected="true">All Categories</li>
+              {categorizedStore.map((group) => (
+                <li class="store-dropdown__item" role="option" data-slug={group.slug} aria-selected="false">{group.name}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="store-controls__right">
+          <!-- Search (always inline, icon-first, expands input) -->
+          <div class="store-search" id="store-search-wrapper">
+            <button class="store-search__btn" id="store-search-toggle" aria-label="Toggle search" aria-expanded="false">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="5.5" cy="5.5" r="4" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M9 9L12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              <span class="store-search__label">Search</span>
+            </button>
+            <div class="store-search__field" id="store-search-field">
+              <input
+                type="search"
+                id="store-search-input"
+                class="store-search__input"
+                placeholder="Search products…"
+                autocomplete="off"
+                aria-label="Search products"
+              />
+              <button class="store-search__clear" id="store-search-clear" aria-label="Clear" hidden>
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M1 1L7 7M7 1L1 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <span class="store-count" id="store-count">{products.length} products</span>
+        </div>
+      </div>
+
+      <hr class="rule reveal-line" />
+    </div>
+  </section>
+
+  <!-- ═══ No Results Message ═══ -->
+  <div class="store-no-results" id="store-no-results" aria-live="polite" hidden>
+    <p>No products match your search.</p>
+  </div>
+
+  <!-- ═══ Featured Section ═══ -->
+  {products.filter((p: any) => p.featured).length > 0 && (
+    <section class="store-grid-section" id="featured" data-category="featured">
+      <div class="container">
+        <div class="store-category-meta">
+          <h2 class="store-category-title">Featured</h2>
+          <span class="store-category-count" data-total={products.filter((p: any) => p.featured).length}>{products.filter((p: any) => p.featured).length} products</span>
+        </div>
+
+        <div class="store-grid store-grid--featured">
+        {products.filter((p: any) => p.featured).map((item: any, itemIdx: number) => (
+          <button
+            class={`store-cell ${item.category.toLowerCase().replace(/ /g, '-')}`}
+            data-id={item.id}
+            data-checkout-link={item.checkoutLink}
+            data-title={item.title}
+            data-title-search={item.title.toLowerCase()}
+            data-desc={item.description || ''}
+            data-desc-search={(item.description || '').toLowerCase()}
+            data-price={item.price}
+            data-category={item.category}
+            data-poster={item.poster}
+            data-slug={item.slug}
+            data-features={JSON.stringify(item.features || [])}
+            id={`cell-feat-${item.id}`}
+            type="button"
+            aria-label={`View ${item.title} — ${item.price}`}
+          >
+            <!-- Image Block -->
+            <div class="cell-media">
+              {getAsset(item.poster) ? (
+                <Image
+                  src={getAsset(item.poster) as ImageMetadata}
+                  alt={`${item.title} — digital product by Achmad Zaini`}
+                  width={600}
+                  quality={75}
+                  loading={itemIdx < 8 ? 'eager' : 'lazy'}
+                  decoding={itemIdx < 8 ? 'sync' : 'async'}
+                  class="cell-img"
+                />
+              ) : (
+                <img
+                  src={item.poster}
+                  alt={`${item.title} — digital product by Achmad Zaini`}
+                  loading={itemIdx < 8 ? 'eager' : 'lazy'}
+                  decoding={itemIdx < 8 ? 'sync' : 'async'}
+                  class="cell-img"
+                />
+              )}
+            </div>
+
+            <hr class="cell-rule" />
+
+            <!-- Meta Block -->
+            <div class="cell-meta">
+              <span class="cell-title">{item.title}</span>
+              <span class="cell-desc meta-muted">{item.description}</span>
+              <span class="cell-price">{item.price}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══ Categorized Sections ═══ -->
+  {categorizedStore.map((group) => (
+    <section class="store-grid-section" id={group.slug} data-category={group.slug}>
+      <div class="container">
+        <div class="store-category-meta">
+          <h2 class="store-category-title">{group.name}</h2>
+          <span class="store-category-count" data-total={group.items.length}>{group.items.length} products</span>
+        </div>
+
+        <div class="store-grid">
+          {group.items.map((item: any, itemIdx: number) => (
+            <button
+              class={`store-cell ${item.category.toLowerCase().replace(/ /g, '-')}`}
+              data-id={item.id}
+              data-checkout-link={item.checkoutLink}
+              data-title={item.title}
+              data-title-search={item.title.toLowerCase()}
+              data-desc={item.description || ''}
+              data-desc-search={(item.description || '').toLowerCase()}
+              data-price={item.price}
+              data-category={item.category}
+              data-poster={item.poster}
+              data-slug={item.slug}
+              data-features={JSON.stringify(item.features || [])}
+              id={`cell-${item.id}`}
+              type="button"
+              aria-label={`View ${item.title} — ${item.price}`}
+            >
+              <!-- Image Block -->
+              <div class="cell-media">
+                {getAsset(item.poster) ? (
+                  <Image
+                    src={getAsset(item.poster) as ImageMetadata}
+                    alt={`${item.title} — digital product by Achmad Zaini`}
+                    width={600}
+                    quality={75}
+                    loading={itemIdx < 8 ? 'eager' : 'lazy'}
+                    decoding={itemIdx < 8 ? 'sync' : 'async'}
+                    class="cell-img"
+                  />
+                ) : (
+                  <img
+                    src={item.poster}
+                    alt={`${item.title} — digital product by Achmad Zaini`}
+                    loading={itemIdx < 8 ? 'eager' : 'lazy'}
+                    decoding={itemIdx < 8 ? 'sync' : 'async'}
+                    class="cell-img"
+                  />
+                )}
+              </div>
+
+              <hr class="cell-rule" />
+
+              <!-- Meta Block -->
+              <div class="cell-meta">
+                <span class="cell-title">{item.title}</span>
+                <span class="cell-desc meta-muted">{item.description}</span>
+                <span class="cell-price">{item.price}</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- ═══ Product Bottom Sheet ═══ -->
+  <div class="sheet-backdrop" id="sheet-backdrop" aria-hidden="true"></div>
+  <div class="sheet" id="product-sheet" role="dialog" aria-modal="true" aria-label="Product details" aria-hidden="true">
+    <div class="sheet__handle" id="sheet-handle" aria-hidden="true"></div>
+
+    <div class="sheet__inner">
+      <!-- Header row -->
+      <div class="sheet__header">
+        <div class="sheet__header-meta">
+          <span class="sheet__category" id="sheet-category"></span>
+          <h2 class="sheet__title" id="sheet-title"></h2>
+        </div>
+        <button class="sheet__close" id="sheet-close" aria-label="Close" type="button">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <hr class="sheet__rule" />
+
+      <!-- Body: image + info -->
+      <div class="sheet__body">
+        <div class="sheet__media">
+          <img src="" alt="" class="sheet__img" id="sheet-img" />
+        </div>
+
+        <div class="sheet__info">
+          <p class="sheet__desc" id="sheet-desc"></p>
+
+          <ul class="sheet__features" id="sheet-features"></ul>
+
+          <div class="sheet__price-row">
+            <span class="sheet__price" id="sheet-price"></span>
+            <a class="sheet__permalink" id="sheet-permalink" href="#" target="_blank" rel="noopener noreferrer" aria-label="Shareable product link">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M5 2H2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V7M7.5 1H11m0 0v3.5M11 1l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              zaynfolio.com/store/<span id="sheet-slug"></span>
+            </a>
+          </div>
+
+          <div class="sheet__actions">
+            <button class="sheet__buy" id="sheet-buy" type="button" data-checkout-link="">
+              Buy Now →
+            </button>
+            <button class="sheet__share" id="sheet-share" type="button" aria-label="Share product">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="10.5" cy="2.5" r="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="10.5" cy="10.5" r="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="2.5" cy="6.5" r="1.5" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M4 6.5h4M9 3.5l-3 2.5M9 9.5l-3-2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              Share
+            </button>
+            <button class="sheet__copy" id="sheet-copy-btn" type="button" aria-label="Copy link">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="3.5" y="3.5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.3"/>
+                <path d="M9.5 3.5v-1a1 1 0 00-1-1h-6a1 1 0 00-1 1v6a1 1 0 001 1h1" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</Base>
+
+<script src="../scripts/pages/store.ts"></script>
