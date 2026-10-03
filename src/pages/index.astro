@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import projects from '../data/projects.json';
 import '../styles/pages/index.css';
 import { Image } from 'astro:assets';
+import VideoPlayer from '../components/VideoPlayer.astro';
 
 // Import local assets for Astro Image optimization
 const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/work/**/*.{jpeg,jpg,png,gif,webp}', { eager: true });
@@ -13,118 +14,198 @@ function getAsset(path: string) {
   return assets[key] ? assets[key].default : null;
 }
 
-const featured = projects.filter((p: any) => p.featured);
+// ── Hero deck ────────────────────────────────────────────────
+// Order = left-to-right position in the fan. The center slot gets the
+// strongest piece. On mobile the first and last cards are hidden.
+// 05: Lampung Manuscript AR Flashcard (replaces Bukber)
+const HERO_IDS = ['05', '03', '07', '02', '08', '01', '09'];
+const SHOWREEL_ID = '01';
+
+const SLOTS = [
+  { xMul: -3.0, y: 40,  rot: -14.4, xmMul: 0,    ym: 0,   rotM: 0,    hiddenMobile: true },
+  { xMul: -2.0, y: 18,  rot: -9.6,  xmMul: -1.8, ym: 18,  rotM: -9.6, hiddenMobile: false },
+  { xMul: -1.0, y: 4.5, rot: -4.8,  xmMul: -0.9, ym: 4.5, rotM: -4.8, hiddenMobile: false },
+  { xMul: 0,    y: 0,   rot: 0,     xmMul: 0,    ym: 0,   rotM: 0,    hiddenMobile: false },
+  { xMul: 1.0,  y: 4.5, rot: 4.8,   xmMul: 0.9,  ym: 4.5, rotM: 4.8,  hiddenMobile: false },
+  { xMul: 2.0,  y: 18,  rot: 9.6,   xmMul: 1.8,  ym: 18,  rotM: 9.6,  hiddenMobile: false },
+  { xMul: 3.0,  y: 40,  rot: 14.4,  xmMul: 0,    ym: 0,   rotM: 0,    hiddenMobile: true },
+];
+
+const deck = HERO_IDS
+  .map((id) => projects.find((p: any) => p.id === id))
+  .filter(Boolean)
+  .map((project: any, i: number) => {
+    const slot = SLOTS[i] || SLOTS[3];
+    return {
+      project,
+      slot,
+      fullSrc: project.video || project.previewWebm || project.preview,
+      poster: getAsset(project.poster),
+    };
+  });
+
+const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
 ---
 
 <Base title="Achmad Zaini — Motion Graphics Designer & Video Editor">
-  <!-- ═══ Hero Section ═══ -->
-  <section class="hero section--large" id="hero">
-    <div class="container">
-      <div class="hero__top">
-        <span class="section-label">Portfolio — 2025</span>
-        <span class="hero__meta">&copy; {new Date().getFullYear()}</span>
+  <!-- ═══ Hero Section — Fanned Project Deck ═══ -->
+  <section class="hero" id="hero" aria-labelledby="hero-headline">
+    <div class="container hero__inner">
+      <p class="hero__eyebrow" data-hero-fade>
+        Achmad Zaini <span class="hero__eyebrow-sep" aria-hidden="true">/</span> Motion Graphics Designer &amp; Video Editor
+      </p>
+
+      <h1 class="hero__headline" id="hero-headline">
+        <span class="hero__line"><span class="hero__line-inner">Motion design that</span></span>
+        <span class="hero__line"><span class="hero__line-inner">makes stories move.</span></span>
+      </h1>
+
+      <!-- Fanned deck matching reference layout -->
+      <div class="hero-deck" id="hero-deck">
+        <span class="hero-bubble hero-bubble--left" aria-hidden="true">@azaynz</span>
+        <span class="hero-bubble hero-bubble--right" aria-hidden="true">90+ explainers shipped</span>
+
+        <div class="hero-deck__track">
+          {deck.map(({ project, slot, fullSrc, poster }, i) => (
+            <button
+              type="button"
+              class:list={['hero-card', { 'hero-card--mobile-hidden': slot.hiddenMobile }]}
+              id={`hero-card-${project.slug}`}
+              style={`--x-mul:${slot.xMul};--y:${slot.y}px;--rot:${slot.rot}deg;--xm-mul:${slot.xmMul};--ym:${slot.ym}px;--rot-m:${slot.rotM}deg;z-index:${10 + i};`}
+              data-id={project.id}
+              data-slug={project.slug}
+              data-title={project.title}
+              data-client={project.client}
+              data-role={project.role || 'Motion Designer'}
+              data-year={project.year}
+              data-desc={project.description}
+              data-full={fullSrc}
+              data-poster={project.poster || ''}
+              aria-label={`Play ${project.title}`}
+            >
+              <span class="hero-card__media">
+                {poster && (
+                  <Image
+                    src={poster as ImageMetadata}
+                    alt=""
+                    width={480}
+                    quality={80}
+                    loading="eager"
+                    class="hero-card__poster"
+                  />
+                )}
+                {project.preview && (
+                  <video
+                    class="hero-card__video"
+                    src={`${project.previewWebm || project.preview}#t=0.001`}
+                    muted
+                    loop
+                    playsinline
+                    preload="auto"
+                    aria-hidden="true"
+                  />
+                )}
+              </span>
+              <span class="hero-card__shine" aria-hidden="true"></span>
+              <span class="hero-card__caption">
+                <span class="hero-card__caption-title">{project.title}</span>
+                <span class="hero-card__caption-meta">{project.year}</span>
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
-      <hr class="rule reveal-line" />
-      <div class="hero__content">
-        <h1 class="hero__title">Achmad Zaini</h1>
-        <p class="hero__subtitle">
-          Motion Graphics Designer<br />&amp; Video Editor
-        </p>
+
+      <p class="hero__lede" data-hero-fade>
+        Five years crafting high-retention explainers, 2D animation systems,
+        and automated After Effects workflows for studios and brands worldwide.
+      </p>
+
+      <div class="hero__actions" data-hero-fade>
+        <a href="/work" class="hero__btn hero__btn--primary">View all work</a>
+        {showreel && (
+          <button
+            type="button"
+            class="hero__btn hero__btn--ghost"
+            id="hero-showreel-btn"
+            data-id={showreel.id}
+            data-slug={showreel.slug}
+            data-title={showreel.title}
+            data-client={showreel.client}
+            data-role={showreel.role || 'Motion Designer'}
+            data-year={showreel.year}
+            data-desc={showreel.description}
+            data-full={showreel.video || showreel.previewWebm || showreel.preview}
+            data-poster={showreel.poster || ''}
+          >
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5V2.5Z" /></svg>
+            Watch showreel
+          </button>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Fullscreen Lightbox Modal (Swiss Rationalist VideoPlayer) ═══ -->
+  <div class="work-modal" id="hero-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="wm-title">
+    <div class="work-modal__backdrop" id="wm-backdrop" data-hero-modal-close></div>
+    <button class="work-modal__close" id="wm-close" data-hero-modal-close aria-label="Close modal">&times;</button>
+    
+    <div class="work-modal__container" id="wm-container">
+      <!-- Pinned Media (top portion 55vh, or 16:9 box) -->
+      <div class="work-modal__media-container" id="wm-media-container">
+        <div class="work-modal__media" id="wm-media">
+          <div id="wm-custom-player-wrapper" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <VideoPlayer src="" id="hero-modal-player" />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Scrollable Details (bottom portion) -->
+      <div class="work-modal__details" id="wm-details">
+        <div class="work-modal__details-top">
+          <div class="work-modal__header">
+            <span class="work-modal__index" id="wm-index">01</span>
+            <h2 class="work-modal__title" id="wm-title">Project Title</h2>
+          </div>
+          
+          <div class="work-modal__meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Client</span>
+              <span class="meta-val" id="wm-client">Client Name</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Role</span>
+              <span class="meta-val" id="wm-role">Role</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Year</span>
+              <span class="meta-val" id="wm-year">2024</span>
+            </div>
+          </div>
+        </div>
         
-        <button class="hero__scroll-btn reveal" id="scroll-to-work" aria-label="Scroll to Selected Work">
-          <span class="hero__scroll-text">Selected Work</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 4v16m0 0l-6-6m6 6l6-6"/>
-          </svg>
-        </button>
-      </div>
-      <div class="hero__bottom">
-        <div class="hero__info">
-          <p class="hero__tagline reveal">
-            Five years crafting high-retention video content,<br />
-            2D animation systems, and automated workflows.
-          </p>
-          <span class="hero__location reveal">Palembang, Indonesia</span>
+        <hr class="rule" />
+        
+        <div class="work-modal__body">
+          <p id="wm-desc">Project description goes here.</p>
+        </div>
+
+        <div class="work-modal__footer">
+          <a href="/work" class="work-modal__link" id="wm-link">
+            View full case study
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ═══ Featured Work — Sneak Peek (Khazar cards) ═══ -->
-  <section class="peek section" id="work-peek">
-    <div class="container">
-      <div class="peek__header">
-        <span class="section-label">01 — Selected Work</span>
-      </div>
-      <hr class="rule reveal-line" />
-
-      <div class="peek__grid">
-        {featured.map((project: any) => (
-          <article class="peek-card" id={`peek-${project.slug}`}>
-            <a href={`/work?project=${project.id}`} class="peek-card__link">
-              <p class="peek-card__desc">{project.description}</p>
-
-              <div class="peek-card__date-row">
-                <span class="peek-card__number">{project.id}</span>
-                <div class="peek-card__date-meta">
-                  <span class="peek-card__year">{project.year}</span>
-                  <span class="peek-card__role">{project.role}</span>
-                </div>
-              </div>
-
-              <div class="peek-card__thumb">
-                {project.preview ? (
-                  <video
-                    src={project.previewWebm || project.preview}
-                    autoplay
-                    loop
-                    muted
-                    playsinline
-                    preload="auto"
-                  />
-                ) : (
-                  getAsset(project.poster) ? (
-                    <Image
-                      src={getAsset(project.poster) as ImageMetadata}
-                      alt={project.title}
-                      width={600}
-                      quality={80}
-                      loading="eager"
-                    />
-                  ) : (
-                    <img src={project.poster} alt={project.title} loading="eager" />
-                  )
-                )}
-              </div>
-
-              <div class="peek-card__footer">
-                <div class="peek-card__tags">
-                  {project.category.map((cat: string) => (
-                    <span class="tag">{cat}</span>
-                  ))}
-                </div>
-                <span class="peek-card__cta">More info <span class="arrow">→</span></span>
-              </div>
-            </a>
-          </article>
-        ))}
-      </div>
-
-      <!-- View All CTA -->
-      <div class="peek__cta">
-        <a href="/work" class="peek__cta-btn">
-          <span>View all projects</span>
-          <span class="peek__cta-count">{projects.length}</span>
-        </a>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- ═══ Process Section ═══ -->
   <section class="process section" id="process">
     <div class="container">
       <div class="process__header reveal">
-        <span class="section-label">02 — Process</span>
+        <span class="section-label">01 — Process</span>
       </div>
       <hr class="rule reveal-line" />
       <div class="process__grid grid">

@@ -65,7 +65,8 @@ function getAsset(path: string) {
               <div class="event-card__thumb-strip">
                 {project.preview ? (
                   <video
-                    src={project.previewWebm || project.preview}
+                    src={`${project.previewWebm || project.preview}#t=0.001`}
+                    poster={project.poster || ''}
                     autoplay
                     loop
                     muted
@@ -135,7 +136,8 @@ function getAsset(path: string) {
               <div class="listing-row__thumb">
                 {project.preview ? (
                   <video
-                    src={project.previewWebm || project.preview}
+                    src={`${project.previewWebm || project.preview}#t=0.001`}
+                    poster={project.poster || ''}
                     autoplay
                     loop
                     muted
@@ -183,6 +185,8 @@ function getAsset(path: string) {
           </article>
         ))}
       </div>
+    </div>
+  </section>
 
   <!-- ═══ Work Lightbox Modal ═══ -->
   <div class="work-modal" id="work-modal" aria-hidden="true">

@@ -6,6 +6,15 @@ function initWork() {
   const tabs = document.querySelectorAll<HTMLButtonElement>('.listing-filter__tab');
   if (!tabs.length) return; // Only run on work listing page!
 
+  // ── Prime & autoplay thumbnail videos across page loads ──
+  document.querySelectorAll<HTMLVideoElement>('.work-thumbnail-video').forEach((v) => {
+    v.muted = true;
+    if (v.readyState < 2) {
+      v.load();
+    }
+    v.play().catch(() => {});
+  });
+
   // ── Title slide-up entrance (Gallery-style) ────────
   gsap.fromTo('.work-big-title', { y: '100%', autoAlpha: 0 }, { y: '0%', autoAlpha: 1, duration: 0.8, ease: 'power4.out' });
 

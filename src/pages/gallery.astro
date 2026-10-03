@@ -82,9 +82,9 @@ const categorizedGallery = allCategories.map((cat) => ({
               <div class="cell-media">
                 {item.isAnimated && item.preview ? (
                   <video
-                    src={item.previewWebm || item.preview}
-                    poster={item.poster}
-                    preload="none"
+                    src={`${item.previewWebm || item.preview}#t=0.001`}
+                    poster={item.poster || ''}
+                    preload="auto"
                     muted
                     loop
                     playsinline

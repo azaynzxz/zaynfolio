@@ -253,46 +253,6 @@ const currentPath = Astro.url.pathname;
           });
         }
 
-        // Hero text reveal
-        const heroTitle = document.querySelector('.hero__title');
-        if (heroTitle) {
-          const words = heroTitle.textContent?.split(' ') || [];
-          heroTitle.innerHTML = words
-            .map((word) => `<span class="hero__word"><span class="hero__word-inner">${word}</span></span>`)
-            .join(' ');
-
-          gsap.fromTo('.hero__word-inner', { y: '110%' }, {
-            y: '0%',
-            duration: 1,
-            stagger: 0.08,
-            ease: 'power4.out',
-            delay: 0.3,
-          });
-        }
-
-        // Hero subtitle reveal
-        const heroSubtitle = document.querySelector('.hero__subtitle');
-        if (heroSubtitle) {
-          gsap.fromTo(heroSubtitle, { autoAlpha: 0, y: 20 }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            delay: 1,
-          });
-        }
-
-        // Hero meta reveal
-        const heroMeta = document.querySelector('.hero__meta');
-        if (heroMeta) {
-          gsap.fromTo(heroMeta, { autoAlpha: 0 }, {
-            autoAlpha: 1,
-            duration: 0.8,
-            ease: 'power3.out',
-            delay: 1.2,
-          });
-        }
-
         // Initialize Lenis scroll asynchronously in the background
         initLenis();
 

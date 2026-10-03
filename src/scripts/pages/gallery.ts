@@ -6,6 +6,14 @@ function initGallery() {
   const cells = document.querySelectorAll<HTMLElement>('.gallery-cell');
   if (!cells.length) return; // Only run on gallery page!
 
+  // ── Prime videos for instant thumbnail rendering ────
+  document.querySelectorAll<HTMLVideoElement>('.cell-video').forEach((video) => {
+    video.muted = true;
+    if (video.readyState < 2) {
+      video.load();
+    }
+  });
+
   // ── Hover-to-Play Video ──────────────────────────────
   const hoverVideos = document.querySelectorAll<HTMLVideoElement>('[data-hover-video]');
   hoverVideos.forEach(video => {
@@ -109,7 +117,7 @@ function initGallery() {
   }
 
   // Cell click → open lightbox
-  cells.forEach((cell, i) => {
+  cells.forEach((cell) => {
     cell.addEventListener('click', () => {
       const visibleList = getVisibleCells();
       const idx = visibleList.indexOf(cell);
