@@ -35,6 +35,10 @@ function initWork() {
         if (show) {
           row.style.display = '';
           visible++;
+          const indexEl = row.querySelector<HTMLElement>('.listing-row__index');
+          if (indexEl) {
+            indexEl.textContent = String(visible).padStart(2, '0');
+          }
           gsap.fromTo(row, { autoAlpha: 0, y: 14 }, {
             autoAlpha: 1, y: 0, duration: 0.4,
             ease: 'power3.out', delay: visible * 0.04
@@ -240,7 +244,7 @@ function initWork() {
       const projectId = link.dataset.id;
       const href = link.getAttribute('href');
       
-      if (href && href.startsWith('/gallery')) return;
+      if (href && (href.startsWith('/gallery') || href.startsWith('/read/') || href.startsWith('/brandbook'))) return;
       
       e.preventDefault();
       

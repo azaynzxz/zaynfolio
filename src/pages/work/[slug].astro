@@ -57,6 +57,18 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
             <span class="meta-val">{project.category.join(' / ')}</span>
           </div>
         </div>
+
+        {project.flipbookUrl && (
+          <div style="margin-top: 2rem;">
+            <a href={project.flipbookUrl} style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.6rem; border-radius: 4px; background: #ffffff; color: #08080a; font-weight: 600; text-decoration: none; font-size: 0.92rem; transition: opacity 0.2s;">
+              <span>Open Interactive Brandbook</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </a>
+          </div>
+        )}
       </div>
       
       <div class="project-hero__right">
@@ -70,6 +82,10 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
             muted={true}
             class="project-hero__media"
           />
+        ) : project.flipbookUrl ? (
+          <a href={project.flipbookUrl} style="display: block; position: relative; overflow: hidden; border-radius: 6px;" title="Open interactive brandbook">
+            <img src={project.poster} alt={project.title} class="project-hero__media" style="width: 100%; height: auto; display: block;" />
+          </a>
         ) : (
           getAsset(project.poster) ? (
             <Image

@@ -4,6 +4,7 @@ import projects from '../data/projects.json';
 import '../styles/pages/index.css';
 import { Image } from 'astro:assets';
 import VideoPlayer from '../components/VideoPlayer.astro';
+import FeaturedEpisodes from '../components/FeaturedEpisodes.astro';
 
 // Import local assets for Astro Image optimization
 const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/work/**/*.{jpeg,jpg,png,gif,webp}', { eager: true });
@@ -47,23 +48,26 @@ const deck = HERO_IDS
 const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
 ---
 
-<Base title="Achmad Zaini — Motion Graphics Designer & Video Editor">
+<Base
+  title="Achmad Zaini | 2D Motion Designer for YouTube and Marketing"
+  description="Rigged 2D motion for YouTube series and marketing posters. 124 episodes delivered, production team supervised. Remote worldwide."
+>
   <!-- ═══ Hero Section — Fanned Project Deck ═══ -->
   <section class="hero" id="hero" aria-labelledby="hero-headline">
     <div class="container hero__inner">
       <p class="hero__eyebrow" data-hero-fade>
-        Achmad Zaini <span class="hero__eyebrow-sep" aria-hidden="true">/</span> Motion Graphics Designer &amp; Video Editor
+        Achmad Zaini <span class="hero__eyebrow-sep" aria-hidden="true">/</span> 2D motion designer, Palembang, Indonesia
       </p>
 
       <h1 class="hero__headline" id="hero-headline">
-        <span class="hero__line"><span class="hero__line-inner">Motion design that</span></span>
-        <span class="hero__line"><span class="hero__line-inner">makes stories move.</span></span>
+        <span class="hero__line"><span class="hero__line-inner">2D animation that keeps</span></span>
+        <span class="hero__line"><span class="hero__line-inner">YouTube viewers watching.</span></span>
       </h1>
 
       <!-- Fanned deck matching reference layout -->
       <div class="hero-deck" id="hero-deck">
         <span class="hero-bubble hero-bubble--left" aria-hidden="true">@azaynz</span>
-        <span class="hero-bubble hero-bubble--right" aria-hidden="true">90+ explainers shipped</span>
+        <span class="hero-bubble hero-bubble--right" aria-hidden="true">124 YouTube episodes</span>
 
         <div class="hero-deck__track">
           {deck.map(({ project, slot, fullSrc, poster }, i) => (
@@ -117,12 +121,12 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
       </div>
 
       <p class="hero__lede" data-hero-fade>
-        Five years crafting high-retention explainers, 2D animation systems,
-        and automated After Effects workflows for studios and brands worldwide.
+        I turn illustrations into animated YouTube episodes using character rigs,
+        sound design and VFX. 124 episodes delivered, and I supervise the production team.
       </p>
 
       <div class="hero__actions" data-hero-fade>
-        <a href="/work" class="hero__btn hero__btn--primary">View all work</a>
+        <a href="/contact" class="hero__btn hero__btn--primary" id="hero-start-project">Start a project</a>
         {showreel && (
           <button
             type="button"
@@ -139,9 +143,10 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
             data-poster={showreel.poster || ''}
           >
             <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5V2.5Z" /></svg>
-            Watch showreel
+            Watch the showreel
           </button>
         )}
+        <a href="/work" class="hero__textlink" id="hero-see-work">See all work</a>
       </div>
     </div>
   </section>
@@ -201,6 +206,9 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
     </div>
   </div>
 
+  <!-- ═══ Featured YouTube Episodes ═══ -->
+  <FeaturedEpisodes />
+
   <!-- ═══ Brief About Section ═══ -->
   <section class="about-peek section" id="about">
     <div class="container">
@@ -213,14 +221,14 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
       <div class="about-peek__grid grid">
         <div class="about-peek__main col-7 col-md-4 reveal">
           <h2 class="about-peek__heading">
-            Motion systems crafted with precision, scalability, and speed.
+            Animation made to be watched, delivered on schedule.
           </h2>
           <p class="about-peek__lead">
-            I'm Achmad Zaini, a motion graphics designer, video editor, and technical artist with five years of experience crafting high-retention explainers, modular 2D character rigs, and automated After Effects scripting pipelines for studios and brands worldwide.
+            I'm Achmad Zaini, a 2D motion designer based in Palembang. At a Jakarta studio I turn illustrators' artwork into animated YouTube episodes with After Effects rigs, sound design and VFX, and I supervise the production team. I also design motion posters for marketing.
           </p>
           <div class="about-peek__actions">
             <a href="/contact" class="about-peek__btn about-peek__btn--primary">
-              Get in touch
+              Start a project
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -230,26 +238,26 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
 
         <div class="about-peek__stats col-5 col-md-4 reveal">
           <div class="stat-card">
-            <span class="stat-card__num">90+</span>
+            <span class="stat-card__num">124</span>
             <div class="stat-card__info">
-              <span class="stat-card__label">Explainers Shipped</span>
-              <p class="stat-card__desc">Commercial explainers, brand motion systems, and digital product videos.</p>
+              <span class="stat-card__label">YouTube Episodes Delivered</span>
+              <p class="stat-card__desc">Animated series episodes for YouTube channels, as of September 2026.</p>
             </div>
           </div>
 
           <div class="stat-card">
-            <span class="stat-card__num">80%</span>
+            <span class="stat-card__num">Lead</span>
             <div class="stat-card__info">
-              <span class="stat-card__label">Turnaround Savings</span>
-              <p class="stat-card__desc">Accelerated workflows via custom After Effects scripting and expressions.</p>
+              <span class="stat-card__label">Production Supervisor</span>
+              <p class="stat-card__desc">I supervise the illustration, animation and editing team so episodes ship on schedule.</p>
             </div>
           </div>
 
           <div class="stat-card">
-            <span class="stat-card__num">3.78</span>
+            <span class="stat-card__num">2D</span>
             <div class="stat-card__info">
-              <span class="stat-card__label">Academic Honors</span>
-              <p class="stat-card__desc">Bachelor of Design (S.Ds.) in Visual Communication Design &bull; Cum Laude.</p>
+              <span class="stat-card__label">Rigged Motion</span>
+              <p class="stat-card__desc">Static illustrations rigged in After Effects, with sound design and VFX.</p>
             </div>
           </div>
         </div>
@@ -267,18 +275,18 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
       <div class="process__grid grid">
         <div class="process__item col-4 col-md-4 reveal">
           <span class="process__number">01</span>
-          <h3 class="process__title">Concept & Script</h3>
-          <p class="process__desc">Collaborate with clients and scriptwriters to define visual direction, pacing, and narrative structure.</p>
+          <h3 class="process__title">Script & Storyboard</h3>
+          <p class="process__desc">Read the script with you, agree on pacing, and plan each scene before any animation starts.</p>
         </div>
         <div class="process__item col-4 col-md-4 reveal">
           <span class="process__number">02</span>
-          <h3 class="process__title">Design & Animate</h3>
-          <p class="process__desc">Build motion systems using After Effects expressions, 2D character rigging, and kinetic typography.</p>
+          <h3 class="process__title">Rig & Animate</h3>
+          <p class="process__desc">Take the illustrators' artwork, rig the characters in After Effects, and animate every scene.</p>
         </div>
         <div class="process__item col-4 col-md-4 reveal">
           <span class="process__number">03</span>
-          <h3 class="process__title">Deliver & Optimize</h3>
-          <p class="process__desc">Finalize with SFX, color grading, and format optimization for platform-specific requirements.</p>
+          <h3 class="process__title">Sound, VFX & Delivery</h3>
+          <p class="process__desc">Add sound design and VFX, then deliver the episode in the format your channel needs.</p>
         </div>
       </div>
     </div>

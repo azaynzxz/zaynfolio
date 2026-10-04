@@ -1,0 +1,14 @@
+---
+import FlipbookViewer from '../components/FlipbookViewer.astro';
+
+const pages = Array.from({ length: 12 }, (_, i) => {
+  const num = String(i + 1).padStart(2, '0');
+  return `/assets/pdf/id-card-lampung/page_${num}.webp`;
+});
+---
+
+<FlipbookViewer
+  title="Brandbook ID Card Lampung"
+  pages={pages}
+  backUrl="/"
+/>

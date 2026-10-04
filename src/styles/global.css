@@ -357,6 +357,7 @@ html.js .gallery-cell {
 ::view-transition-new(root) {
   animation-duration: 0.5s;
   animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  mix-blend-mode: normal;
 }
 
 ::view-transition-old(root) {

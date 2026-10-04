@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'Achmad Zaini — Motion Graphics Designer',
-  description = 'Portfolio of Achmad Zaini. Video Editor and Motion Graphics Designer with five years of experience in high-retention editing, 2D animation rigging, and automated After Effects workflows.'
+  title = 'Achmad Zaini | 2D Motion Designer for YouTube and Marketing',
+  description = 'Portfolio of Achmad Zaini, a 2D motion designer. Rigged 2D motion for YouTube series and marketing posters, with 124 episodes delivered. Remote worldwide.'
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -31,6 +31,10 @@ const currentPath = Astro.url.pathname;
     {Astro.props.image && <meta property="og:image" content={Astro.props.image.startsWith('http') ? Astro.props.image : new URL(Astro.props.image, Astro.site || 'https://zaynfolio.com')} />}
 
     <title>{title}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
 
     <!-- Fonts: DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -67,7 +71,34 @@ const currentPath = Astro.url.pathname;
     <nav class="nav" id="main-nav">
       <div class="container">
         <div class="nav__inner">
-          <a href="/" class="nav__logo" id="nav-logo">AZ</a>
+          <div class="nav__brand" id="nav-brand">
+            <a
+              href="/"
+              class="nav__avatar-link"
+              id="nav-avatar-link"
+              aria-label="Achmad Zaini - Back to Home"
+              title="Achmad Zaini - Home"
+            >
+              <img
+                src="/img/avatar_bw.webp"
+                alt="Achmad Zaini"
+                class="nav__avatar-img"
+                width="36"
+                height="36"
+                loading="eager"
+              />
+            </a>
+            <button
+              type="button"
+              class="nav__avatar-details-btn"
+              id="nav-avatar-details-btn"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-label="View full photo details"
+            >
+              See Details
+            </button>
+          </div>
           <div class="nav__links">
             <a href="/work" class:list={["nav__link", { "nav__link--active": currentPath === "/work" || currentPath === "/work/" }]} id="nav-work">Work</a>
             <a href="/gallery" class:list={["nav__link", { "nav__link--active": currentPath === "/gallery" || currentPath === "/gallery/" }]} id="nav-gallery">Gallery</a>
@@ -89,12 +120,112 @@ const currentPath = Astro.url.pathname;
       </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu" id="mobile-menu">
-      <div class="mobile-menu__inner">
-        <a href="/work" class="mobile-menu__link">Work</a>
-        <a href="/gallery" class="mobile-menu__link">Gallery</a>
-        <a href="/contact" class="mobile-menu__link">Contact</a>
+    <!-- Mobile Navigation Dropdown -->
+    <div class="mobile-dropdown-backdrop" id="mobile-dropdown-backdrop"></div>
+    <div class="mobile-dropdown" id="mobile-dropdown" aria-hidden="true" role="dialog" aria-label="Mobile navigation">
+      <div class="container">
+        <div class="mobile-dropdown__inner">
+          <ul class="mobile-dropdown__list">
+            <li class="mobile-dropdown__item">
+              <a href="/" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/" }]}>
+                <span class="mobile-dropdown__num">00</span>
+                <span class="mobile-dropdown__title">Home</span>
+                <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M4 12l8-8M12 12V4H4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+            <li class="mobile-dropdown__item">
+              <a href="/work" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/work" || currentPath === "/work/" }]}>
+                <span class="mobile-dropdown__num">01</span>
+                <span class="mobile-dropdown__title">Work</span>
+                <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M4 12l8-8M12 12V4H4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+            <li class="mobile-dropdown__item">
+              <a href="/gallery" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/gallery" || currentPath === "/gallery/" }]}>
+                <span class="mobile-dropdown__num">02</span>
+                <span class="mobile-dropdown__title">Gallery</span>
+                <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M4 12l8-8M12 12V4H4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+            <li class="mobile-dropdown__item">
+              <a href="/contact" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/contact" || currentPath === "/contact/" }]}>
+                <span class="mobile-dropdown__num">03</span>
+                <span class="mobile-dropdown__title">Contact</span>
+                <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M4 12l8-8M12 12V4H4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </li>
+          </ul>
+
+          <div class="mobile-dropdown__footer">
+            <div class="mobile-dropdown__status">
+              <span class="mobile-dropdown__dot" aria-hidden="true"></span>
+              <span>Available for remote projects</span>
+            </div>
+            <button type="button" class="mobile-dropdown__theme" id="mobile-theme-toggle" aria-label="Toggle theme">
+              <span>Theme</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 1a7 7 0 0 1 0 14V1z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avatar Lightbox Modal -->
+    <div
+      class="avatar-modal"
+      id="avatar-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="am-name"
+    >
+      <div class="avatar-modal__backdrop" id="am-backdrop"></div>
+      <div class="avatar-modal__dialog" role="document">
+        <button
+          type="button"
+          class="avatar-modal__close"
+          id="am-close"
+          aria-label="Close photo preview"
+        >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+            <path d="M2 2l12 12M14 2L2 14" />
+          </svg>
+        </button>
+
+        <div class="avatar-modal__media">
+          <img
+            src="/img/my_photo.webp"
+            alt="Achmad Zaini portrait"
+            class="avatar-modal__img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="avatar-modal__content">
+          <div class="avatar-modal__status">
+            <span class="avatar-modal__dot" aria-hidden="true"></span>
+            <span>Available for remote projects</span>
+          </div>
+          <h2 class="avatar-modal__name" id="am-name">Achmad Zaini</h2>
+          <p class="avatar-modal__title">2D Motion Designer &bull; Production Supervisor</p>
+          <p class="avatar-modal__location">Palembang, Indonesia &bull; UTC+7</p>
+
+          <div class="avatar-modal__links">
+            <a href="/contact" class="avatar-modal__btn avatar-modal__btn--primary">Start a project</a>
+            <a href="/" class="avatar-modal__btn avatar-modal__btn--ghost">Go to home</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -136,14 +267,84 @@ const currentPath = Astro.url.pathname;
           localStorage.setItem('theme', newTheme);
         });
 
-        // Mobile menu
+        // Mobile dropdown menu
         const mobileToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileDropdown = document.getElementById('mobile-dropdown');
+        const mobileBackdrop = document.getElementById('mobile-dropdown-backdrop');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+
+        function openMobileMenu() {
+          mobileDropdown?.classList.add('mobile-dropdown--open');
+          mobileDropdown?.setAttribute('aria-hidden', 'false');
+          mobileBackdrop?.classList.add('mobile-dropdown-backdrop--open');
+          mobileToggle?.classList.add('nav__mobile-toggle--open');
+          mobileToggle?.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMobileMenu() {
+          mobileDropdown?.classList.remove('mobile-dropdown--open');
+          mobileDropdown?.setAttribute('aria-hidden', 'true');
+          mobileBackdrop?.classList.remove('mobile-dropdown-backdrop--open');
+          mobileToggle?.classList.remove('nav__mobile-toggle--open');
+          mobileToggle?.setAttribute('aria-expanded', 'false');
+        }
 
         mobileToggle?.addEventListener('click', () => {
-          const isOpen = mobileMenu?.classList.toggle('mobile-menu--open');
-          mobileToggle.classList.toggle('nav__mobile-toggle--open');
-          document.body.style.overflow = isOpen ? 'hidden' : '';
+          const isOpen = mobileDropdown?.classList.contains('mobile-dropdown--open');
+          if (isOpen) {
+            closeMobileMenu();
+          } else {
+            openMobileMenu();
+          }
+        });
+
+        mobileBackdrop?.addEventListener('click', closeMobileMenu);
+
+        mobileDropdown?.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', closeMobileMenu);
+        });
+
+        mobileThemeToggle?.addEventListener('click', () => {
+          currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+          const newTheme = themes[currentThemeIndex];
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+        });
+
+        // Avatar details modal
+        const avatarDetailsBtn = document.getElementById('nav-avatar-details-btn');
+        const avatarModal = document.getElementById('avatar-modal');
+        const avatarClose = document.getElementById('am-close');
+        const avatarBackdrop = document.getElementById('am-backdrop');
+
+        function openAvatar() {
+          if (!avatarModal) return;
+          avatarModal.classList.add('avatar-modal--active');
+          avatarModal.setAttribute('aria-hidden', 'false');
+          avatarDetailsBtn?.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeAvatar() {
+          if (!avatarModal) return;
+          avatarModal.classList.remove('avatar-modal--active');
+          avatarModal.setAttribute('aria-hidden', 'true');
+          avatarDetailsBtn?.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+
+        avatarDetailsBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openAvatar();
+        });
+        avatarClose?.addEventListener('click', closeAvatar);
+        avatarBackdrop?.addEventListener('click', closeAvatar);
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && avatarModal?.classList.contains('avatar-modal--active')) {
+            closeAvatar();
+          }
         });
       }
 
@@ -286,11 +487,91 @@ const currentPath = Astro.url.pathname;
     height: 64px;
   }
 
-  .nav__logo {
-    font-size: 1.25rem;
-    font-weight: var(--fw-black);
-    letter-spacing: var(--tracking-tight);
+  .nav__brand {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav__avatar-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--rule);
+    background: #FFFFFF;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__avatar-link:hover {
+    transform: scale(1.06);
+    border-color: var(--fg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+
+  .nav__avatar-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .nav__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #FFFFFF;
+  }
+
+  .nav__avatar-details-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family);
+    font-size: 11px;
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 5px 9px;
+    border: 1px solid var(--rule);
+    background: var(--bg);
     color: var(--fg);
+    cursor: pointer;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-4px);
+    pointer-events: none;
+    transition: opacity var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .nav__brand:hover .nav__avatar-details-btn,
+  .nav__brand:focus-within .nav__avatar-details-btn {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .nav__avatar-details-btn:hover {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .nav__avatar-details-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   .nav__links {
@@ -382,41 +663,164 @@ const currentPath = Astro.url.pathname;
     transform: translateY(-3.25px) rotate(-45deg);
   }
 
-  /* ── Mobile Menu ───────────────────────────────────────────── */
-  .mobile-menu {
+  /* ── Mobile Dropdown Menu ──────────────────────────────────── */
+  .mobile-dropdown-backdrop {
     position: fixed;
-    top: 0;
+    top: 64px;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 99;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    z-index: 98;
+    background: rgba(13, 13, 13, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--duration-normal) var(--ease-out);
   }
 
-  .mobile-menu--open {
+  .mobile-dropdown-backdrop--open {
     opacity: 1;
-    pointer-events: all;
+    pointer-events: auto;
   }
 
-  .mobile-menu__inner {
+  .mobile-dropdown {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--duration-fast) var(--ease-out),
+                opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .mobile-dropdown--open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-dropdown__inner {
+    padding: var(--space-2) 0 var(--space-3);
+  }
+
+  .mobile-dropdown__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-dropdown__item {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .mobile-dropdown__item:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .mobile-dropdown__link {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) 0;
+    color: var(--fg);
+    transition: color var(--duration-fast) var(--ease-out),
+                padding-left var(--duration-fast) var(--ease-out);
   }
 
-  .mobile-menu__link {
-    font-size: var(--fs-h1);
-    font-weight: var(--fw-black);
+  .mobile-dropdown__num {
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-wider);
+    color: var(--muted);
+    min-width: 28px;
+  }
+
+  .mobile-dropdown__title {
+    font-size: 1.15rem;
+    font-weight: var(--fw-bold);
     letter-spacing: var(--tracking-tight);
+    flex: 1;
+    margin-left: var(--space-2);
+  }
+
+  .mobile-dropdown__arrow {
+    color: var(--muted);
+    transition: transform var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+  }
+
+  .mobile-dropdown__link:hover,
+  .mobile-dropdown__link:active {
     color: var(--fg);
+    padding-left: 4px;
+  }
+
+  .mobile-dropdown__link:hover .mobile-dropdown__arrow {
+    transform: translate(2px, -2px);
+    color: var(--fg);
+  }
+
+  .mobile-dropdown__link--active .mobile-dropdown__title {
+    color: var(--fg);
+  }
+
+  .mobile-dropdown__link--active .mobile-dropdown__num {
+    color: var(--accent);
+    font-weight: var(--fw-bold);
+  }
+
+  .mobile-dropdown__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-3);
+    padding-top: var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .mobile-dropdown__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-small);
+    color: var(--muted);
+    letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
+  }
+
+  .mobile-dropdown__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22C55E;
+  }
+
+  .mobile-dropdown__theme {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--rule);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .mobile-dropdown__theme:hover {
+    background: color-mix(in srgb, var(--fg) 5%, transparent);
+    border-color: var(--fg);
   }
 
   /* ── Footer ────────────────────────────────────────────────── */
@@ -471,5 +875,177 @@ const currentPath = Astro.url.pathname;
       gap: var(--space-2);
       text-align: center;
     }
+  }
+  /* ── Avatar Lightbox Modal ───────────────────────────────── */
+  .avatar-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3);
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+
+  .avatar-modal.avatar-modal--active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .avatar-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 13, 13, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .avatar-modal__dialog {
+    position: relative;
+    z-index: 2;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    max-width: 380px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    animation: avatarModalPop 0.25s var(--ease-out);
+  }
+
+  @keyframes avatarModalPop {
+    from {
+      opacity: 0;
+      transform: scale(0.96) translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .avatar-modal__close {
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    background: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--rule);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+  }
+
+  .avatar-modal__close:hover {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  .avatar-modal__media {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .avatar-modal__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+  }
+
+  .avatar-modal__content {
+    padding: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .avatar-modal__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--fs-small);
+    color: var(--muted);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .avatar-modal__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22C55E;
+  }
+
+  .avatar-modal__name {
+    font-size: var(--fs-h3);
+    font-weight: var(--fw-bold);
+    color: var(--fg);
+    line-height: var(--leading-tight);
+    margin-top: 2px;
+  }
+
+  .avatar-modal__title {
+    font-size: var(--fs-small);
+    color: var(--fg);
+    font-weight: var(--fw-medium);
+  }
+
+  .avatar-modal__location {
+    font-size: var(--fs-small);
+    color: var(--muted);
+  }
+
+  .avatar-modal__links {
+    margin-top: var(--space-2);
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .avatar-modal__btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6em 1em;
+    font-size: var(--fs-small);
+    font-weight: var(--fw-medium);
+    text-align: center;
+    border: 1px solid var(--rule);
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .avatar-modal__btn--primary {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .avatar-modal__btn--primary:hover {
+    background: color-mix(in srgb, var(--fg) 85%, var(--bg));
+  }
+
+  .avatar-modal__btn--ghost {
+    background: transparent;
+    color: var(--fg);
+  }
+
+  .avatar-modal__btn--ghost:hover {
+    border-color: var(--fg);
   }
 </style>

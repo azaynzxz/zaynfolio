@@ -1,0 +1,559 @@
+---
+// Pure Fullscreen Flipbook for Brandbook ID Card Lampung
+// Highly interactive 3D click & drag page-turning experience with mobile 90-degree horizontal rotation option.
+const pages = [
+  "/assets/pdf/brandbook-pages/page_01.webp",
+  "/assets/pdf/brandbook-pages/page_02.webp",
+  "/assets/pdf/brandbook-pages/page_03.webp",
+  "/assets/pdf/brandbook-pages/page_04.webp",
+  "/assets/pdf/brandbook-pages/page_05.webp",
+  "/assets/pdf/brandbook-pages/page_06.webp",
+  "/assets/pdf/brandbook-pages/page_07.webp",
+  "/assets/pdf/brandbook-pages/page_08.webp",
+  "/assets/pdf/brandbook-pages/page_09.webp",
+  "/assets/pdf/brandbook-pages/page_10.webp",
+  "/assets/pdf/brandbook-pages/page_11.webp",
+  "/assets/pdf/brandbook-pages/page_12.webp",
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Brandbook ID Card Lampung</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload all pages for instant smooth flipping -->
+    {pages.map((src) => (
+      <link rel="preload" as="image" href={src} />
+    ))}
+
+    <!-- Global jQuery and Turn.js -->
+    <script is:inline src="/vendor/turnjs/jquery.min.js"></script>
+    <script is:inline src="/vendor/turnjs/turn.min.js"></script>
+
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #08080a;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      /* Fullscreen Stage with gallery spotlight backdrop */
+      .stage {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(ellipse at 50% 48%, #17181c 0%, #0a0b0d 65%, #040405 100%);
+        overflow: hidden;
+        cursor: default;
+      }
+
+      /* Minimal floating rotate button for mobile */
+      .rotate-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 1000;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: rgba(255, 255, 255, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        outline: none;
+      }
+
+      .rotate-btn:hover {
+        background: rgba(255, 255, 255, 0.18);
+        color: #ffffff;
+        transform: scale(1.06);
+      }
+
+      .rotate-btn:active {
+        transform: scale(0.96);
+      }
+
+      .rotate-btn.active {
+        background: rgba(255, 255, 255, 0.22);
+        border-color: rgba(255, 255, 255, 0.45);
+        color: #ffffff;
+      }
+
+      .rotate-btn svg {
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .rotate-btn.active svg {
+        transform: rotate(90deg);
+      }
+
+      /* Hide rotate button on desktop screens; only show on mobile */
+      @media (min-width: 769px) {
+        .rotate-btn {
+          display: none !important;
+        }
+      }
+
+      /* Viewport wrapper */
+      .flipbook-viewport {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        perspective: 2400px;
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Rotated 90deg mode for mobile landscape reading */
+      .stage.is-rotated-90 .flipbook-viewport {
+        width: 100vh;
+        height: 100vw;
+        transform: rotate(90deg);
+      }
+
+      /* The Flipbook container */
+      .flipbook {
+        position: relative;
+        margin: 0 auto;
+        touch-action: none;
+        /* Ambient drop shadows for physical book depth */
+        filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.7)) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
+        transition: margin-left 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      /* Pages with tactile paper look and grab cursor */
+      .flipbook .page {
+        background-color: #ffffff;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow: hidden;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+        cursor: grab;
+      }
+
+      /* Realistic spine curvature & gutter shadow when open */
+      /* Left page (even) has spine shadow on the right edge */
+      .flipbook .page.even::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0) 80%,
+          rgba(0, 0, 0, 0.05) 92%,
+          rgba(0, 0, 0, 0.22) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Right page (odd) has spine shadow on the left edge */
+      .flipbook .page.odd::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to left,
+          rgba(0, 0, 0, 0) 80%,
+          rgba(0, 0, 0, 0.05) 92%,
+          rgba(0, 0, 0, 0.22) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Subtle paper edge highlight */
+      .flipbook .page.even::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.4);
+        pointer-events: none;
+      }
+
+      .flipbook .page.odd::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.4);
+        pointer-events: none;
+      }
+
+      /* Active dragging state */
+      body.is-dragging,
+      body.is-dragging *,
+      .flipbook:active,
+      .flipbook .page:active {
+        cursor: grabbing !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="stage" id="stage">
+      <!-- Minimalist mobile rotate button (switches to horizontal landscape) -->
+      <button
+        id="rotate-btn"
+        class="rotate-btn"
+        type="button"
+        aria-label="Rotate book horizontally"
+        title="Rotate horizontally"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+          <polyline points="21 3 21 8 16 8"></polyline>
+        </svg>
+      </button>
+
+      <!-- Pure flipbook viewport: zero buttons, zero additional text, 100% direct interaction -->
+      <div class="flipbook-viewport" id="viewport">
+        <div id="flipbook" class="flipbook">
+          {pages.map((src) => (
+            <div
+              class="page"
+              style={`background-image: url('${src}');`}
+            ></div>
+          ))}
+        </div>
+      </div>
+    </main>
+
+    <script is:inline>
+      (function() {
+        const PAGE_W = 1684;
+        const PAGE_H = 1191;
+        const PAGE_RATIO = PAGE_W / PAGE_H; // 1.4139 (A4 landscape)
+        let audioCtx = null;
+        let isRotated = false;
+        window.turnJsRotated90 = false;
+
+        // Subtle realistic paper turn audio synthesized via Web Audio API
+        function playPaperSound() {
+          try {
+            if (!audioCtx) {
+              const AudioCtx = window.AudioContext || window['webkitAudioContext'];
+              if (AudioCtx) audioCtx = new AudioCtx();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+              audioCtx.resume();
+            }
+            if (!audioCtx) return;
+
+            const duration = 0.12;
+            const bufferSize = Math.floor(audioCtx.sampleRate * duration);
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+              data[i] = Math.random() * 2 - 1;
+            }
+
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            filter.Q.setValueAtTime(1.0, audioCtx.currentTime);
+            filter.frequency.exponentialRampToValueAtTime(500, audioCtx.currentTime + duration);
+
+            const gain = audioCtx.createGain();
+            const now = audioCtx.currentTime;
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.linearRampToValueAtTime(0.06, now + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            noise.start(now);
+            noise.stop(now + duration);
+          } catch (e) {
+            // Graceful fallback if Web Audio is restricted
+          }
+        }
+
+        // Calculate size maximizing fullscreen view with perfect aspect ratio
+        function calcSize() {
+          const isMobile = window.innerWidth < 768;
+          let availW, availH;
+
+          if (isRotated) {
+            // When rotated 90deg, width is the screen height and height is the screen width
+            availW = window.innerHeight - 36;
+            availH = window.innerWidth - 24;
+          } else {
+            availW = window.innerWidth - (isMobile ? 16 : 48);
+            availH = window.innerHeight - (isMobile ? 24 : 48);
+          }
+
+          // Double mode if rotated horizontally or on desktop/tablet
+          const displayMode = (isRotated || !isMobile) ? 'double' : 'single';
+          const spreadRatio = (displayMode === 'double') ? PAGE_RATIO * 2 : PAGE_RATIO;
+
+          let w = availW;
+          let h = w / spreadRatio;
+
+          if (h > availH) {
+            h = availH;
+            w = h * spreadRatio;
+          }
+
+          // Round down to even integer so double page spreads divide exactly
+          w = Math.floor(w);
+          if (displayMode === 'double' && w % 2 !== 0) w -= 1;
+          h = Math.floor(h);
+
+          return {
+            width: w,
+            height: h,
+            display: displayMode
+          };
+        }
+
+        function applySizeAndRotation() {
+          const $book = $('#flipbook');
+          if (!$book.turn('is')) return;
+          const newSize = calcSize();
+          $book.turn('display', newSize.display);
+          $book.turn('size', newSize.width, newSize.height);
+          $book.turn('resize');
+        }
+
+        function toggleRotation() {
+          isRotated = !isRotated;
+          window.turnJsRotated90 = isRotated;
+          const stage = document.getElementById('stage');
+          const rotateBtn = document.getElementById('rotate-btn');
+
+          if (isRotated) {
+            stage.classList.add('is-rotated-90');
+            rotateBtn.classList.add('active');
+          } else {
+            stage.classList.remove('is-rotated-90');
+            rotateBtn.classList.remove('active');
+          }
+
+          setTimeout(function() {
+            applySizeAndRotation();
+          }, 60);
+        }
+
+        function init() {
+          const $book = $('#flipbook');
+          const size = calcSize();
+
+          // Initialize Turn.js with all 4 corners active and responsive drag
+          $book.turn({
+            width: size.width,
+            height: size.height,
+            display: size.display,
+            elevation: 70,
+            gradients: true,
+            acceleration: true,
+            duration: 650,
+            autoCenter: true,
+            turnCorners: 'tl,tr,bl,br',
+            cornerSize: 120,
+            when: {
+              turning: function() {
+                playPaperSound();
+              },
+              turned: function(_e, page) {
+                // Subtle corner peel cue on front cover to invite dragging
+                if (page === 1) {
+                  setTimeout(function() {
+                    if ($book.turn('page') === 1) {
+                      $book.turn('peel', 'br');
+                    }
+                  }, 400);
+                }
+              },
+              start: function() {
+                document.body.classList.add('is-dragging');
+              },
+              end: function() {
+                document.body.classList.remove('is-dragging');
+              }
+            }
+          });
+
+          // Initial peel cue on cover after slight opening delay
+          setTimeout(function() {
+            if ($book.turn('is') && $book.turn('page') === 1) {
+              $book.turn('peel', 'br');
+            }
+          }, 600);
+
+          // Rotate button click listener
+          $('#rotate-btn').on('click', function(e) {
+            e.stopPropagation();
+            toggleRotation();
+          });
+
+          // Dynamic responsive resizing
+          let resizeTimer;
+          $(window).on('resize orientationchange', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+              applySizeAndRotation();
+            }, 80);
+          });
+
+          // Keyboard navigation: Arrows, Space, Backspace, Home, End, R (rotate), F (fullscreen), Esc (back/exit)
+          $(document).on('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'ArrowDown') {
+              $book.turn('next');
+            } else if (e.key === 'ArrowLeft' || e.key === 'Backspace' || e.key === 'PageUp' || e.key === 'ArrowUp') {
+              $book.turn('previous');
+            } else if (e.key === 'Home') {
+              $book.turn('page', 1);
+            } else if (e.key === 'End') {
+              $book.turn('page', $book.turn('pages'));
+            } else if (e.key === 'r' || e.key === 'R') {
+              toggleRotation();
+            } else if (e.key === 'f' || e.key === 'F') {
+              toggleFullscreen();
+            } else if (e.key === 'Escape') {
+              if (document.fullscreenElement) {
+                document.exitFullscreen();
+              } else {
+                window.location.href = '/';
+              }
+            }
+          });
+
+          // Mouse wheel / trackpad scroll flip
+          let wheelCooldown = false;
+          $('#stage').on('wheel', function(e) {
+            if (wheelCooldown) return;
+            const delta = e.originalEvent.deltaY || e.originalEvent.deltaX;
+            if (Math.abs(delta) > 20) {
+              wheelCooldown = true;
+              if (delta > 0) {
+                $book.turn('next');
+              } else {
+                $book.turn('previous');
+              }
+              setTimeout(function() {
+                wheelCooldown = false;
+              }, 400);
+            }
+          });
+
+          // Click on empty stage backdrop outside the book to flip
+          $('#stage').on('click', function(e) {
+            if (e.target.id === 'stage' || e.target.id === 'viewport') {
+              if (isRotated) {
+                if (e.pageY > window.innerHeight / 2) {
+                  $book.turn('next');
+                } else {
+                  $book.turn('previous');
+                }
+              } else {
+                if (e.pageX > window.innerWidth / 2) {
+                  $book.turn('next');
+                } else {
+                  $book.turn('previous');
+                }
+              }
+            }
+          });
+
+          // Mobile touch swipe gestures (adapts when rotated)
+          let touchStartX = 0;
+          let touchStartY = 0;
+
+          document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+          }, { passive: true });
+
+          document.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].screenX;
+            const touchEndY = e.changedTouches[0].screenY;
+            const dx = touchEndX - touchStartX;
+            const dy = touchEndY - touchStartY;
+
+            if (isRotated) {
+              // When rotated 90deg, book horizontal axis corresponds to vertical screen swipe
+              if (Math.abs(dy) > 40 && Math.abs(dx) < 80) {
+                if (dy < 0) {
+                  $book.turn('next');
+                } else {
+                  $book.turn('previous');
+                }
+              }
+            } else {
+              if (Math.abs(dx) > 40 && Math.abs(dy) < 80) {
+                if (dx < 0) {
+                  $book.turn('next');
+                } else {
+                  $book.turn('previous');
+                }
+              }
+            }
+          }, { passive: true });
+
+          // Double click stage backdrop to toggle native fullscreen
+          $('#stage').on('dblclick', function(e) {
+            if (e.target.id === 'stage' || e.target.id === 'viewport') {
+              toggleFullscreen();
+            }
+          });
+
+          function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen().catch(() => {});
+            } else if (document.exitFullscreen) {
+              document.exitFullscreen().catch(() => {});
+            }
+          }
+        }
+
+        $(document).ready(function() {
+          init();
+        });
+      })();
+    </script>
+  </body>
+</html>

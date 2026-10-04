@@ -1,20 +1,40 @@
 ---
 import Base from "../layouts/Base.astro";
 import "../styles/pages/contact.css";
+
+const email = "contact@zaynfolio.com";
+
+const briefSubject = "Project brief: [Channel or company]";
+const briefBody = [
+  "Hi Achmad,",
+  "",
+  "Channel or company (with link):",
+  "What I need (animated episode, series, motion poster):",
+  "Length or number of episodes:",
+  "Script or storyboard ready? (yes / need help):",
+  "Deadline or release schedule:",
+  "Budget range:",
+  "Style references (links):",
+  "",
+  "Thanks,",
+  "[Your name]",
+].join("\n");
+
+const briefHref = `mailto:${email}?subject=${encodeURIComponent(briefSubject)}&body=${encodeURIComponent(briefBody)}`;
 ---
 
 <Base
-  title="Contact & Credentials — Achmad Zaini"
-  description="Direct inquiries, technical credentials, and production background of Achmad Zaini — Motion Graphics Designer & Video Editor."
+  title="Start a Project | Achmad Zaini, 2D Motion Designer"
+  description="Send your script or idea. Get questions, a timeline and a quote within 24 hours. Rigged 2D motion for YouTube and marketing posters."
 >
   <!-- ═══ Contact Hero ═══ -->
   <section class="contact-hero section--large" id="contact-hero">
     <div class="container">
       <div class="contact__top">
-        <span class="section-label">03 / CONTACT &amp; CREDENTIALS</span>
+        <span class="section-label">03 / CONTACT</span>
         <div class="contact__status-pill">
           <span class="contact__status-dot" aria-hidden="true"></span>
-          <span class="contact__status-text">Available for work &bull; Remote Worldwide</span>
+          <span class="contact__status-text">Taking new projects &bull; Remote Worldwide</span>
         </div>
       </div>
       <hr class="rule reveal-line" />
@@ -27,27 +47,27 @@ import "../styles/pages/contact.css";
       <!-- Headline & Lead -->
       <div class="contact__intro reveal">
         <h1 class="contact__title">
-          Have a project in mind, or exploring technical motion collaboration?
+          Tell me about your video or poster.
         </h1>
         <p class="contact__lead">
-          Let's connect. Open for select studio contracts, freelance retainers, and high-impact motion graphics production.
+          Send the script or a rough idea. I reply within 24 hours with questions, a timeline and a quote.
         </p>
       </div>
 
       <!-- Quick Inquiry Action Matrix -->
       <div class="contact-matrix grid reveal">
-        <!-- Action 01: Direct Email -->
+        <!-- Action 01: Email -->
         <div class="contact-card col-4 col-md-4">
           <div class="contact-card__header">
             <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect x="2" y="4" width="20" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/>
               <path d="M2 7l10 7 10-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <span class="contact-card__tag">[ DIRECT EMAIL ]</span>
+            <span class="contact-card__tag">[ EMAIL ]</span>
           </div>
           <div class="contact-card__body">
-            <a href="mailto:contact@zaynfolio.com" class="contact-card__value" id="contact-email">contact@zaynfolio.com</a>
-            <p class="contact-card__sub">Replies typically within 24 hours</p>
+            <a href={`mailto:${email}`} class="contact-card__value" id="contact-email">{email}</a>
+            <p class="contact-card__sub">Best for briefs and files. Reply within 24 hours.</p>
           </div>
           <div class="contact-card__footer">
             <button class="contact-btn contact-btn--copy" id="copy-email-btn" aria-label="Copy email address to clipboard">
@@ -58,10 +78,10 @@ import "../styles/pages/contact.css";
               <svg class="icon-check" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="display:none">
                 <path d="M4 12l5 5L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <span id="copy-email-tooltip">Copy Email</span>
+              <span id="copy-email-tooltip">Copy email</span>
             </button>
-            <a href="mailto:contact@zaynfolio.com" class="contact-btn contact-btn--ghost">
-              Send Mail
+            <a href={`mailto:${email}`} class="contact-btn contact-btn--ghost">
+              Send email
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -69,22 +89,22 @@ import "../styles/pages/contact.css";
           </div>
         </div>
 
-        <!-- Action 02: WhatsApp Messaging -->
+        <!-- Action 02: WhatsApp -->
         <div class="contact-card col-4 col-md-4">
           <div class="contact-card__header">
             <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.417A9.953 9.953 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Z" stroke="currentColor" stroke-width="1.5"/>
               <path d="M8.5 9.5s.5-1 1.5-1 2 1 2 1l-1 2s1.5 2 3 2.5l1.5-1.5s1 .5 1 1.5-1.5 2-2 2C12 16 8 12 8 9.5 8 9 8.5 9.5 8.5 9.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="contact-card__tag">[ INSTANT CHAT ]</span>
+            <span class="contact-card__tag">[ WHATSAPP ]</span>
           </div>
           <div class="contact-card__body">
-            <span class="contact-card__value">Direct Message</span>
-            <p class="contact-card__sub">Direct WhatsApp message channel</p>
+            <span class="contact-card__value">Quick questions</span>
+            <p class="contact-card__sub">Fastest for short chats and urgent timelines.</p>
           </div>
           <div class="contact-card__footer">
             <a href="https://wa.me/6281343790990" class="contact-btn contact-btn--wa" target="_blank" rel="noopener noreferrer">
-              Open WhatsApp
+              Message on WhatsApp
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -92,7 +112,7 @@ import "../styles/pages/contact.css";
           </div>
         </div>
 
-        <!-- Action 03: Request Resume PDF -->
+        <!-- Action 03: Project Brief -->
         <div class="contact-card col-4 col-md-4">
           <div class="contact-card__header">
             <svg class="contact-card__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -102,15 +122,15 @@ import "../styles/pages/contact.css";
               <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            <span class="contact-card__tag">[ OFFICIAL RESUME ]</span>
+            <span class="contact-card__tag">[ PROJECT BRIEF ]</span>
           </div>
           <div class="contact-card__body">
-            <span class="contact-card__value">Full Resume PDF</span>
-            <p class="contact-card__sub">Verified PDF with complete project logs</p>
+            <span class="contact-card__value">Send a brief in 2 minutes</span>
+            <p class="contact-card__sub">Open the template, fill the blanks, send it to me.</p>
           </div>
           <div class="contact-card__footer">
-            <a href="mailto:contact@zaynfolio.com?subject=Request%20Resume%20PDF%20%E2%80%94%20Achmad%20Zaini&body=Hi%20Achmad%2C%0A%0AI%20would%20like%20to%20request%20your%20full%20resume%20PDF%20for%20a%20project%20or%20role%20at%20..." class="contact-btn contact-btn--primary">
-              Request Resume PDF
+            <a href={briefHref} class="contact-btn contact-btn--primary" id="contact-brief-btn">
+              Open the brief template
               <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -119,172 +139,121 @@ import "../styles/pages/contact.css";
         </div>
       </div>
 
-      <!-- ═══ Swiss Rationalist Credentials Hub ═══ -->
+      <!-- ═══ Process and Background ═══ -->
       <div class="credentials-section">
         <div class="credentials-section__header reveal">
-          <span class="section-label">CURATED CREDENTIALS &amp; PRODUCTION RECORD</span>
-          <span class="credentials-section__meta">VERIFIED {new Date().getFullYear()}</span>
+          <span class="section-label">HOW WE WORK</span>
         </div>
         <hr class="rule reveal-line" />
 
-        <!-- Tabular Block 01: Production Experience -->
+        <!-- Block 01: How it works -->
         <div class="credentials-block reveal">
           <div class="credentials-block__lead">
             <span class="credentials-block__num">[ 01 ]</span>
-            <h2 class="credentials-block__heading">Production &amp; Motion Experience</h2>
+            <h2 class="credentials-block__heading">How it works</h2>
           </div>
           <div class="credentials-block__content">
-            <!-- Row 1 -->
             <div class="credentials-item">
               <div class="credentials-item__meta">
-                <span class="credentials-item__role">Lead Motion Designer &amp; Video Editor</span>
-                <span class="credentials-item__period">2021 &mdash; Present</span>
+                <span class="credentials-item__role">1. Send the brief</span>
               </div>
-              <div class="credentials-item__org">Studio &amp; Direct Commercial Contracts (Remote)</div>
-              <p class="credentials-item__desc">
-                Directed, rigged, and animated 90+ explainer videos, product demonstrations, and brand motion systems for international SaaS companies, creative agencies, and consumer brands.
-              </p>
-              <div class="credentials-badges">
-                <span class="badge">90+ Explainers Delivered</span>
-                <span class="badge">80% Automation Turnaround Savings</span>
-                <span class="badge">Duik Angela / Limber Rigging</span>
-                <span class="badge">End-to-End Post Direction</span>
-              </div>
+              <p class="credentials-item__desc">Script, length, schedule and budget range.</p>
             </div>
-
-            <!-- Row 2 -->
             <div class="credentials-item">
               <div class="credentials-item__meta">
-                <span class="credentials-item__role">Digital Designer &amp; Spatial/AR Developer</span>
-                <span class="credentials-item__period">2023 &mdash; 2024</span>
+                <span class="credentials-item__role">2. I reply within 24 hours</span>
               </div>
-              <div class="credentials-item__org">Interactive Systems &amp; Cultural Digitization</div>
-              <p class="credentials-item__desc">
-                Pioneered augmented reality learning systems and interactive 3D media using Meta Spark AR. Led UI design, 3D asset optimization, and spatial typography resulting in an 81% verified usability score.
-              </p>
-              <div class="credentials-badges">
-                <span class="badge">Meta Spark AR Studio</span>
-                <span class="badge">Spatial Typography</span>
-                <span class="badge">81% Usability Score</span>
+              <p class="credentials-item__desc">Questions, a timeline and a quote.</p>
+            </div>
+            <div class="credentials-item">
+              <div class="credentials-item__meta">
+                <span class="credentials-item__role">3. We start</span>
               </div>
+              <p class="credentials-item__desc">Rigging and animation, sound and VFX, then delivery.</p>
             </div>
           </div>
         </div>
 
         <hr class="rule reveal-line" />
 
-        <!-- Tabular Block 02: Systems & Software Toolset -->
+        <!-- Block 02: Ways to work together -->
         <div class="credentials-block reveal">
           <div class="credentials-block__lead">
             <span class="credentials-block__num">[ 02 ]</span>
-            <h2 class="credentials-block__heading">Technical Systems &amp; Toolset</h2>
-          </div>
-          <div class="credentials-block__content">
-            <div class="tools-grid">
-              <div class="tool-group">
-                <h3 class="tool-group__title">Motion &amp; Post-Production</h3>
-                <ul class="tool-group__list">
-                  <li>Adobe After Effects</li>
-                  <li>Adobe Premiere Pro</li>
-                  <li>DaVinci Resolve (Color &amp; Master)</li>
-                </ul>
-              </div>
-
-              <div class="tool-group">
-                <h3 class="tool-group__title">Vector, Layout &amp; 3D</h3>
-                <ul class="tool-group__list">
-                  <li>Adobe Illustrator</li>
-                  <li>Adobe Photoshop</li>
-                  <li>Figma (Interface &amp; Vectors)</li>
-                  <li>Blender (3D Modeling &amp; Camera)</li>
-                </ul>
-              </div>
-
-              <div class="tool-group">
-                <h3 class="tool-group__title">Rigging &amp; Code Automation</h3>
-                <ul class="tool-group__list">
-                  <li>Duik Angela &amp; Limber (2D Rigging)</li>
-                  <li>After Effects Expressions (JavaScript)</li>
-                  <li>ExtendScript Automated Batch Pipelines</li>
-                </ul>
-              </div>
-
-              <div class="tool-group">
-                <h3 class="tool-group__title">Spatial &amp; Interactive</h3>
-                <ul class="tool-group__list">
-                  <li>Meta Spark AR Studio</li>
-                  <li>AR Real-Time Asset Optimization</li>
-                  <li>Interactive Flashcard UX Systems</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="rule reveal-line" />
-
-        <!-- Tabular Block 03: Education & Honors -->
-        <div class="credentials-block reveal">
-          <div class="credentials-block__lead">
-            <span class="credentials-block__num">[ 03 ]</span>
-            <h2 class="credentials-block__heading">Education &amp; Academic Standing</h2>
+            <h2 class="credentials-block__heading">Ways to work together</h2>
           </div>
           <div class="credentials-block__content">
             <div class="credentials-item">
               <div class="credentials-item__meta">
-                <span class="credentials-item__role">Bachelor of Design (S.Ds.) &mdash; Visual Communication Design</span>
+                <span class="credentials-item__role">Single project</span>
+              </div>
+              <p class="credentials-item__desc">One episode, one video or a set of marketing posters.</p>
+            </div>
+            <div class="credentials-item">
+              <div class="credentials-item__meta">
+                <span class="credentials-item__role">Ongoing series</span>
+              </div>
+              <p class="credentials-item__desc">Regular episodes for a channel on a fixed schedule.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="rule reveal-line" />
+
+        <!-- Block 03: Background -->
+        <div class="credentials-block reveal">
+          <div class="credentials-block__lead">
+            <span class="credentials-block__num">[ 03 ]</span>
+            <h2 class="credentials-block__heading">Background</h2>
+          </div>
+          <div class="credentials-block__content">
+            <div class="credentials-item">
+              <div class="credentials-item__meta">
+                <span class="credentials-item__role">2D Motion Designer and Production Supervisor</span>
+                <span class="credentials-item__period">2021 &mdash; Present</span>
+              </div>
+              <div class="credentials-item__org">Jakarta studio, remote from Palembang</div>
+              <p class="credentials-item__desc">
+                I animate static illustrations into YouTube episodes with After Effects rigs, and I handle sound design and VFX. I supervise the illustration, animation and editing team. As of September 2026 I have delivered 124 episodes.
+              </p>
+            </div>
+
+            <div class="credentials-item">
+              <div class="credentials-item__meta">
+                <span class="credentials-item__role">Tools</span>
+              </div>
+              <p class="credentials-item__desc">
+                After Effects, Premiere Pro, Illustrator, Photoshop, Blender, Duik Angela, Limber, ExtendScript.
+              </p>
+            </div>
+
+            <div class="credentials-item">
+              <div class="credentials-item__meta">
+                <span class="credentials-item__role">B.Des Visual Communication Design</span>
                 <span class="credentials-item__period">2020 &mdash; 2024</span>
               </div>
               <div class="credentials-item__org">Institut Teknologi Sumatera (ITERA)</div>
-              <p class="credentials-item__desc">
-                Specialized in Motion Graphic Systems, Dynamic Brand Typography, and Interactive Spatial Media. Graduated with top academic standing.
-              </p>
-              <div class="credentials-badges">
-                <span class="badge badge--highlight">GPA 3.78 / 4.00 (High Honors / Cum Laude)</span>
-                <span class="badge">Thesis: Interactive AR Learning System</span>
+              <p class="credentials-item__desc">Cum Laude, GPA 3.78 / 4.00.</p>
+            </div>
+
+            <div class="credentials-item">
+              <div class="credentials-item__meta">
+                <span class="credentials-item__role">Location</span>
               </div>
+              <p class="credentials-item__desc">
+                Palembang, South Sumatra, Indonesia (UTC+7). Working remotely with clients worldwide.
+              </p>
             </div>
           </div>
         </div>
 
         <hr class="rule reveal-line" />
 
-        <!-- Tabular Block 04: Location & Work Terms -->
+        <!-- Block 04: Profiles -->
         <div class="credentials-block reveal">
           <div class="credentials-block__lead">
             <span class="credentials-block__num">[ 04 ]</span>
-            <h2 class="credentials-block__heading">Location &amp; Working Terms</h2>
-          </div>
-          <div class="credentials-block__content">
-            <div class="terms-grid">
-              <div class="term-col">
-                <span class="term-label">Location Base</span>
-                <p class="term-value">Palembang, South Sumatra, Indonesia</p>
-                <span class="term-sub">Timezone: UTC+7 (Western Indonesia Time)</span>
-              </div>
-
-              <div class="term-col">
-                <span class="term-label">Availability &amp; Timezones</span>
-                <p class="term-value">Remote Worldwide</p>
-                <span class="term-sub">Adaptable asynchronous schedule for US, EU &amp; APAC studio pipelines</span>
-              </div>
-
-              <div class="term-col">
-                <span class="term-label">Engagement Models</span>
-                <p class="term-value">Contract Sprints &amp; Retainers</p>
-                <span class="term-sub">Available for studio freelance, sprint contracts &amp; dedicated retainers</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr class="rule reveal-line" />
-
-        <!-- Tabular Block 05: Verified Social Profiles -->
-        <div class="credentials-block reveal">
-          <div class="credentials-block__lead">
-            <span class="credentials-block__num">[ 05 ]</span>
-            <h2 class="credentials-block__heading">Verified Profiles &amp; Networks</h2>
+            <h2 class="credentials-block__heading">Profiles</h2>
           </div>
           <div class="credentials-block__content">
             <div class="social-links-grid">
@@ -334,12 +303,12 @@ import "../styles/pages/contact.css";
         await navigator.clipboard.writeText('contact@zaynfolio.com');
         if (iconCopy) iconCopy.style.display = 'none';
         if (iconCheck) iconCheck.style.display = 'block';
-        if (tooltip) tooltip.textContent = 'Copied to Clipboard!';
+        if (tooltip) tooltip.textContent = 'Copied to clipboard';
         copyBtn.classList.add('contact-btn--copied');
         setTimeout(() => {
           if (iconCopy) iconCopy.style.display = 'block';
           if (iconCheck) iconCheck.style.display = 'none';
-          if (tooltip) tooltip.textContent = 'Copy Email';
+          if (tooltip) tooltip.textContent = 'Copy email';
           copyBtn.classList.remove('contact-btn--copied');
         }, 2200);
       } catch {

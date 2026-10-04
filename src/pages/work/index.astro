@@ -2,12 +2,24 @@
 import Base from '../../layouts/Base.astro';
 import projects from '../../data/projects.json';
 
-const featured = projects.filter((p: any) => p.featured);
-const standard = projects.filter((p: any) => !p.featured);
-const allCategories = [...new Set(projects.flatMap((p: any) => p.category))];
+// 01 / Video Editing featured projects (explainer-2d-animations, baraca-capital-interview, eyes-wide-open)
+const videoSlugs = ['explainer-2d-animations', 'baraca-capital-interview', 'eyes-wide-open'];
+const featuredVideos = videoSlugs.map(slug => projects.find((p: any) => p.slug === slug)).filter(Boolean);
 
-// Group standard projects by year for Fluxum-style year markers
-const years = [...new Set(projects.map((p: any) => p.year))].sort((a, b) => b - a);
+// 02 / Graphic Design featured brandbooks (Place Branding GKU 2, Brandbook PDIN, Brand Book IMB Group)
+const graphicDesignSlugs = ['gku-2-twin-building', 'pdin-yogyakarta', 'imb-group-makassar'];
+const featuredGraphicDesign = graphicDesignSlugs.map(slug => projects.find((p: any) => p.slug === slug)).filter(Boolean);
+
+const categories = ['Motion', 'Graphic Design', 'Scripts'];
+
+// Helper to determine destination href
+const getProjectHref = (project: any) => {
+  if (project.flipbookUrl) return project.flipbookUrl;
+  if (project.slug === 'social-media-content') return '/gallery';
+  if (project.id === '06') return 'https://idcardlampung.com';
+  if (project.id === '12') return 'https://github.com/azaynzxz/after-effects-expression-panel';
+  return `/work/${project.slug}`;
+};
 import '../../styles/pages/work.css';
 import VideoPlayer from '../../components/VideoPlayer.astro';
 import { Image } from 'astro:assets';
@@ -22,7 +34,12 @@ function getAsset(path: string) {
 }
 ---
 
-<Base title="Selected Work & Case Studies — Achmad Zaini" description="Commercial motion design systems, high-retention 2D explainers, and automated After Effects pipelines by Achmad Zaini.">
+<Base title="Selected Work & Case Studies — Achmad Zaini" description="Commercial motion design systems, brand guidelines, and automated production pipelines by Achmad Zaini.">
+
+  <Fragment slot="head">
+    <link rel="prefetch" href="/vendor/turnjs/jquery.min.js" as="script" />
+    <link rel="prefetch" href="/vendor/turnjs/turn.min.js" as="script" />
+  </Fragment>
 
   <!-- ═══ Page Header ═══ -->
   <section class="work-header">
@@ -40,30 +57,22 @@ function getAsset(path: string) {
         <h1 class="work-big-title">Work</h1>
       </div>
       <p class="work-lead reveal">
-        Commercial motion design systems, high-retention 2D explainers, and automated After Effects pipelines built for studios, agencies, and global brands.
+        Commercial motion design systems, comprehensive brand identity guidelines, and automated production pipelines built for studios, agencies, and global brands.
       </p>
     </div>
   </section>
 
-  <!-- ═══ Featured Projects — Khazar Card Grid ═══ -->
+  <!-- ═══ 01 / Video Editing ═══ -->
   <section class="featured-section">
     <div class="container">
-      <span class="section-label">01 / Featured Case Studies</span>
+      <span class="section-label">01 / Video Editing</span>
       <hr class="rule reveal-line" />
 
       <div class="featured-grid">
-        {featured.map((project: any) => (
+        {featuredVideos.map((project: any) => (
           <article class="event-card" id={`featured-${project.slug}`}>
-            <a href={project.slug === 'social-media-content' ? '/gallery' : project.id === '06' ? 'https://idcardlampung.com' : project.id === '12' ? 'https://github.com/azaynzxz/after-effects-expression-panel' : `/work/${project.slug}`} class="event-card__link" data-id={project.id}>
-              <p class="event-card__desc">{project.description}</p>
-
-              <div class="event-card__date-row">
-                <h3 class="event-card__title">{project.title}</h3>
-                <div class="event-card__date-meta">
-                  <span class="event-card__year">{project.year}</span>
-                  <span class="event-card__role">{project.role}</span>
-                </div>
-              </div>
+            <a href={getProjectHref(project)} class="event-card__link" data-id={project.id}>
+              <h3 class="event-card__title">{project.title}</h3>
 
               <div class="event-card__thumb-strip">
                 {project.preview ? (
@@ -83,12 +92,12 @@ function getAsset(path: string) {
                       src={getAsset(project.poster) as ImageMetadata}
                       alt={project.title}
                       width={400}
-                      height={250}
+                      height={225}
                       quality={80}
                       loading="eager"
                     />
                   ) : (
-                    <img src={project.poster} alt={project.title} width="400" height="250" loading="eager" />
+                    <img src={project.poster} alt={project.title} width="400" height="225" loading="eager" />
                   )
                 )}
               </div>
@@ -99,7 +108,66 @@ function getAsset(path: string) {
                     <span class="tag">{cat}</span>
                   ))}
                 </div>
-                <span class="event-card__cta">View case <span class="arrow">&rarr;</span></span>
+                <span class="event-card__cta">
+                  {project.flipbookUrl ? 'Read brandbook' : 'View case'} <span class="arrow">&rarr;</span>
+                </span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 / Graphic Design ═══ -->
+  <section class="featured-section" style="padding-top: var(--space-6);">
+    <div class="container">
+      <span class="section-label">02 / Graphic Design</span>
+      <hr class="rule reveal-line" />
+
+      <div class="featured-grid">
+        {featuredGraphicDesign.map((project: any) => (
+          <article class="event-card" id={`featured-${project.slug}`}>
+            <a href={getProjectHref(project)} class="event-card__link" data-id={project.id}>
+              <h3 class="event-card__title">{project.title}</h3>
+
+              <div class="event-card__thumb-strip">
+                {project.preview ? (
+                  <video
+                    src={`${project.previewWebm || project.preview}#t=0.001`}
+                    poster={project.poster || ''}
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="auto"
+                    class="work-thumbnail-video"
+                  />
+                ) : (
+                  getAsset(project.poster) ? (
+                    <Image
+                      src={getAsset(project.poster) as ImageMetadata}
+                      alt={project.title}
+                      width={400}
+                      height={225}
+                      quality={80}
+                      loading="eager"
+                    />
+                  ) : (
+                    <img src={project.poster} alt={project.title} width="400" height="225" loading="eager" />
+                  )
+                )}
+              </div>
+
+              <div class="event-card__footer">
+                <div class="event-card__tags">
+                  {project.category.map((cat: string) => (
+                    <span class="tag">{cat}</span>
+                  ))}
+                </div>
+                <span class="event-card__cta">
+                  {project.flipbookUrl ? 'Read brandbook' : 'View case'} <span class="arrow">&rarr;</span>
+                </span>
               </div>
             </a>
           </article>
@@ -112,14 +180,14 @@ function getAsset(path: string) {
   <section class="listing-section">
     <div class="container">
       <div class="listing-header">
-        <span class="section-label">02 / Complete Production Archive</span>
+        <span class="section-label">03 / Complete Production Archive</span>
       </div>
       <hr class="rule reveal-line" />
 
       <div class="listing-filter" id="listing-filter">
         <div class="listing-filter__tabs">
           <button class="listing-filter__tab listing-filter__tab--active" data-filter="all">All</button>
-          {allCategories.map((cat) => (
+          {categories.map((cat) => (
             <button class="listing-filter__tab" data-filter={cat}>{cat}</button>
           ))}
         </div>
@@ -134,7 +202,7 @@ function getAsset(path: string) {
             data-year={project.year}
             id={`row-${project.slug}`}
           >
-            <a href={project.slug === 'social-media-content' ? '/gallery' : project.id === '06' ? 'https://idcardlampung.com' : project.id === '12' ? 'https://github.com/azaynzxz/after-effects-expression-panel' : `/work/${project.slug}`} class="listing-row__link" data-id={project.id}>
+            <a href={getProjectHref(project)} class="listing-row__link" data-id={project.id}>
               <!-- Col 1: Thumbnail -->
               <div class="listing-row__thumb">
                 {project.preview ? (
@@ -154,19 +222,19 @@ function getAsset(path: string) {
                       src={getAsset(project.poster) as ImageMetadata}
                       alt={project.title}
                       width={96}
-                      height={72}
+                      height={54}
                       quality={75}
                       loading={idx < 4 ? 'eager' : 'lazy'}
                     />
                   ) : (
-                    <img src={project.poster} alt={project.title} width="96" height="72" loading={idx < 4 ? 'eager' : 'lazy'} />
+                    <img src={project.poster} alt={project.title} width="96" height="54" loading={idx < 4 ? 'eager' : 'lazy'} />
                   )
                 )}
               </div>
 
               <!-- Col 2: Index + Date -->
               <div class="listing-row__date">
-                <span class="listing-row__index">{project.id}</span>
+                <span class="listing-row__index" data-original-index={String(idx + 1).padStart(2, '0')}>{String(idx + 1).padStart(2, '0')}</span>
                 <span class="listing-row__year">{project.year}</span>
               </div>
 

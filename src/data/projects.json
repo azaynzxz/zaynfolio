@@ -3,8 +3,10 @@
     "id": "01",
     "slug": "explainer-2d-animations",
     "title": "2D Animation Showreel 2025",
-    "client": "Eyes Wide Open Studio",
-    "category": ["Motion Graphics", "After Effects"],
+    "client": "Jakarta studio",
+    "category": [
+      "Motion"
+    ],
     "year": 2025,
     "role": "Lead Motion Designer",
     "duration": "10 months",
@@ -13,11 +15,18 @@
     "previewWebm": "/assets/work/project-01/preview.webm",
     "featured": true,
     "stats": [
-      { "value": "90", "unit": "+", "label": "Videos delivered" },
-      { "value": "10", "unit": "months", "label": "Production timeline" },
-      { "value": "80", "unit": "%", "label": "Scripting time saved" }
+      {
+        "value": "124",
+        "unit": "eps",
+        "label": "YouTube episodes delivered"
+      },
+      {
+        "value": "10",
+        "unit": "months",
+        "label": "Production timeline"
+      }
     ],
-    "description": "Directed and animated 90+ explainer videos, mini-documentaries, and high-retention commercial motion assets for Eyes Wide Open Studio. Established an automated After Effects pipeline with reusable expression rigs and batch rendering, accelerating turnaround speed by 80%.",
+    "description": "A reel of 2D YouTube episodes, rigged in After Effects with sound design and VFX added. I animate the illustrators' artwork and supervise the production team.",
     "images": [
       "/assets/work/project-01/detail-01.jpg",
       "/assets/work/project-01/detail-02.jpg"
@@ -28,7 +37,9 @@
     "slug": "baraca-capital-interview",
     "title": "Baraca Capital — CEO Executive Interview",
     "client": "Baraca Capital",
-    "category": ["Video Editing", "Multi-Camera", "Motion Graphics", "VFX"],
+    "category": [
+      "Motion"
+    ],
     "year": 2025,
     "role": "Lead Video Editor",
     "duration": "1 week",
@@ -38,9 +49,21 @@
     "video": "/assets/work/project-12/baraca-full.webm",
     "featured": true,
     "stats": [
-      { "value": "Multi", "unit": "cam", "label": "Camera switching" },
-      { "value": "3D", "unit": "VFX", "label": "Motion compositing" },
-      { "value": "Dubai", "unit": "UAE", "label": "Market territory" }
+      {
+        "value": "Multi",
+        "unit": "cam",
+        "label": "Camera switching"
+      },
+      {
+        "value": "3D",
+        "unit": "VFX",
+        "label": "Motion compositing"
+      },
+      {
+        "value": "Dubai",
+        "unit": "UAE",
+        "label": "Market territory"
+      }
     ],
     "description": "Executive interview and corporate motion production for Dubai-based real estate investment firm Baraca Capital. Executed seamless multi-camera switching, kinetic typography overlays, VFX motion graphics, and integrated 3D architectural renders to establish an authoritative visual standard for high-net-worth investors.",
     "images": []
@@ -50,7 +73,9 @@
     "slug": "reels-motion-promo",
     "title": "Environmental & Campus Motion System",
     "client": "Institutional Media",
-    "category": ["Motion Graphics", "Environmental Design"],
+    "category": [
+      "Motion"
+    ],
     "year": 2023,
     "role": "Motion Designer",
     "duration": "6 weeks",
@@ -59,9 +84,21 @@
     "previewWebm": "/assets/work/project-04/preview.webm",
     "featured": false,
     "stats": [
-      { "value": "6", "unit": "weeks", "label": "Design sprint" },
-      { "value": "5", "unit": "screens", "label": "Display formats" },
-      { "value": "1", "unit": "system", "label": "Dynamic branding" }
+      {
+        "value": "6",
+        "unit": "weeks",
+        "label": "Design sprint"
+      },
+      {
+        "value": "5",
+        "unit": "screens",
+        "label": "Display formats"
+      },
+      {
+        "value": "1",
+        "unit": "system",
+        "label": "Dynamic branding"
+      }
     ],
     "description": "Engineered an environmental motion identity system featuring multi-plane parallax depth, kinetic brand typography, and adaptive layouts tailored for large-format campus digital displays and cross-platform promotional broadcasts.",
     "images": [
@@ -74,7 +111,9 @@
     "slug": "kinetic-typography-series",
     "title": "Swiss Kinetic Typography Series",
     "client": "Self-Initiated Research",
-    "category": ["Motion Graphics", "Typography"],
+    "category": [
+      "Motion"
+    ],
     "year": 2023,
     "role": "Motion Designer & Typographer",
     "duration": "4 weeks",
@@ -83,9 +122,21 @@
     "previewWebm": "/assets/work/project-07/preview.webm",
     "featured": false,
     "stats": [
-      { "value": "5", "unit": "studies", "label": "Grid compositions" },
-      { "value": "60", "unit": "fps", "label": "Vector timing" },
-      { "value": "100", "unit": "%", "label": "Expression-driven" }
+      {
+        "value": "5",
+        "unit": "studies",
+        "label": "Grid compositions"
+      },
+      {
+        "value": "60",
+        "unit": "fps",
+        "label": "Vector timing"
+      },
+      {
+        "value": "100",
+        "unit": "%",
+        "label": "Expression-driven"
+      }
     ],
     "description": "A Swiss-rationalist kinetic typography study translating strict modernist editorial grid rules into frame-accurate motion compositions. Explores mathematical easing curves, high-contrast type hierarchy, and responsive vector synchronization.",
     "images": [
@@ -98,7 +149,9 @@
     "slug": "lampung-manuscript-ar-flashcard",
     "title": "Lampung Manuscript AR Learning Experience",
     "client": "Cultural Heritage Lab",
-    "category": ["Motion Graphics", "3D Animation", "Blender"],
+    "category": [
+      "Motion"
+    ],
     "year": 2023,
     "role": "3D Artist & Motion Designer",
     "duration": "12 weeks",
@@ -107,9 +160,21 @@
     "previewWebm": "/assets/work/project-05/preview.webm",
     "featured": false,
     "stats": [
-      { "value": "3D", "unit": "Blender", "label": "Modeling & camera" },
-      { "value": "81", "unit": "%", "label": "Usability rating" },
-      { "value": "AR", "unit": "Spatial", "label": "Interactive target" }
+      {
+        "value": "3D",
+        "unit": "Blender",
+        "label": "Modeling & camera"
+      },
+      {
+        "value": "81",
+        "unit": "%",
+        "label": "Usability rating"
+      },
+      {
+        "value": "AR",
+        "unit": "Spatial",
+        "label": "Interactive target"
+      }
     ],
     "description": "Promotional 3D motion graphics and trailer system for an Augmented Reality (AR) flashcard application preserving traditional indigenous manuscripts. Modeled and animated in Blender with dynamic camera choreographies, hard-surface texturing, and precision sound-matched transitions.",
     "images": []
@@ -119,16 +184,30 @@
     "slug": "ecommerce-idcardlampung",
     "title": "E-Commerce Platform — idcardlampung.com",
     "client": "ID Card Lampung",
-    "category": ["Web Development", "UI/UX Systems"],
+    "category": [
+      "Scripts"
+    ],
     "year": 2024,
     "role": "Full-Stack Designer & Developer",
     "duration": "4 weeks",
     "poster": "/assets/work/project-02/poster.png",
     "featured": false,
     "stats": [
-      { "value": "4", "unit": "weeks", "label": "Build to launch" },
-      { "value": "100", "unit": "%", "label": "Automated pipeline" },
-      { "value": "12", "unit": "products", "label": "Catalog models" }
+      {
+        "value": "4",
+        "unit": "weeks",
+        "label": "Build to launch"
+      },
+      {
+        "value": "100",
+        "unit": "%",
+        "label": "Automated pipeline"
+      },
+      {
+        "value": "12",
+        "unit": "products",
+        "label": "Catalog models"
+      }
     ],
     "description": "Engineered an automated digital commerce platform for specialized card manufacturing. Developed streamlined ordering workflows, automated asset validation, and instant payment gateways—significantly reducing manual customer onboarding friction.",
     "images": [
@@ -141,7 +220,9 @@
     "slug": "pdin",
     "title": "National Industrial Design Center — Motion Identity",
     "client": "Pusat Desain Industri Nasional",
-    "category": ["Motion Graphics", "Video Editing"],
+    "category": [
+      "Motion"
+    ],
     "year": 2024,
     "role": "Lead Motion Designer",
     "duration": "2 weeks",
@@ -150,8 +231,16 @@
     "previewWebm": "/assets/work/project-08/preview.webm",
     "featured": false,
     "stats": [
-      { "value": "2", "unit": "weeks", "label": "Turnaround sprint" },
-      { "value": "1", "unit": "master", "label": "Broadcast delivery" }
+      {
+        "value": "2",
+        "unit": "weeks",
+        "label": "Turnaround sprint"
+      },
+      {
+        "value": "1",
+        "unit": "master",
+        "label": "Broadcast delivery"
+      }
     ],
     "description": "Official brand explainer and promotional motion piece for the National Industrial Design Center (PDIN Yogyakarta). Combined clean 2D vector animation, kinetic infographic breakdowns, and dynamic typographic layouts to communicate key institutional initiatives.",
     "images": []
@@ -159,9 +248,11 @@
   {
     "id": "08",
     "slug": "eyes-wide-open",
-    "title": "Eyes Wide Open Studio Showreel",
-    "client": "Eyes Wide Open Studio",
-    "category": ["Motion Graphics", "Showreel"],
+    "title": "Studio Showreel",
+    "client": "Jakarta studio",
+    "category": [
+      "Motion"
+    ],
     "year": 2024,
     "role": "Motion Designer & Editor",
     "duration": "Ongoing",
@@ -170,10 +261,18 @@
     "previewWebm": "/assets/work/project-09/preview.webm",
     "featured": true,
     "stats": [
-      { "value": "60", "unit": "fps", "label": "Motion fidelity" },
-      { "value": "2D", "unit": "anim", "label": "Character rigging" }
+      {
+        "value": "60",
+        "unit": "fps",
+        "label": "Motion fidelity"
+      },
+      {
+        "value": "2D",
+        "unit": "anim",
+        "label": "Character rigging"
+      }
     ],
-    "description": "A high-velocity 2D motion graphics and animation reel compiling standout commercial client deliverables for Eyes Wide Open Studio. Showcases modular character rigging, kinetic text choreography, and frame-accurate audio synchronization.",
+    "description": "A 2D motion reel compiling standout YouTube episode deliverables. Showcases character rigging, kinetic text and frame-accurate audio synchronization.",
     "images": []
   },
   {
@@ -181,7 +280,9 @@
     "slug": "kelas-struktur-3",
     "title": "Kelas Struktur — High-Retention Promo",
     "client": "Kelas Struktur",
-    "category": ["Social Media", "Video Editing"],
+    "category": [
+      "Motion"
+    ],
     "year": 2023,
     "role": "Short-Form Video Editor",
     "duration": "1 week",
@@ -190,8 +291,16 @@
     "previewWebm": "/assets/work/project-10/preview.webm",
     "featured": false,
     "stats": [
-      { "value": "15", "unit": "sec", "label": "Sprint duration" },
-      { "value": "9:16", "unit": "ratio", "label": "Mobile native" }
+      {
+        "value": "15",
+        "unit": "sec",
+        "label": "Sprint duration"
+      },
+      {
+        "value": "9:16",
+        "unit": "ratio",
+        "label": "Mobile native"
+      }
     ],
     "description": "Vertical short-form promotional motion piece engineered for social algorithms on Instagram Reels and TikTok. Utilized fast visual pacing, punchy typography overlays, and sound-driven transitions to maximize initial-3-second hook retention.",
     "images": []
@@ -201,7 +310,9 @@
     "slug": "donasi-bukber",
     "title": "Ramadan Community Charity Campaign",
     "client": "Public Charity Drive",
-    "category": ["Social Media", "Motion Graphics"],
+    "category": [
+      "Motion"
+    ],
     "year": 2024,
     "role": "Motion Designer",
     "duration": "3 days",
@@ -210,8 +321,16 @@
     "previewWebm": "/assets/work/project-11/preview.webm",
     "featured": false,
     "stats": [
-      { "value": "3", "unit": "days", "label": "Rapid delivery" },
-      { "value": "1", "unit": "campaign", "label": "Social rollout" }
+      {
+        "value": "3",
+        "unit": "days",
+        "label": "Rapid delivery"
+      },
+      {
+        "value": "1",
+        "unit": "campaign",
+        "label": "Social rollout"
+      }
     ],
     "description": "Social-first animated campaign crafted for a community Ramadan donation drive. Delivered engaging kinetic typography and heartfelt visual storytelling on an accelerated 3-day turnaround to drive active fundraising participation.",
     "images": []
@@ -221,7 +340,9 @@
     "slug": "social-media-content",
     "title": "Multi-Platform Social Video Engine",
     "client": "Various Brands",
-    "category": ["Video Editing", "Social Media"],
+    "category": [
+      "Motion"
+    ],
     "year": 2022,
     "role": "Lead Video Editor",
     "duration": "Ongoing",
@@ -230,9 +351,21 @@
     "previewWebm": "/assets/gallery/social-media-slideshow.webm",
     "featured": false,
     "stats": [
-      { "value": "50", "unit": "+", "label": "Videos produced" },
-      { "value": "5", "unit": "channels", "label": "Format outputs" },
-      { "value": "2", "unit": "M+", "label": "Total impressions" }
+      {
+        "value": "50",
+        "unit": "+",
+        "label": "Videos produced"
+      },
+      {
+        "value": "5",
+        "unit": "channels",
+        "label": "Format outputs"
+      },
+      {
+        "value": "2",
+        "unit": "M+",
+        "label": "Total impressions"
+      }
     ],
     "description": "Engineered a systematic social video production engine generating 50+ short-form assets across Instagram, TikTok, YouTube Shorts, and LinkedIn. Standardized reusable kinetic text presets and audio mastering chains driving over 2M+ combined organic impressions.",
     "images": [
@@ -245,21 +378,195 @@
     "slug": "automated-design-workflow",
     "title": "Automated Motion Rendering Engine",
     "client": "Open-Source / Technical Art",
-    "category": ["After Effects", "Automation"],
+    "category": [
+      "Scripts"
+    ],
     "year": 2025,
     "role": "Technical Artist & Tool Developer",
     "duration": "3 weeks",
     "poster": "/assets/work/project-06/poster.jpg",
     "featured": false,
     "stats": [
-      { "value": "80", "unit": "%", "label": "Turnaround saved" },
-      { "value": "200", "unit": "+", "label": "Renders batched" },
-      { "value": "AE", "unit": "Script", "label": "ExtendScript core" }
+      {
+        "value": "80",
+        "unit": "%",
+        "label": "Turnaround saved"
+      },
+      {
+        "value": "200",
+        "unit": "+",
+        "label": "Renders batched"
+      },
+      {
+        "value": "AE",
+        "unit": "Script",
+        "label": "ExtendScript core"
+      }
     ],
     "description": "Engineered an automated motion rendering engine leveraging After Effects Expressions and ExtendScript batch pipelines. Automatically generates individualized 3D ID card preview animations at scale, slashing manual rendering turnaround by 80%.",
     "images": [
       "/assets/work/project-06/detail-01.jpg",
       "/assets/work/project-06/detail-02.jpg"
     ]
+  },
+  {
+    "id": "13",
+    "slug": "gku-2-twin-building",
+    "title": "Place Branding GKU 2 Twin Building",
+    "client": "Telkom University / GKU 2",
+    "category": [
+      "Graphic Design"
+    ],
+    "year": 2024,
+    "role": "Brand Identity & Wayfinding Designer",
+    "duration": "8 weeks",
+    "poster": "/assets/work/gku-2-twin-building/poster.webp",
+    "flipbookUrl": "/read/gku-2-twin-building",
+    "featured": true,
+    "stats": [
+      {
+        "value": "99",
+        "unit": "pages",
+        "label": "Brandbook volume"
+      },
+      {
+        "value": "100",
+        "unit": "%",
+        "label": "Wayfinding coverage"
+      },
+      {
+        "value": "2",
+        "unit": "towers",
+        "label": "Twin complex"
+      }
+    ],
+    "description": "Comprehensive place branding, environmental graphic design, and architectural wayfinding identity system for the landmark GKU 2 Twin Building.",
+    "images": []
+  },
+  {
+    "id": "14",
+    "slug": "pdin-yogyakarta",
+    "title": "Brandbook PDIN Yogyakarta",
+    "client": "PDIN Yogyakarta / Kementerian Perindustrian",
+    "category": [
+      "Graphic Design"
+    ],
+    "year": 2024,
+    "role": "Lead Brand Identity Designer",
+    "duration": "6 weeks",
+    "poster": "/assets/work/pdin-yogyakarta/poster.webp",
+    "flipbookUrl": "/read/pdin-yogyakarta",
+    "featured": true,
+    "stats": [
+      {
+        "value": "51",
+        "unit": "pages",
+        "label": "Identity guidelines"
+      },
+      {
+        "value": "National",
+        "unit": "center",
+        "label": "Design hub scope"
+      },
+      {
+        "value": "Gov",
+        "unit": "sector",
+        "label": "Industry ministry"
+      }
+    ],
+    "description": "Comprehensive brand guidelines and visual identity system for Pusat Desain Industri Nasional (PDIN Yogyakarta), detailing grid systems, signage standards, typography, and iconography.",
+    "images": []
+  },
+  {
+    "id": "15",
+    "slug": "imb-group-makassar",
+    "title": "Brand Book IMB Group Makassar",
+    "client": "IMB Group Makassar",
+    "category": [
+      "Graphic Design"
+    ],
+    "year": 2024,
+    "role": "Senior Brand Designer",
+    "duration": "5 weeks",
+    "poster": "/assets/work/imb-group-makassar/poster.webp",
+    "flipbookUrl": "/read/imb-group-makassar",
+    "featured": true,
+    "stats": [
+      {
+        "value": "52",
+        "unit": "pages",
+        "label": "Corporate manual"
+      },
+      {
+        "value": "Holding",
+        "unit": "corp",
+        "label": "Brand architecture"
+      },
+      {
+        "value": "Multi",
+        "unit": "sector",
+        "label": "Business units"
+      }
+    ],
+    "description": "Corporate identity manual and comprehensive brand architecture for IMB Group Makassar, defining holding company branding, subsidiary integration, stationery, and corporate collateral.",
+    "images": []
+  },
+  {
+    "id": "16",
+    "slug": "id-card-lampung",
+    "title": "Brandbook ID Card Lampung",
+    "client": "ID Card Lampung",
+    "category": [
+      "Graphic Design"
+    ],
+    "year": 2024,
+    "role": "Brand Designer",
+    "duration": "3 weeks",
+    "poster": "/assets/work/id-card-lampung/poster.webp",
+    "flipbookUrl": "/read/id-card-lampung",
+    "featured": false,
+    "stats": [
+      {
+        "value": "12",
+        "unit": "pages",
+        "label": "Identity system"
+      },
+      {
+        "value": "Print",
+        "unit": "ready",
+        "label": "Color specs"
+      }
+    ],
+    "description": "Official brand identity system and color specification standards for card manufacturing and digital printing operations at ID Card Lampung.",
+    "images": []
+  },
+  {
+    "id": "17",
+    "slug": "lombok-coconut-oil",
+    "title": "Brand Book Lombok Minyak Kelapa",
+    "client": "Lombok Minyak Kelapa",
+    "category": [
+      "Graphic Design"
+    ],
+    "year": 2023,
+    "role": "Brand & Packaging Designer",
+    "duration": "4 weeks",
+    "poster": "/assets/work/lombok-coconut-oil/poster.webp",
+    "flipbookUrl": "/read/lombok-coconut-oil",
+    "featured": false,
+    "stats": [
+      {
+        "value": "26",
+        "unit": "pages",
+        "label": "Packaging guide"
+      },
+      {
+        "value": "Organic",
+        "unit": "agro",
+        "label": "Product identity"
+      }
+    ],
+    "description": "Complete brand identity, packaging standards, and label system for organic virgin coconut oil producers based in Lombok.",
+    "images": []
   }
 ]

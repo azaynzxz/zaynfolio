@@ -1,0 +1,63 @@
+---
+import FlipbookViewer from '../../components/FlipbookViewer.astro';
+
+export async function getStaticPaths() {
+  function getPages(slug: string, count: number): string[] {
+    return Array.from({ length: count }, (_, i) => {
+      const num = String(i + 1).padStart(2, '0');
+      return `/assets/pdf/${slug}/page_${num}.webp`;
+    });
+  }
+
+  const books = [
+    {
+      slug: 'gku-2-twin-building',
+      title: 'Place Branding GKU 2 Twin Building',
+      pageCount: 99,
+      aspectRatio: 1.4139,
+    },
+    {
+      slug: 'pdin-yogyakarta',
+      title: 'Brandbook PDIN Yogyakarta',
+      pageCount: 51,
+      aspectRatio: 1.4139,
+    },
+    {
+      slug: 'imb-group-makassar',
+      title: 'Brand Book IMB Group Makassar',
+      pageCount: 52,
+      aspectRatio: 1.4139,
+    },
+    {
+      slug: 'id-card-lampung',
+      title: 'Brandbook ID Card Lampung',
+      pageCount: 12,
+      aspectRatio: 1.4139,
+    },
+    {
+      slug: 'lombok-coconut-oil',
+      title: 'Brand Book Lombok Minyak Kelapa',
+      pageCount: 26,
+      aspectRatio: 1.4139,
+    },
+  ];
+
+  return books.map((book) => ({
+    params: { slug: book.slug },
+    props: {
+      title: book.title,
+      pages: getPages(book.slug, book.pageCount),
+      aspectRatio: book.aspectRatio,
+    },
+  }));
+}
+
+const { title, pages, aspectRatio } = Astro.props;
+---
+
+<FlipbookViewer
+  title={title}
+  pages={pages}
+  aspectRatio={aspectRatio}
+  backUrl="/work"
+/>

@@ -54,12 +54,12 @@
   }
 
   .hero__headline {
-    font-size: clamp(2.5rem, 6vw, 5.25rem);
+    font-size: clamp(2.25rem, 5vw, 4.5rem);
     font-weight: var(--fw-bold);
     letter-spacing: -0.045em;
-    line-height: 1.02;
+    line-height: 1.04;
     color: var(--fg);
-    max-width: 14ch;
+    max-width: 26ch;
   }
 
   .hero__line {
@@ -401,6 +401,32 @@
   .hero__btn--ghost:hover {
     background: color-mix(in srgb, var(--fg) 8%, transparent);
     border-color: var(--fg);
+  }
+
+  .hero__textlink {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8em 0.5em;
+    font-family: var(--font-family);
+    font-size: 13px;
+    font-weight: var(--fw-medium);
+    line-height: 1;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--rule);
+    transition: color var(--duration-fast) var(--ease-out),
+                text-decoration-color var(--duration-fast) var(--ease-out);
+  }
+
+  .hero__textlink:hover {
+    color: var(--fg);
+    text-decoration-color: var(--fg);
+  }
+
+  .hero__textlink:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
   }
 
   /* ── Authentic Swiss Rationalist Fullscreen Lightbox Modal ── */
@@ -786,7 +812,8 @@
     letter-spacing: var(--tracking-tight);
     color: var(--fg);
     line-height: 1;
-    min-width: 65px;
+    min-width: 5.5rem;
+    flex-shrink: 0;
   }
 
   .stat-card__info {
