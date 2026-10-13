@@ -568,5 +568,39 @@
     ],
     "description": "Complete brand identity, packaging standards, and label system for organic virgin coconut oil producers based in Lombok.",
     "images": []
+  },
+  {
+    "id": "18",
+    "slug": "dr-koffie",
+    "title": "DR. KOFFIE — B2B Export Collateral Case Study",
+    "client": "PT Doktor Coffee Jaya Abadi",
+    "category": [
+      "Graphic Design"
+    ],
+    "year": 2026,
+    "role": "Brand Collateral & Editorial Designer",
+    "duration": "6 weeks",
+    "poster": "/assets/work/dr-koffie/poster.webp",
+    "flipbookUrl": "/read/dr-koffie",
+    "featured": true,
+    "stats": [
+      {
+        "value": "55+",
+        "unit": "ctnr",
+        "label": "Export containers shipped"
+      },
+      {
+        "value": "4",
+        "unit": "mkts",
+        "label": "Global markets closed"
+      },
+      {
+        "value": "10k+",
+        "unit": "MT",
+        "label": "Annual processing capacity"
+      }
+    ],
+    "description": "Comprehensive B2B collateral overhaul spanning corporate profile, technical export catalog, trade exhibition displays, and executive stationery for international coffee trade.",
+    "images": []
   }
 ]

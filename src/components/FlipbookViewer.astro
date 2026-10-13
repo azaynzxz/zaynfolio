@@ -73,8 +73,8 @@ const preloadPages = pages.slice(0, 6);
       /* ── Seamless Page Transitions (View Transition API) ───────── */
       ::view-transition-old(root),
       ::view-transition-new(root) {
-        animation-duration: 0.5s;
-        animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+        animation-duration: 0.3s;
+        animation-timing-function: ease-in-out;
         mix-blend-mode: normal;
       }
 
@@ -87,13 +87,13 @@ const preloadPages = pages.slice(0, 6);
       }
 
       @keyframes fadeOutAndScale {
-        from { opacity: 1; transform: scale(1); filter: blur(0px); }
-        to { opacity: 0; transform: scale(0.98); filter: blur(4px); }
+        from { opacity: 1; }
+        to { opacity: 0; }
       }
 
       @keyframes fadeInAndScale {
-        from { opacity: 0; transform: scale(1.02); filter: blur(4px); }
-        to { opacity: 1; transform: scale(1); filter: blur(0px); }
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
 
       /* Fullscreen Stage with gallery spotlight backdrop */
@@ -181,7 +181,7 @@ const preloadPages = pages.slice(0, 6);
         }
       }
 
-      /* Viewport wrapper */
+      /* Viewport wrapper. Hidden until turn.js has sized the book, then fades in (no layout jump) */
       .flipbook-viewport {
         position: relative;
         display: flex;
@@ -190,7 +190,12 @@ const preloadPages = pages.slice(0, 6);
         width: 100%;
         height: 100%;
         perspective: 2400px;
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease-out;
+      }
+
+      .flipbook-viewport.is-ready {
+        opacity: 1;
       }
 
       /* Rotated 90deg mode for mobile landscape reading */
@@ -332,6 +337,13 @@ const preloadPages = pages.slice(0, 6);
         window.turnJsRotated90 = false;
         let touchStartX = 0;
         let touchStartY = 0;
+
+        function revealBook() {
+          const vp = document.getElementById('viewport');
+          if (vp) vp.classList.add('is-ready');
+        }
+        // Failsafe: never leave the book hidden if initialisation is slow or fails
+        setTimeout(revealBook, 2500);
 
         // Realistic paper turn audio synthesized via Web Audio API
         function playPaperSound() {
@@ -558,6 +570,11 @@ const preloadPages = pages.slice(0, 6);
             toggleRotation();
           });
 
+          // Book is sized and ready: fade it in
+          requestAnimationFrame(function() {
+            requestAnimationFrame(revealBook);
+          });
+
           // Dynamic responsive resizing
           let resizeTimer;
           $(window).on('resize.flipbook orientationchange.flipbook', function() {
@@ -681,16 +698,24 @@ const preloadPages = pages.slice(0, 6);
           });
         }
 
+        // Remember to restore the previous page scroll position when leaving the viewer
+        function markRestore() {
+          try { sessionStorage.setItem('zf:restore', backUrl || '/work'); } catch (e) {}
+        }
+        const backLink = document.getElementById('back-btn');
+        if (backLink) backLink.addEventListener('click', markRestore);
+        document.addEventListener('astro:before-preparation', markRestore, { once: true });
+
         // Astro View Transitions lifecycle
         document.addEventListener('astro:page-load', tryInit);
         document.addEventListener('astro:before-swap', cleanupListeners, { once: true });
 
-        // Fallback for direct browser document readiness
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-          tryInit();
-        } else {
-          document.addEventListener('DOMContentLoaded', tryInit);
-        }
+        // Fallbacks for direct browser document readiness
+        tryInit();
+        document.addEventListener('DOMContentLoaded', tryInit);
+        window.addEventListener('load', tryInit);
+        setTimeout(tryInit, 300);
+        setTimeout(tryInit, 1200);
       })();
     </script>
   </body>

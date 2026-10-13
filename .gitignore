@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # logs
 *.log
+
+# internal / craft drafts
+portfolio-craft/

@@ -1,0 +1,41 @@
+/* Shared page exit / entrance animation (opacity only, GPU friendly) */
+
+/* Manual exit used before full page loads (flipbook links) */
+html.zf-leaving body {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  pointer-events: none;
+}
+
+/* Soft (client router) navigations */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation-name: zf-page-out;
+}
+
+::view-transition-new(root) {
+  animation-name: zf-page-in;
+}
+
+@keyframes zf-page-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zf-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

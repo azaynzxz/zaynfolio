@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import '../styles/page-transitions.css';
 
 interface Props {
   title?: string;
@@ -351,7 +352,58 @@ const currentPath = Astro.url.pathname;
       document.addEventListener('astro:page-load', initBase);
     </script>
 
+    <!-- Flipbook links: force a full page load (turn.js needs a fresh document) and remember scroll position -->
+    <script is:inline>
+      (function () {
+        if (window.__zfFlipbookNav) return;
+        window.__zfFlipbookNav = true;
+
+        document.addEventListener('click', function (e) {
+          var t = e.target;
+          var a = t && t.closest ? t.closest('a[href^="/read/"]') : null;
+          if (!a) return;
+          a.setAttribute('data-astro-reload', '');
+          try {
+            sessionStorage.setItem('zf:scroll:' + location.pathname + location.search, String(window.scrollY));
+          } catch (err) {}
+
+          // Full page loads skip Astro's view transition, so play the exit animation manually
+          if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank') return;
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          e.preventDefault();
+          e.stopPropagation();
+          var href = a.href;
+          document.documentElement.classList.add('zf-leaving');
+          setTimeout(function () { window.location.href = href; }, 380);
+        }, true);
+
+        // Clear the leaving state when returning via bfcache
+        window.addEventListener('pageshow', function () {
+          document.documentElement.classList.remove('zf-leaving');
+        });
+
+        function restoreScroll() {
+          var key = 'zf:scroll:' + location.pathname + location.search;
+          var y, flag;
+          try {
+            flag = sessionStorage.getItem('zf:restore');
+            y = parseInt(sessionStorage.getItem(key) || '', 10);
+          } catch (err) { return; }
+          if (flag !== location.pathname + location.search || isNaN(y)) return;
+          try { sessionStorage.removeItem('zf:restore'); } catch (err) {}
+          var go = function () { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); };
+          go();
+          requestAnimationFrame(go);
+          setTimeout(go, 200);
+          setTimeout(go, 600);
+        }
+
+        document.addEventListener('astro:page-load', restoreScroll);
+      })();
+    </script>
+
     <!-- Global Media Protection -->
+
     <script>
       document.addEventListener('contextmenu', (e) => {
         if (e.target instanceof HTMLImageElement || e.target instanceof HTMLVideoElement) {

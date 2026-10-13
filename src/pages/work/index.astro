@@ -6,8 +6,8 @@ import projects from '../../data/projects.json';
 const videoSlugs = ['explainer-2d-animations', 'baraca-capital-interview', 'eyes-wide-open'];
 const featuredVideos = videoSlugs.map(slug => projects.find((p: any) => p.slug === slug)).filter(Boolean);
 
-// 02 / Graphic Design featured brandbooks (Place Branding GKU 2, Brandbook PDIN, Brand Book IMB Group)
-const graphicDesignSlugs = ['gku-2-twin-building', 'pdin-yogyakarta', 'imb-group-makassar'];
+// 02 / Graphic Design featured brandbooks (DR. KOFFIE, Place Branding GKU 2, Brandbook PDIN)
+const graphicDesignSlugs = ['dr-koffie', 'gku-2-twin-building', 'pdin-yogyakarta'];
 const featuredGraphicDesign = graphicDesignSlugs.map(slug => projects.find((p: any) => p.slug === slug)).filter(Boolean);
 
 const categories = ['Motion', 'Graphic Design', 'Scripts'];
