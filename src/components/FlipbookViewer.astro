@@ -339,7 +339,7 @@ const preloadPages = pages.slice(0, 6);
       </div>
     </main>
 
-    <script is:inline define:vars={{ backUrl, aspectRatio }}>
+    <script is:inline define:vars={{ backUrl, aspectRatio, title, totalPages: displayPages.length }}>
       (function() {
         const PAGE_RATIO = aspectRatio || 1.4139;
         let audioCtx = null;
@@ -531,6 +531,13 @@ const preloadPages = pages.slice(0, 6);
 
           cleanupListeners();
 
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'flipbook_open', {
+              book_title: title,
+              total_pages: totalPages,
+            });
+          }
+
           const size = calcSize();
 
           // Initialize Turn.js with full drag sensitivity
@@ -550,6 +557,20 @@ const preloadPages = pages.slice(0, 6);
                 playPaperSound();
               },
               turned: function(_e, page) {
+                if (typeof window.gtag === 'function') {
+                  window.gtag('event', 'flipbook_page_turn', {
+                    book_title: title,
+                    page_number: page,
+                    total_pages: totalPages,
+                    is_complete: page >= totalPages,
+                  });
+                  if (page >= totalPages) {
+                    window.gtag('event', 'flipbook_read_complete', {
+                      book_title: title,
+                      total_pages: totalPages,
+                    });
+                  }
+                }
                 if (page === 1) {
                   setTimeout(function() {
                     if ($book.turn('page') === 1) {

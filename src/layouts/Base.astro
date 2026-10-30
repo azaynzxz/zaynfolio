@@ -362,6 +362,14 @@ const currentPath = Astro.url.pathname;
       document.addEventListener('astro:page-load', initBase);
     </script>
 
+    <!-- Analytics Engine & Attention Tracking -->
+    <script>
+      import { initAnalytics } from '../scripts/analytics';
+
+      initAnalytics();
+      document.addEventListener('astro:page-load', initAnalytics);
+    </script>
+
     <!-- Flipbook links: force a full page load (turn.js needs a fresh document) and remember scroll position -->
     <script is:inline>
       (function () {

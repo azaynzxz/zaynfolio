@@ -45,6 +45,8 @@ const ROLE = 'Rigging and animation, sound design, VFX';
 </section>
 
 <script>
+  import { trackYouTubePlay } from '../scripts/analytics';
+
   function initEpisodes() {
     document.querySelectorAll<HTMLElement>('.episode__frame').forEach((frame) => {
       const btn = frame.querySelector('.episode__play');
@@ -53,6 +55,15 @@ const ROLE = 'Rigging and animation, sound design, VFX';
       btn.addEventListener('click', () => {
         const id = frame.dataset.youtubeId;
         if (!id) return;
+
+        const title = frame.dataset.title || 'YouTube video';
+        const metaEl = frame.closest('.episode')?.querySelector('.episode__meta');
+        const metaText = metaEl?.textContent || '';
+        const parts = metaText.split('•').map((s) => s.trim());
+        const channel = parts[0] || 'Unknown Channel';
+        const views = parts[1] || '';
+        trackYouTubePlay(id, title, channel, views);
+
         const iframe = document.createElement('iframe');
         iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
         iframe.title = frame.dataset.title || 'YouTube video';

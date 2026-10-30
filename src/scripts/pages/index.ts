@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { trackEvent } from '../analytics';
 gsap.registerPlugin(ScrollTrigger);
 
 // ══════════════════════════════════════════════════════════════
@@ -138,6 +139,8 @@ function initHero(signal: AbortSignal): () => void {
     playerVideo.pause();
     playerVideo.currentTime = 0;
     playerVideo.src = data.full;
+    playerVideo.dataset.title = data.title ?? '';
+    playerVideo.dataset.slug = data.slug ?? '';
     if (data.poster) {
       playerVideo.poster = data.poster;
     } else {
@@ -145,6 +148,13 @@ function initHero(signal: AbortSignal): () => void {
     }
     playerVideo.muted = false;
     playerVideo.load();
+
+    trackEvent('hero_card_modal_open', {
+      project_id: data.id ?? '',
+      project_title: data.title ?? '',
+      project_slug: data.slug ?? '',
+      client: data.client ?? '',
+    });
 
     // Check vertical aspect ratio
     playerVideo.addEventListener('loadedmetadata', () => {

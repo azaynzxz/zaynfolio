@@ -73,6 +73,8 @@ function initGallery() {
         lbPlayerVideo.currentTime = 0;
         lbPlayerVideo.src = video.src;
         lbPlayerVideo.poster = video.poster;
+        lbPlayerVideo.dataset.title = cell.dataset.title || `Gallery Video ${index + 1}`;
+        lbPlayerVideo.dataset.slug = cell.dataset.id || video.src;
         lbPlayerVideo.load();
         lbPlayerVideo.play().catch(() => {});
       }

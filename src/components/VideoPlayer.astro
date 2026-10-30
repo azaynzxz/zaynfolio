@@ -295,6 +295,8 @@ const {
 </style>
 
 <script>
+  import { VideoAnalytics } from '../scripts/analytics';
+
   function initPlayers() {
     const players = document.querySelectorAll('[data-swiss-player]');
 
@@ -314,6 +316,28 @@ const {
       const durationTimeEl = player.querySelector('[data-duration-time]') as HTMLElement;
 
       if (!video) return;
+
+      // Video Analytics Tracking
+      let videoAnalytics: VideoAnalytics | null = null;
+      let lastSrc = '';
+
+      function getOrInitAnalytics(): VideoAnalytics {
+        const currentSrc = video.currentSrc || video.src;
+        if (!videoAnalytics || lastSrc !== currentSrc) {
+          if (videoAnalytics) videoAnalytics.cleanup();
+          lastSrc = currentSrc;
+          const title = video.dataset.title || player.getAttribute('data-title') || document.title || 'Portfolio Video';
+          const slug = video.dataset.slug || player.getAttribute('data-slug') || currentSrc;
+          const isVertical = player.classList.contains('swiss-player--vertical');
+          videoAnalytics = new VideoAnalytics({
+            videoId: slug,
+            videoTitle: title,
+            videoFormat: isVertical ? 'vertical' : 'horizontal',
+            duration: video.duration,
+          });
+        }
+        return videoAnalytics;
+      }
 
       // Icons
       const playIcon = playToggle?.querySelector('.icon-play') as HTMLElement;
@@ -343,12 +367,18 @@ const {
         player.classList.add('swiss-player--playing');
         if (playIcon) playIcon.style.display = 'none';
         if (pauseIcon) pauseIcon.style.display = 'block';
+        getOrInitAnalytics().onPlay();
       });
 
       video.addEventListener('pause', () => {
         player.classList.remove('swiss-player--playing');
         if (playIcon) playIcon.style.display = 'block';
         if (pauseIcon) pauseIcon.style.display = 'none';
+        videoAnalytics?.onPause();
+      });
+
+      video.addEventListener('ended', () => {
+        videoAnalytics?.onEnded();
       });
 
       // Overlay and Video Wrapper Click
@@ -400,7 +430,13 @@ const {
         if (currentTimeEl) {
           currentTimeEl.textContent = formatTime(video.currentTime);
         }
+        videoAnalytics?.onTimeUpdate(video.currentTime, video.duration);
       });
+
+      // Cleanup analytics when page navigates
+      document.addEventListener('astro:before-swap', () => {
+        videoAnalytics?.cleanup();
+      }, { once: true });
 
       // Click to scrub/seek
       progressContainer?.addEventListener('click', (e) => {
