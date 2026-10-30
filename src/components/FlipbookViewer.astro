@@ -327,7 +327,14 @@ const preloadPages = pages.slice(0, 6);
 
       <!-- Pure flipbook viewport: zero clutter, 100% direct tactile interaction -->
       <div class="flipbook-viewport" id="viewport">
-        <div id="flipbook" class="flipbook" data-aspect-ratio={aspectRatio}>
+        <div
+          id="flipbook"
+          class="flipbook"
+          data-aspect-ratio={aspectRatio}
+          data-back-url={backUrl}
+          data-title={title}
+          data-total-pages={displayPages.length}
+        >
           {displayPages.map((src, index) => (
             <div
               class="page"
@@ -339,9 +346,13 @@ const preloadPages = pages.slice(0, 6);
       </div>
     </main>
 
-    <script is:inline define:vars={{ backUrl, aspectRatio, title, totalPages: displayPages.length }}>
+    <script is:inline>
       (function() {
-        const PAGE_RATIO = aspectRatio || 1.4139;
+        const bookEl = document.getElementById('flipbook');
+        const PAGE_RATIO = parseFloat(bookEl ? bookEl.getAttribute('data-aspect-ratio') || '' : '') || 1.4139;
+        const backUrl = (bookEl && bookEl.getAttribute('data-back-url')) || '/work';
+        const title = (bookEl && bookEl.getAttribute('data-title')) || document.title;
+        const totalPages = parseInt((bookEl && bookEl.getAttribute('data-total-pages')) || '0', 10) || 12;
         let audioCtx = null;
         let isRotated = false;
         window.turnJsRotated90 = false;
