@@ -109,13 +109,15 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}):
   };
 
   window.dataLayer = window.dataLayer || [];
+  // Push to dataLayer for Google Tag Manager triggers
+  window.dataLayer.push({
+    event: eventName,
+    ...enrichedParams,
+  });
+
+  // Also call gtag for Google Analytics 4 direct streaming
   if (typeof window.gtag === 'function') {
     window.gtag('event', eventName, enrichedParams);
-  } else {
-    window.dataLayer.push({
-      event: eventName,
-      ...enrichedParams,
-    });
   }
 }
 
