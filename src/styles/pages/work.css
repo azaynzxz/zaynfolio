@@ -286,10 +286,10 @@
 
   .work-big-title {
     font-family: var(--font-family);
-    font-size: clamp(64px, 18vw, 220px);
+    font-size: clamp(48px, 15vw, 180px);
     font-weight: 900;
     letter-spacing: -0.04em;
-    line-height: 0.88;
+    line-height: 0.92;
     text-transform: uppercase;
     color: var(--fg);
     white-space: nowrap;

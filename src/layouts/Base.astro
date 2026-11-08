@@ -397,10 +397,19 @@ const currentPath = Astro.url.pathname;
           setTimeout(function () { window.location.href = href; }, 380);
         }, true);
 
-        // Clear the leaving state when returning via bfcache
-        window.addEventListener('pageshow', function () {
+        // Clear leaving and locked overflow states reliably across navigations
+        function clearLeaving() {
           document.documentElement.classList.remove('zf-leaving');
-        });
+          if (document.body) {
+            document.body.style.overflow = '';
+            document.body.style.pointerEvents = '';
+          }
+        }
+
+        window.addEventListener('pageshow', clearLeaving);
+        document.addEventListener('astro:page-load', clearLeaving);
+        document.addEventListener('DOMContentLoaded', clearLeaving);
+        clearLeaving();
 
         function restoreScroll() {
           var key = 'zf:scroll:' + location.pathname + location.search;

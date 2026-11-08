@@ -1,6 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
-
 interface Props {
   title: string;
   pages: string[];
@@ -47,8 +45,6 @@ const preloadPages = pages.slice(0, 6);
     />
     <title>{title} — Achmad Zaini</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <ClientRouter />
 
     <!-- Preload first few pages for rapid initial interaction -->
     {preloadPages.map((src) => (
@@ -304,6 +300,7 @@ const preloadPages = pages.slice(0, 6);
         href={backUrl}
         id="back-btn"
         class="nav-btn back-btn"
+        data-astro-reload
         aria-label="Back to portfolio"
         title="Back to portfolio"
       >

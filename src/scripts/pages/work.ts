@@ -6,6 +6,14 @@ function initWork() {
   const tabs = document.querySelectorAll<HTMLButtonElement>('.listing-filter__tab');
   if (!tabs.length) return; // Only run on work listing page!
 
+  // ── Failsafe to guarantee all cards and rows are visible ──
+  function ensureVisibility() {
+    document.querySelectorAll<HTMLElement>('.event-card, .listing-row, .reveal, .reveal-line, .work-big-title').forEach((el) => {
+      el.style.visibility = 'visible';
+    });
+  }
+  setTimeout(ensureVisibility, 300);
+
   // ── Prime & autoplay thumbnail videos across page loads ──
   document.querySelectorAll<HTMLVideoElement>('.work-thumbnail-video').forEach((v) => {
     v.muted = true;
