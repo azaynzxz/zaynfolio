@@ -30,20 +30,20 @@ if (limit && limit > 0) {
 
 <section class="testimonials section" id="endorsements" aria-labelledby="testimonials-heading">
   <div class="container">
-    <div class="testimonials__header reveal">
+    <div class="testimonials__header">
       <span class="section-label">{sectionNumber} &mdash; Social Proof</span>
       <span class="testimonials__meta">{testimonials.length} Testimonials</span>
     </div>
-    <hr class="rule reveal-line" />
+    <hr class="rule" />
 
-    <div class="testimonials__intro reveal">
+    <div class="testimonials__intro">
       <h2 class="testimonials__heading" id="testimonials-heading">{title}</h2>
       <p class="testimonials__subtitle">{subtitle}</p>
     </div>
 
     <div class:list={['testimonials__grid', `testimonials__grid--cols-${columns}`]}>
       {testimonials.map((item) => (
-        <article class:list={['testimonial-card', 'reveal', `testimonial-card--${category}`]} data-category={item.category}>
+        <article class:list={['testimonial-card', `testimonial-card--${category}`]} data-category={item.category}>
           <div class="testimonial-card__header">
             <span class="testimonial-card__tag">
               {item.category === 'motion' ? 'Motion & Animation' : 'Brand & Identity'}

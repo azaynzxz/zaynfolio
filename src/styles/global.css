@@ -48,18 +48,27 @@
   --leading-relaxed: 1.6;
 
   /* Spacing (8px base) */
-  --space-1: 0.5rem;    /* 8px */
-  --space-2: 1rem;      /* 16px */
-  --space-3: 1.5rem;    /* 24px */
-  --space-4: 2rem;      /* 32px */
-  --space-5: 3rem;      /* 48px */
-  --space-6: 4rem;      /* 64px */
-  --space-7: 5rem;      /* 80px */
-  --space-8: 7.5rem;    /* 120px */
+  --space-1: 0.5rem;
+  /* 8px */
+  --space-2: 1rem;
+  /* 16px */
+  --space-3: 1.5rem;
+  /* 24px */
+  --space-4: 2rem;
+  /* 32px */
+  --space-5: 3rem;
+  /* 48px */
+  --space-6: 4rem;
+  /* 64px */
+  --space-7: 5rem;
+  /* 80px */
+  --space-8: 7.5rem;
+  /* 120px */
 
   /* Grid */
   --grid-columns: 12;
-  --grid-gutter: 1.5rem;  /* 24px */
+  --grid-gutter: 1.5rem;
+  /* 24px */
   --grid-max-width: 1280px;
   --grid-padding: var(--space-3);
 
@@ -102,20 +111,33 @@ body {
   color: var(--fg);
   background-color: var(--bg);
   transition: background-color var(--duration-slow) var(--ease-out),
-              color var(--duration-slow) var(--ease-out);
+    color var(--duration-slow) var(--ease-out);
   overflow-x: hidden;
 }
 
 /* ── Typography ────────────────────────────────────────────── */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: var(--fw-black);
   letter-spacing: var(--tracking-tight);
   line-height: var(--leading-tight);
 }
 
-h1 { font-size: var(--fs-display); }
-h2 { font-size: var(--fs-h2); }
-h3 { font-size: var(--fs-h3); }
+h1 {
+  font-size: var(--fs-display);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+}
 
 p {
   font-size: var(--fs-body);
@@ -146,18 +168,53 @@ a {
 }
 
 /* Grid column spans */
-.col-1  { grid-column: span 1; }
-.col-2  { grid-column: span 2; }
-.col-3  { grid-column: span 3; }
-.col-4  { grid-column: span 4; }
-.col-5  { grid-column: span 5; }
-.col-6  { grid-column: span 6; }
-.col-7  { grid-column: span 7; }
-.col-8  { grid-column: span 8; }
-.col-9  { grid-column: span 9; }
-.col-10 { grid-column: span 10; }
-.col-11 { grid-column: span 11; }
-.col-12 { grid-column: span 12; }
+.col-1 {
+  grid-column: span 1;
+}
+
+.col-2 {
+  grid-column: span 2;
+}
+
+.col-3 {
+  grid-column: span 3;
+}
+
+.col-4 {
+  grid-column: span 4;
+}
+
+.col-5 {
+  grid-column: span 5;
+}
+
+.col-6 {
+  grid-column: span 6;
+}
+
+.col-7 {
+  grid-column: span 7;
+}
+
+.col-8 {
+  grid-column: span 8;
+}
+
+.col-9 {
+  grid-column: span 9;
+}
+
+.col-10 {
+  grid-column: span 10;
+}
+
+.col-11 {
+  grid-column: span 11;
+}
+
+.col-12 {
+  grid-column: span 12;
+}
 
 /* ── Rules (Swiss separators) ──────────────────────────────── */
 .rule {
@@ -229,15 +286,15 @@ tr:last-child td {
   padding-bottom: var(--space-8);
 }
 
-/* ── Visibility for GSAP ───────────────────────────────────── */
+/* ── Content Visibility: Always 100% solid & visible by default ── */
 .reveal {
-  opacity: 0;
-  transform: translateY(20px);
+  opacity: 1;
+  transform: none;
 }
 
 .reveal-line {
-  opacity: 0;
-  transform: scaleX(0);
+  opacity: 1;
+  transform: none;
   transform-origin: left;
 }
 
@@ -295,9 +352,17 @@ tr:last-child td {
     padding-bottom: var(--space-6);
   }
 
-  .col-md-4  { grid-column: span 4; }
-  .col-md-8  { grid-column: span 4; }
-  .col-md-12 { grid-column: span 4; }
+  .col-md-4 {
+    grid-column: span 4;
+  }
+
+  .col-md-8 {
+    grid-column: span 4;
+  }
+
+  .col-md-12 {
+    grid-column: span 4;
+  }
 }
 
 /* ── Selection ─────────────────────────────────────────────── */

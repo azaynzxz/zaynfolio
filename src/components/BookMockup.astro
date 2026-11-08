@@ -3,19 +3,89 @@ interface Props {
   cover: string;
   title: string;
   pages?: string | number;
+  aspectRatio?: number;
   class?: string;
 }
 
-const { cover, title, pages, class: className = '' } = Astro.props;
+const {
+  cover,
+  title,
+  pages,
+  aspectRatio = 1.4139, // Default A4 landscape (1684 / 1191)
+  class: className = ''
+} = Astro.props;
 
-// Generate unique identifier to prevent SVG clip-path/gradient collisions across multiple cards
+// Unique identifier to prevent SVG clip-path/gradient collisions across multiple cards
 const uid = 'bm-' + Math.random().toString(36).substring(2, 9);
+
+// ── Strict Geometry Calculations ──
+const ratio = Number(aspectRatio) > 0 ? Number(aspectRatio) : 1.4139;
+
+// Anatomy specifications in SVG units (viewBox = 460 x 280)
+const spineWidth = 11;
+const pageBlockRight = 9;
+const pageBlockBottom = 7;
+
+// Calculate cover dimensions ensuring it stays centered and NEVER gets clipped
+// Available stage area: ~350px width x ~200px height
+let coverW = 0;
+let coverH = 0;
+
+if (ratio >= 1.6) {
+  // Widescreen 16:9 (e.g. Dr. Koffie with ratio 1.7778)
+  coverW = 312;
+  coverH = Math.round(coverW / ratio); // ~176px
+} else {
+  // Standard A4 Landscape (~1.414)
+  coverH = 186;
+  coverW = Math.round(coverH * ratio); // 186 * 1.4139 = 263px
+}
+
+// Full book assembly bounds
+const totalBookW = spineWidth + coverW + pageBlockRight;
+const totalBookH = coverH + pageBlockBottom;
+
+// Centering within 460 x 280 viewBox
+const bookX = Math.round((460 - totalBookW) / 2);
+const bookY = Math.round((244 - totalBookH) / 2) + 6;
+
+// Spine placement (Positioned directly to the LEFT of the front cover — ZERO overlap onto artwork)
+const spineX = bookX;
+const spineY = bookY;
+const spineW = spineWidth;
+const spineH = coverH;
+
+// Front cover artwork placement (Starts immediately at bookX + spineW)
+const coverX = bookX + spineWidth;
+const coverY = bookY;
+
+// Right page block placement (Stacked sheets to the right of the front cover)
+const rightPagesX = coverX + coverW;
+const rightPagesY = coverY + 2;
+const rightPagesW = pageBlockRight;
+
+// Bottom page block placement (Stacked sheets underneath front cover and spine)
+const bottomPagesX = spineX + 5;
+const bottomPagesY = coverY + coverH;
+const bottomPagesH = pageBlockBottom;
+
+// Hardcover back board substrate (Structural shell slightly wider than pages)
+const backShellX = spineX - 1;
+const backShellY = bookY - 1;
+const backShellW = totalBookW + 2;
+const backShellH = totalBookH + 2;
+
+// Ambient ground shadow ellipse
+const shadowCx = bookX + Math.round(totalBookW / 2);
+const shadowCy = bottomPagesY + bottomPagesH + 7;
+const shadowRx = Math.round(totalBookW * 0.52);
+const shadowRy = 11;
 ---
 
 <div class:list={['book-mockup-stage', className]}>
   <svg
     class="book-mockup-svg"
-    viewBox="0 0 460 286"
+    viewBox="0 0 460 280"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -33,104 +103,139 @@ const uid = 'bm-' + Math.random().toString(36).substring(2, 9);
         <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" />
       </filter>
 
-      <!-- Front Cover Clip -->
+      <!-- Front Cover Clip Path: Matches exact cover dimension -->
       <clipPath id={`${uid}-cover-clip`}>
-        <rect x="36" y="20" width="376" height="234" rx="4" ry="4" />
+        <rect x={coverX} y={coverY} width={coverW} height={coverH} rx="1.5" ry="1.5" />
       </clipPath>
 
-      <!-- Spine Curved Lighting Overlay -->
-      <linearGradient id={`${uid}-spine`} x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#000000" stop-opacity="0.45" />
-        <stop offset="18%" stop-color="#ffffff" stop-opacity="0.22" />
-        <stop offset="38%" stop-color="#000000" stop-opacity="0.18" />
-        <stop offset="65%" stop-color="#ffffff" stop-opacity="0.08" />
-        <stop offset="100%" stop-color="#000000" stop-opacity="0.0" />
+      <!-- Hardcover Spine Cylindrical Gradient (Curved 3D binding to the left of cover) -->
+      <linearGradient id={`${uid}-spine-curved`} x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#141517" />
+        <stop offset="28%" stop-color="#34373d" />
+        <stop offset="65%" stop-color="#1e1f23" />
+        <stop offset="90%" stop-color="#111214" />
+        <stop offset="100%" stop-color="#090a0b" />
       </linearGradient>
 
       <!-- Bottom Stacked Paper Edge Gradient -->
       <linearGradient id={`${uid}-pages-bottom`} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#d4d4cb" />
+        <stop offset="0%" stop-color="#d6d6cd" />
         <stop offset="25%" stop-color="#fdfdfa" />
-        <stop offset="45%" stop-color="#e8e8e1" />
-        <stop offset="70%" stop-color="#f6f6f1" />
-        <stop offset="88%" stop-color="#deded5" />
-        <stop offset="100%" stop-color="#c6c6bd" />
+        <stop offset="50%" stop-color="#e6e6df" />
+        <stop offset="75%" stop-color="#f4f4ee" />
+        <stop offset="90%" stop-color="#d4d4cb" />
+        <stop offset="100%" stop-color="#bcbcb2" />
       </linearGradient>
 
       <!-- Right Vertical Stacked Paper Edge Gradient -->
       <linearGradient id={`${uid}-pages-right`} x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#eaeae3" />
-        <stop offset="45%" stop-color="#dfdfd6" />
-        <stop offset="80%" stop-color="#d0d0c6" />
-        <stop offset="100%" stop-color="#babab0" />
+        <stop offset="0%" stop-color="#ecece5" />
+        <stop offset="40%" stop-color="#deded5" />
+        <stop offset="75%" stop-color="#cfcfc5" />
+        <stop offset="100%" stop-color="#b8b8ae" />
       </linearGradient>
 
-      <!-- Diagonal Paper Surface Sheen -->
+      <!-- Delicate Inner Gutter Shade (Subtle depth right next to hinge, does NOT cover text) -->
+      <linearGradient id={`${uid}-gutter`} x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#000000" stop-opacity="0.14" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.0" />
+      </linearGradient>
+
+      <!-- Diagonal Paper Surface Sheen (Subtle tactile satin sheen) -->
       <linearGradient id={`${uid}-sheen`} x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16" />
-        <stop offset="32%" stop-color="#ffffff" stop-opacity="0.03" />
-        <stop offset="65%" stop-color="#000000" stop-opacity="0.02" />
-        <stop offset="100%" stop-color="#000000" stop-opacity="0.2" />
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10" />
+        <stop offset="30%" stop-color="#ffffff" stop-opacity="0.02" />
+        <stop offset="70%" stop-color="#000000" stop-opacity="0.01" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.12" />
       </linearGradient>
     </defs>
 
     <!-- 1. Ground Shadow Group (remains anchored) -->
     <g class="book-mockup-shadow">
       <!-- Ambient Floor Shadow -->
-      <ellipse cx="236" cy="265" rx="188" ry="12" fill="rgba(0, 0, 0, 0.28)" filter={`url(#${uid}-ambient-blur)`} />
+      <ellipse cx={shadowCx} cy={shadowCy} rx={shadowRx} ry={shadowRy} fill="rgba(0, 0, 0, 0.28)" filter={`url(#${uid}-ambient-blur)`} />
       <!-- Tight contact shadow directly beneath base -->
-      <path d="M 44 254 L 412 254 L 420 260 L 52 260 Z" fill="rgba(0, 0, 0, 0.38)" filter={`url(#${uid}-contact-blur)`} />
+      <path
+        d={`M ${bottomPagesX - 2} ${bottomPagesY + 1} L ${rightPagesX + rightPagesW} ${bottomPagesY + 1} L ${rightPagesX + rightPagesW + 5} ${bottomPagesY + bottomPagesH + 4} L ${bottomPagesX + 4} ${bottomPagesY + bottomPagesH + 4} Z`}
+        fill="rgba(0, 0, 0, 0.38)"
+        filter={`url(#${uid}-contact-blur)`}
+      />
     </g>
 
     <!-- 2. Physical Book Body Group (lifts realistically on hover) -->
     <g class="book-mockup-body">
       <!-- Hardcover Back Shell (Dark structural base) -->
-      <rect x="35" y="21" width="380" height="238" rx="4.5" fill="#151618" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+      <rect
+        x={backShellX}
+        y={backShellY}
+        width={backShellW}
+        height={backShellH}
+        rx="3"
+        fill="#141518"
+        stroke="rgba(255, 255, 255, 0.08)"
+        stroke-width="0.75"
+      />
 
       <!-- Paper Thickness - Bottom Page Edge -->
-      <path d="M 50 254 L 412 254 L 419 259 L 57 259 Z" fill={`url(#${uid}-pages-bottom)`} />
+      <path
+        d={`M ${bottomPagesX} ${bottomPagesY} L ${rightPagesX} ${bottomPagesY} L ${rightPagesX + rightPagesW - 1} ${bottomPagesY + bottomPagesH} L ${bottomPagesX + 3} ${bottomPagesY + bottomPagesH} Z`}
+        fill={`url(#${uid}-pages-bottom)`}
+      />
       <!-- Delicate bottom page line striations -->
-      <line x1="52" y1="255.5" x2="414" y2="255.5" stroke="rgba(0, 0, 0, 0.14)" stroke-width="0.5" />
-      <line x1="54" y1="257.2" x2="416" y2="257.2" stroke="rgba(0, 0, 0, 0.16)" stroke-width="0.5" />
+      <line x1={bottomPagesX + 2} y1={bottomPagesY + 2.4} x2={rightPagesX + rightPagesW - 2} y2={bottomPagesY + 2.4} stroke="rgba(0, 0, 0, 0.14)" stroke-width="0.5" />
+      <line x1={bottomPagesX + 4} y1={bottomPagesY + 4.6} x2={rightPagesX + rightPagesW - 3} y2={bottomPagesY + 4.6} stroke="rgba(0, 0, 0, 0.16)" stroke-width="0.5" />
 
       <!-- Paper Thickness - Right Page Edge -->
-      <path d="M 412 21 L 419 26 L 419 259 L 412 254 Z" fill={`url(#${uid}-pages-right)`} />
+      <path
+        d={`M ${rightPagesX} ${rightPagesY} L ${rightPagesX + rightPagesW} ${rightPagesY + 3} L ${rightPagesX + rightPagesW} ${bottomPagesY + bottomPagesH} L ${rightPagesX} ${bottomPagesY} Z`}
+        fill={`url(#${uid}-pages-right)`}
+      />
       <!-- Delicate right page line striations -->
-      <line x1="414.5" y1="23" x2="414.5" y2="255" stroke="rgba(0, 0, 0, 0.14)" stroke-width="0.5" />
-      <line x1="416.8" y1="25" x2="416.8" y2="257" stroke="rgba(0, 0, 0, 0.16)" stroke-width="0.5" />
+      <line x1={rightPagesX + 3} y1={rightPagesY + 3} x2={rightPagesX + 3} y2={bottomPagesY + bottomPagesH - 2} stroke="rgba(0, 0, 0, 0.14)" stroke-width="0.5" />
+      <line x1={rightPagesX + 6} y1={rightPagesY + 5} x2={rightPagesX + 6} y2={bottomPagesY + bottomPagesH - 1} stroke="rgba(0, 0, 0, 0.16)" stroke-width="0.5" />
 
-      <!-- Front Cover Artwork -->
+      <!-- Hardcover Spine (Physical bound left edge — completely outside cover artwork) -->
+      <rect
+        x={spineX}
+        y={spineY}
+        width={spineW}
+        height={spineH}
+        rx="2"
+        fill={`url(#${uid}-spine-curved)`}
+      />
+
+      <!-- Front Cover Artwork (Sits immediately to the right of the spine — 100% visible, zero crop) -->
       <g clip-path={`url(#${uid}-cover-clip)`}>
         <image
           href={cover}
           xlink:href={cover}
-          x="36"
-          y="20"
-          width="376"
-          height="234"
-          preserveAspectRatio="xMidYMid slice"
+          x={coverX}
+          y={coverY}
+          width={coverW}
+          height={coverH}
+          preserveAspectRatio="none"
         />
-        <!-- Tactile Spine Overlay on cover -->
-        <rect x="36" y="20" width="30" height="234" fill={`url(#${uid}-spine)`} />
+        <!-- Micro Gutter Shadow on the leftmost 6px only -->
+        <rect x={coverX} y={coverY} width="6" height={coverH} fill={`url(#${uid}-gutter)`} pointer-events="none" />
       </g>
 
-      <!-- Spine Crease & Hinge Groove -->
-      <line x1="64" y1="20" x2="64" y2="254" stroke="rgba(0, 0, 0, 0.28)" stroke-width="1.2" />
-      <line x1="65.2" y1="20" x2="65.2" y2="254" stroke="rgba(255, 255, 255, 0.28)" stroke-width="0.8" />
+      <!-- Spine Hinge Crease Groove (Defines the boundary between spine and front board) -->
+      <line x1={coverX} y1={coverY} x2={coverX} y2={coverY + coverH} stroke="rgba(0, 0, 0, 0.45)" stroke-width="1.2" />
+      <line x1={coverX + 0.8} y1={coverY} x2={coverX + 0.8} y2={coverY + coverH} stroke="rgba(255, 255, 255, 0.24)" stroke-width="0.6" />
 
-      <!-- Paper Sheen / Natural Lighting across cover -->
-      <rect x="36" y="20" width="376" height="234" rx="4" fill={`url(#${uid}-sheen)`} pointer-events="none" />
+      <!-- Paper Sheen / Natural Satin Reflection across cover -->
+      <rect x={coverX} y={coverY} width={coverW} height={coverH} rx="1.5" fill={`url(#${uid}-sheen)`} pointer-events="none" />
 
       <!-- Crisp Outer Rim Highlight -->
       <rect
-        x="36.5"
-        y="20.5"
-        width="375"
-        height="233"
-        rx="3.5"
+        x={coverX + 0.5}
+        y={coverY + 0.5}
+        width={coverW - 1}
+        height={coverH - 1}
+        rx="1.2"
         fill="none"
-        stroke="rgba(255, 255, 255, 0.32)"
-        stroke-width="0.8"
+        stroke="rgba(255, 255, 255, 0.3)"
+        stroke-width="0.75"
         pointer-events="none"
       />
     </g>
@@ -145,9 +250,9 @@ const uid = 'bm-' + Math.random().toString(36).substring(2, 9);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-2) var(--space-1);
+    padding: var(--space-1) 0;
     background: transparent;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .book-mockup-svg {
@@ -160,13 +265,13 @@ const uid = 'bm-' + Math.random().toString(36).substring(2, 9);
 
   .book-mockup-body {
     transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    transform-origin: 226px 240px;
+    transform-origin: 230px 240px;
     will-change: transform;
   }
 
   .book-mockup-shadow {
     transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
-    transform-origin: 236px 265px;
+    transform-origin: 230px 255px;
     will-change: transform, opacity;
   }
 
@@ -186,7 +291,7 @@ const uid = 'bm-' + Math.random().toString(36).substring(2, 9);
 
   @media (max-width: 640px) {
     .book-mockup-stage {
-      padding: var(--space-1) 0;
+      padding: 0;
     }
   }
 </style>
