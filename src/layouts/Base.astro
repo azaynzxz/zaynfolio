@@ -113,9 +113,9 @@ const currentPath = Astro.url.pathname;
             </button>
           </div>
           <div class="nav__links">
-            <a href="/work" class:list={["nav__link", { "nav__link--active": currentPath === "/work" || currentPath === "/work/" }]} id="nav-work">Work</a>
-            <a href="/gallery" class:list={["nav__link", { "nav__link--active": currentPath === "/gallery" || currentPath === "/gallery/" }]} id="nav-gallery">Gallery</a>
-            <a href="/contact" class:list={["nav__link", { "nav__link--active": currentPath === "/contact" || currentPath === "/contact/" }]} id="nav-contact">Contact</a>
+            <a href="/motion" class:list={["nav__link", { "nav__link--active": currentPath.startsWith("/motion") }]} id="nav-motion">Motion</a>
+            <a href="/graphic-design" class:list={["nav__link", { "nav__link--active": currentPath.startsWith("/graphic-design") }]} id="nav-graphic-design">Graphic Design</a>
+            <a href="/contact" class:list={["nav__link", { "nav__link--active": currentPath.startsWith("/contact") }]} id="nav-contact">Contact</a>
             <button class="nav__theme-toggle" id="theme-toggle" aria-label="Toggle theme">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
@@ -149,25 +149,25 @@ const currentPath = Astro.url.pathname;
               </a>
             </li>
             <li class="mobile-dropdown__item">
-              <a href="/work" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/work" || currentPath === "/work/" }]}>
+              <a href="/motion" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath.startsWith("/motion") }]}>
                 <span class="mobile-dropdown__num">01</span>
-                <span class="mobile-dropdown__title">Work</span>
+                <span class="mobile-dropdown__title">Motion</span>
                 <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                   <path d="M4 12l8-8M12 12V4H4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
             </li>
             <li class="mobile-dropdown__item">
-              <a href="/gallery" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/gallery" || currentPath === "/gallery/" }]}>
+              <a href="/graphic-design" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath.startsWith("/graphic-design") }]}>
                 <span class="mobile-dropdown__num">02</span>
-                <span class="mobile-dropdown__title">Gallery</span>
+                <span class="mobile-dropdown__title">Graphic Design</span>
                 <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                   <path d="M4 12l8-8M12 12V4H4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
             </li>
             <li class="mobile-dropdown__item">
-              <a href="/contact" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath === "/contact" || currentPath === "/contact/" }]}>
+              <a href="/contact" class:list={["mobile-dropdown__link", { "mobile-dropdown__link--active": currentPath.startsWith("/contact") }]}>
                 <span class="mobile-dropdown__num">03</span>
                 <span class="mobile-dropdown__title">Contact</span>
                 <svg class="mobile-dropdown__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -254,8 +254,8 @@ const currentPath = Astro.url.pathname;
         <div class="footer__inner">
           <span class="footer__copy">&copy; {new Date().getFullYear()} Achmad Zaini</span>
           <div class="footer__links">
-            <a href="/work" class="footer__link">Work</a>
-            <a href="/gallery" class="footer__link">Gallery</a>
+            <a href="/motion" class="footer__link">Motion</a>
+            <a href="/graphic-design" class="footer__link">Graphic Design</a>
             <a href="/contact" class="footer__link">Contact</a>
           </div>
         </div>

@@ -1,3 +1,16 @@
 ---
-return Astro.redirect('/gallery');
+return Astro.redirect('/graphic-design', 301);
 ---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0;url=/graphic-design" />
+    <link rel="canonical" href="https://zaynfolio.com/graphic-design" />
+    <title>Redirecting to Graphic Design...</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/graphic-design">Graphic Design</a>...</p>
+  </body>
+</html>

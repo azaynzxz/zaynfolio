@@ -5,6 +5,7 @@ import '../styles/pages/index.css';
 import { Image } from 'astro:assets';
 import VideoPlayer from '../components/VideoPlayer.astro';
 import FeaturedEpisodes from '../components/FeaturedEpisodes.astro';
+import Testimonials from '../components/Testimonials.astro';
 
 // Import local assets for Astro Image optimization
 const assets = import.meta.glob<{ default: ImageMetadata | string }>('/src/assets/work/**/*.{jpeg,jpg,png,gif,webp}', { eager: true });
@@ -49,14 +50,14 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
 ---
 
 <Base
-  title="Achmad Zaini | 2D Motion Designer for YouTube and Marketing"
-  description="Rigged 2D motion for YouTube series and marketing posters. 124 episodes delivered, production team supervised. Remote worldwide."
+  title="Achmad Zaini | 2D Motion Designer & Brand Systems Specialist"
+  description="Rigged 2D motion for YouTube series and marketing systems. 124 episodes delivered, production team supervised, supported by comprehensive brand guidelines. Remote worldwide."
 >
   <!-- ═══ Hero Section — Fanned Project Deck ═══ -->
   <section class="hero" id="hero" aria-labelledby="hero-headline">
     <div class="container hero__inner">
       <p class="hero__eyebrow" data-hero-fade>
-        Achmad Zaini <span class="hero__eyebrow-sep" aria-hidden="true">/</span> 2D motion designer, Palembang, Indonesia
+        Achmad Zaini <span class="hero__eyebrow-sep" aria-hidden="true">/</span> 2D Motion Designer & Brand Systems Specialist, Palembang, Indonesia
       </p>
 
       <h1 class="hero__headline" id="hero-headline">
@@ -122,7 +123,7 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
 
       <p class="hero__lede" data-hero-fade>
         I turn illustrations into animated YouTube episodes using character rigs,
-        sound design and VFX. 124 episodes delivered, and I supervise the production team.
+        sound design and VFX. 124 episodes delivered, supported by a strong foundation in brand guidelines and graphic systems.
       </p>
 
       <div class="hero__actions" data-hero-fade>
@@ -146,7 +147,8 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
             Watch the showreel
           </button>
         )}
-        <a href="/work" class="hero__textlink" id="hero-see-work">See all work</a>
+        <a href="/motion" class="hero__textlink" id="hero-see-motion">Explore Motion &rarr;</a>
+        <a href="/graphic-design" class="hero__textlink" id="hero-see-design">Explore Graphic Design &rarr;</a>
       </div>
     </div>
   </section>
@@ -197,7 +199,7 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
         </div>
 
         <div class="work-modal__footer">
-          <a href="/work" class="work-modal__link" id="wm-link">
+          <a href="/motion" class="work-modal__link" id="wm-link">
             View full case study
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
           </a>
@@ -265,11 +267,20 @@ const showreel = projects.find((p: any) => p.id === SHOWREEL_ID);
     </div>
   </section>
 
+  <!-- ═══ Client Endorsements ═══ -->
+  <Testimonials
+    category="all"
+    limit={4}
+    sectionNumber="02"
+    title="Client Endorsements"
+    subtitle="Feedback from production leads, founders, and brand partners."
+  />
+
   <!-- ═══ Process Section ═══ -->
   <section class="process section" id="process">
     <div class="container">
       <div class="process__header reveal">
-        <span class="section-label">02 &mdash; Process</span>
+        <span class="section-label">03 &mdash; Process</span>
       </div>
       <hr class="rule reveal-line" />
       <div class="process__grid grid">

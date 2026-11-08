@@ -1,0 +1,47 @@
+[
+  {
+    "id": "01",
+    "name": "Indra",
+    "role": "Founder & Lead Instructor",
+    "company": "Eyes Wide Open Studio",
+    "category": "motion",
+    "quote": "Zayn has been a cornerstone in our episodic pipeline. He turns complex layered illustrations into fully rigged character animation under strict weekly deadlines. His eye for pacing and audio timing means minimal retakes, and his oversight kept our animation team shipping on schedule.",
+    "highlight": "Kept our animation team shipping on schedule"
+  },
+  {
+    "id": "02",
+    "name": "Wahyu",
+    "role": "Director & Founder",
+    "company": "O.O Stuudio",
+    "category": "motion",
+    "quote": "Collaborating with Zayn on 2D animation is effortless. His character rigs are built cleanly in After Effects, which makes scene handoffs seamless. He understands motion curve dynamics and always delivers before the final cutoff.",
+    "highlight": "Clean rigs and seamless scene handoffs"
+  },
+  {
+    "id": "03",
+    "name": "Othin",
+    "role": "Manager",
+    "company": "PT Doktor Coffee Jaya Abadi (DR. KOFFIE)",
+    "category": "graphic-design",
+    "quote": "Zayn structured our entire B2B export catalog and brand collateral from the ground up. The layout was clear, professional, and met the strict technical documentation standards required by our international buyers. It gave our sales team immediate credibility.",
+    "highlight": "Gave our export sales team immediate credibility"
+  },
+  {
+    "id": "04",
+    "name": "Stevan",
+    "role": "Founder",
+    "company": "ID Card Lampung",
+    "category": "graphic-design",
+    "quote": "Zayn established our visual identity and print production standards with absolute precision. Having a standardized 12-page brandbook eliminated color inconsistencies across our digital print runs and made onboarding our production staff straightforward.",
+    "highlight": "Eliminated print color inconsistencies"
+  },
+  {
+    "id": "05",
+    "name": "Gandi",
+    "role": "Founder & Lead Instructor",
+    "company": "Kelas Struktur",
+    "category": "graphic-design",
+    "quote": "Zayn has an exceptional ability to translate complex technical engineering subjects into punchy, high-retention visual promos and social media systems. Our course launch engagement improved noticeably, and his delivery was always prompt.",
+    "highlight": "Course launch engagement improved noticeably"
+  }
+]

@@ -244,7 +244,7 @@ function initWork() {
       const projectId = link.dataset.id;
       const href = link.getAttribute('href');
       
-      if (href && (href.startsWith('/gallery') || href.startsWith('/read/') || href.startsWith('/brandbook'))) return;
+      if (href && (href.startsWith('/graphic-design') || href.startsWith('/gallery') || href.startsWith('/read/') || href.startsWith('/brandbook'))) return;
       
       e.preventDefault();
       

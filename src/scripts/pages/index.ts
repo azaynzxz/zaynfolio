@@ -134,7 +134,7 @@ function initHero(signal: AbortSignal): () => void {
     if (wmRole) wmRole.textContent = data.role ?? 'Lead Motion Designer';
     if (wmYear) wmYear.textContent = data.year ?? '';
     if (wmDesc) wmDesc.textContent = data.desc ?? '';
-    if (wmLink) wmLink.href = data.slug ? `/work/${data.slug}` : '/work';
+    if (wmLink) wmLink.href = data.slug ? `/work/${data.slug}` : '/motion';
 
     playerVideo.pause();
     playerVideo.currentTime = 0;

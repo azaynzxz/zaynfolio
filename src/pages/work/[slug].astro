@@ -27,6 +27,10 @@ const { project } = Astro.props;
 // Determine next and previous projects for the footer navigation
 const currentIndex = projects.findIndex((p) => p.id === project.id);
 const nextProject = projects[(currentIndex + 1) % projects.length];
+
+const isGraphicDesign = project.category && project.category.includes('Graphic Design');
+const parentHref = isGraphicDesign ? '/graphic-design' : '/motion';
+const parentLabel = isGraphicDesign ? 'Graphic Design' : 'Motion';
 ---
 
 <Base title={`${project.title} — Achmad Zaini`} description={project.description} image={project.poster}>
@@ -36,7 +40,7 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     <div class="project-hero__container">
       <div class="project-hero__left">
         <div class="project-hero__breadcrumbs">
-          <a href="/work">Work</a> / <span class="active">{project.title}</span>
+          <a href={parentHref}>{parentLabel}</a> / <span class="active">{project.title}</span>
         </div>
         
         <span class="section-label hero-label">{project.client} · {project.year}</span>
@@ -179,13 +183,13 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     <div class="container">
       <hr class="rule" />
       <div class="project-footer__row">
-        <a href={nextProject.slug === 'social-media-content' ? '/gallery' : `/work/${nextProject.slug}`} class="footer-link footer-link--next">
+        <a href={nextProject.slug === 'social-media-content' ? '/graphic-design' : `/work/${nextProject.slug}`} class="footer-link footer-link--next">
           <span class="footer-link__label">Next Project &rarr;</span>
           <span class="footer-link__title">{nextProject.title}</span>
         </a>
-        <a href="/work" class="footer-link footer-link--back">
-          <span class="footer-link__label">All Projects &uarr;</span>
-          <span class="footer-link__title">Back to Work</span>
+        <a href={parentHref} class="footer-link footer-link--back">
+          <span class="footer-link__label">All Deliverables &uarr;</span>
+          <span class="footer-link__title">Back to {parentLabel}</span>
         </a>
       </div>
     </div>

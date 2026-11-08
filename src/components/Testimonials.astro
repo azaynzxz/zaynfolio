@@ -1,0 +1,215 @@
+---
+import testimonialsData from '../data/testimonials.json';
+
+interface Props {
+  category?: 'all' | 'motion' | 'graphic-design';
+  limit?: number;
+  sectionNumber?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  category = 'all',
+  limit,
+  sectionNumber = '03',
+  title = 'Client Endorsements',
+  subtitle = 'Feedback from studio leads, founders, and brand partners.'
+} = Astro.props;
+
+let testimonials = category === 'all' 
+  ? testimonialsData 
+  : testimonialsData.filter((item) => item.category === category);
+
+if (limit && limit > 0) {
+  testimonials = testimonials.slice(0, limit);
+}
+---
+
+<section class="testimonials section" id="endorsements" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="testimonials__header reveal">
+      <span class="section-label">{sectionNumber} &mdash; Social Proof</span>
+      <span class="testimonials__meta">{testimonials.length} Endorsements</span>
+    </div>
+    <hr class="rule reveal-line" />
+
+    <div class="testimonials__intro reveal">
+      <h2 class="testimonials__heading" id="testimonials-heading">{title}</h2>
+      <p class="testimonials__subtitle">{subtitle}</p>
+    </div>
+
+    <div class="testimonials__grid">
+      {testimonials.map((item) => (
+        <article class="testimonial-card reveal" data-category={item.category}>
+          <div class="testimonial-card__header">
+            <span class="testimonial-card__tag">
+              {item.category === 'motion' ? 'Motion & Animation' : 'Brand & Identity'}
+            </span>
+            <span class="testimonial-card__id">{item.id}</span>
+          </div>
+
+          <blockquote class="testimonial-card__quote">
+            <p>&ldquo;{item.quote}&rdquo;</p>
+          </blockquote>
+
+          <div class="testimonial-card__footer">
+            <div class="testimonial-card__author-info">
+              <strong class="testimonial-card__name">{item.name}</strong>
+              <span class="testimonial-card__role">{item.role}</span>
+              <span class="testimonial-card__company">{item.company}</span>
+            </div>
+            {item.highlight && (
+              <span class="testimonial-card__highlight">{item.highlight}</span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .testimonials__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+
+  .testimonials__meta {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  .testimonials__intro {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .testimonials__heading {
+    font-size: clamp(24px, 3.2vw, 38px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--fg);
+    margin-bottom: var(--space-2);
+  }
+
+  .testimonials__subtitle {
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: var(--fg-muted);
+    line-height: 1.5;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-6);
+  }
+
+  .testimonial-card {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--space-6);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--fg-muted);
+  }
+
+  .testimonial-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .testimonial-card__tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .testimonial-card__id {
+    font-size: 11px;
+    color: var(--fg-muted);
+    font-family: monospace;
+  }
+
+  .testimonial-card__quote {
+    margin: 0 0 var(--space-6) 0;
+    font-size: clamp(14px, 1.15vw, 16px);
+    line-height: 1.65;
+    color: var(--fg);
+    font-weight: 400;
+  }
+
+  .testimonial-card__footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  .testimonial-card__author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .testimonial-card__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  .testimonial-card__role {
+    font-size: 12px;
+    color: var(--fg-muted);
+  }
+
+  .testimonial-card__company {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+  }
+
+  .testimonial-card__highlight {
+    align-self: flex-start;
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    padding: 3px 8px;
+    background: rgba(232, 160, 144, 0.08);
+    border: 1px solid rgba(232, 160, 144, 0.25);
+    color: var(--accent);
+    border-radius: 2px;
+  }
+
+  @media (max-width: 900px) {
+    .testimonial-card {
+      grid-column: span 12;
+    }
+  }
+</style>
+

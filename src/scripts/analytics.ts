@@ -118,6 +118,11 @@ export function trackEvent(eventName: string, params: Record<string, any> = {}):
   // Also call gtag for Google Analytics 4 direct streaming
   if (typeof window.gtag === 'function') {
     window.gtag('event', eventName, enrichedParams);
+  } else {
+    window.dataLayer.push({
+      event: eventName,
+      ...enrichedParams,
+    });
   }
 }
 
