@@ -133,26 +133,29 @@ function initGallery() {
   lbNext.addEventListener('click', () => navigateLb(1));
 
   // ── Entry Animation ──────────────────────────────────
-  // Title slides up
-  gsap.fromTo('.gallery-title', { y: '100%', autoAlpha: 0 }, { y: '0%', autoAlpha: 1, duration: 0.8, ease: 'power4.out' });
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    // Stagger each category section as it scrolls into view
+    document.querySelectorAll('.gallery-grid-section').forEach(section => {
+      const gridCells = section.querySelectorAll('.gallery-cell');
+      const rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) return;
 
-  // Stagger each category section as it scrolls into view
-  document.querySelectorAll('.gallery-grid-section').forEach(section => {
-    const gridCells = section.querySelectorAll('.gallery-cell');
-
-    gsap.fromTo(gridCells, { autoAlpha: 0, y: 16 }, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.4,
-      stagger: 0.035,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 85%',
-        once: true
-      }
+      gsap.from(gridCells, {
+        opacity: 0,
+        y: 16,
+        duration: 0.4,
+        stagger: 0.035,
+        ease: 'power2.out',
+        clearProps: 'all',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          once: true
+        }
+      });
     });
-  });
+  }
 }
 
 document.addEventListener('astro:page-load', initGallery);

@@ -487,52 +487,70 @@ const currentPath = Astro.url.pathname;
 
       // Synchronous layout animation initialization
       function initScrollAndAnimations() {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Animate reveal elements
-        gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
-          gsap.fromTo(el, { autoAlpha: 0, y: 20 }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 90%',
-              once: true,
-            },
+        if (!reduceMotion) {
+          // Animate reveal elements that are below the fold
+          gsap.utils.toArray<HTMLElement>('.reveal').forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            // If already in viewport on initial load/refresh, do not flash or hide it!
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              return;
+            }
+            gsap.fromTo(el, { autoAlpha: 0, y: 20 }, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power3.out',
+              clearProps: 'all',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 90%',
+                once: true,
+              },
+            });
           });
-        });
 
-        // Animate rule lines
-        gsap.utils.toArray<HTMLElement>('.reveal-line').forEach((el) => {
-          gsap.fromTo(el, { scaleX: 0, autoAlpha: 0 }, {
-            autoAlpha: 1,
-            scaleX: 1,
-            duration: 1,
-            ease: 'power3.inOut',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 90%',
-              once: true,
-            },
+          // Animate rule lines that are below the fold
+          gsap.utils.toArray<HTMLElement>('.reveal-line').forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              return;
+            }
+            gsap.fromTo(el, { scaleX: 0, autoAlpha: 0 }, {
+              autoAlpha: 1,
+              scaleX: 1,
+              duration: 1,
+              ease: 'power3.inOut',
+              clearProps: 'all',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 90%',
+                once: true,
+              },
+            });
           });
-        });
 
-        // Stagger work rows
-        const workRows = gsap.utils.toArray<HTMLElement>('.work-row');
-        if (workRows.length) {
-          gsap.fromTo(workRows, { autoAlpha: 0, y: 30 }, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: workRows[0],
-              start: 'top 85%',
-              once: true,
-            },
-          });
+          // Stagger work rows if below fold
+          const workRows = gsap.utils.toArray<HTMLElement>('.work-row');
+          if (workRows.length) {
+            const firstRect = workRows[0].getBoundingClientRect();
+            if (firstRect.top >= window.innerHeight || firstRect.bottom <= 0) {
+              gsap.fromTo(workRows, { autoAlpha: 0, y: 30 }, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: 'power3.out',
+                clearProps: 'all',
+                scrollTrigger: {
+                  trigger: workRows[0],
+                  start: 'top 85%',
+                  once: true,
+                },
+              });
+            }
+          }
         }
 
         // Initialize Lenis scroll asynchronously in the background

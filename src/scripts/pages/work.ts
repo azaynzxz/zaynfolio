@@ -6,83 +6,8 @@ function initWork() {
   const tabs = document.querySelectorAll<HTMLButtonElement>('.listing-filter__tab');
   if (!tabs.length) return; // Only run on work listing page!
 
-  // ── Failsafe to guarantee all cards and rows are visible ──
-  function ensureVisibility() {
-    document.querySelectorAll<HTMLElement>('.event-card, .listing-row, .reveal, .reveal-line, .work-big-title').forEach((el) => {
-      el.style.visibility = 'visible';
-    });
-  }
-  setTimeout(ensureVisibility, 300);
-
-  // ── Prime & autoplay thumbnail videos across page loads ──
-  document.querySelectorAll<HTMLVideoElement>('.work-thumbnail-video').forEach((v) => {
-    v.muted = true;
-    if (v.readyState < 2) {
-      v.load();
-    }
-    v.play().catch(() => {});
-  });
-
-  // ── Title slide-up entrance (Gallery-style) ────────
-  gsap.fromTo('.work-big-title', { y: '100%', autoAlpha: 0 }, { y: '0%', autoAlpha: 1, duration: 0.8, ease: 'power4.out' });
-
-  // ── Filter logic ──────────────────────────────────
+  const cards = document.querySelectorAll<HTMLElement>('.event-card');
   const rows = document.querySelectorAll<HTMLElement>('.listing-row');
-  const countEl = document.getElementById('project-count');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('listing-filter__tab--active'));
-      tab.classList.add('listing-filter__tab--active');
-      const filter = tab.dataset.filter;
-      let visible = 0;
-
-      rows.forEach((row) => {
-        const cats: string[] = JSON.parse(row.dataset.categories || '[]');
-        const show = filter === 'all' || cats.includes(filter || '');
-        if (show) {
-          row.style.display = '';
-          visible++;
-          const indexEl = row.querySelector<HTMLElement>('.listing-row__index');
-          if (indexEl) {
-            indexEl.textContent = String(visible).padStart(2, '0');
-          }
-          gsap.fromTo(row, { autoAlpha: 0, y: 14 }, {
-            autoAlpha: 1, y: 0, duration: 0.4,
-            ease: 'power3.out', delay: visible * 0.04
-          });
-        } else {
-          gsap.to(row, {
-            autoAlpha: 0, duration: 0.2, ease: 'power2.in',
-            onComplete: () => { row.style.display = 'none'; }
-          });
-        }
-      });
-
-      if (countEl) {
-        const n = filter === 'all' ? rows.length : visible;
-        countEl.textContent = `${n} project${n !== 1 ? 's' : ''}`;
-      }
-    });
-  });
-
-  // ── Stagger entrance: featured cards ──────────────
-  const cards = gsap.utils.toArray<HTMLElement>('.event-card');
-  if (cards.length) {
-    gsap.fromTo(cards, 
-      { autoAlpha: 0, y: 30 },
-      { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.15 }
-    );
-  }
-
-  // ── Stagger entrance: listing rows ────────────────
-  const listRows = gsap.utils.toArray<HTMLElement>('.listing-row');
-  if (listRows.length) {
-    gsap.fromTo(listRows, 
-      { autoAlpha: 0, y: 20 },
-      { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.04, ease: 'power3.out', delay: 0.3 }
-    );
-  }
 
   // ── Hover: listing rows ───────────────────────────
   rows.forEach(row => {

@@ -1,0 +1,192 @@
+---
+interface Props {
+  cover: string;
+  title: string;
+  pages?: string | number;
+  class?: string;
+}
+
+const { cover, title, pages, class: className = '' } = Astro.props;
+
+// Generate unique identifier to prevent SVG clip-path/gradient collisions across multiple cards
+const uid = 'bm-' + Math.random().toString(36).substring(2, 9);
+---
+
+<div class:list={['book-mockup-stage', className]}>
+  <svg
+    class="book-mockup-svg"
+    viewBox="0 0 460 286"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    role="img"
+    aria-label={`Brandbook mockup for ${title}${pages ? ` (${pages} pages)` : ''}`}
+  >
+    <defs>
+      <!-- Soft ambient floor shadow -->
+      <filter id={`${uid}-ambient-blur`} x="-20%" y="-20%" width="140%" height="180%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="9" />
+      </filter>
+
+      <!-- Tight contact shadow under the base -->
+      <filter id={`${uid}-contact-blur`} x="-10%" y="-10%" width="120%" height="160%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" />
+      </filter>
+
+      <!-- Front Cover Clip -->
+      <clipPath id={`${uid}-cover-clip`}>
+        <rect x="36" y="20" width="376" height="234" rx="4" ry="4" />
+      </clipPath>
+
+      <!-- Spine Curved Lighting Overlay -->
+      <linearGradient id={`${uid}-spine`} x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#000000" stop-opacity="0.45" />
+        <stop offset="18%" stop-color="#ffffff" stop-opacity="0.22" />
+        <stop offset="38%" stop-color="#000000" stop-opacity="0.18" />
+        <stop offset="65%" stop-color="#ffffff" stop-opacity="0.08" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.0" />
+      </linearGradient>
+
+      <!-- Bottom Stacked Paper Edge Gradient -->
+      <linearGradient id={`${uid}-pages-bottom`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d4d4cb" />
+        <stop offset="25%" stop-color="#fdfdfa" />
+        <stop offset="45%" stop-color="#e8e8e1" />
+        <stop offset="70%" stop-color="#f6f6f1" />
+        <stop offset="88%" stop-color="#deded5" />
+        <stop offset="100%" stop-color="#c6c6bd" />
+      </linearGradient>
+
+      <!-- Right Vertical Stacked Paper Edge Gradient -->
+      <linearGradient id={`${uid}-pages-right`} x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#eaeae3" />
+        <stop offset="45%" stop-color="#dfdfd6" />
+        <stop offset="80%" stop-color="#d0d0c6" />
+        <stop offset="100%" stop-color="#babab0" />
+      </linearGradient>
+
+      <!-- Diagonal Paper Surface Sheen -->
+      <linearGradient id={`${uid}-sheen`} x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.16" />
+        <stop offset="32%" stop-color="#ffffff" stop-opacity="0.03" />
+        <stop offset="65%" stop-color="#000000" stop-opacity="0.02" />
+        <stop offset="100%" stop-color="#000000" stop-opacity="0.2" />
+      </linearGradient>
+    </defs>
+
+    <!-- 1. Ground Shadow Group (remains anchored) -->
+    <g class="book-mockup-shadow">
+      <!-- Ambient Floor Shadow -->
+      <ellipse cx="236" cy="265" rx="188" ry="12" fill="rgba(0, 0, 0, 0.28)" filter={`url(#${uid}-ambient-blur)`} />
+      <!-- Tight contact shadow directly beneath base -->
+      <path d="M 44 254 L 412 254 L 420 260 L 52 260 Z" fill="rgba(0, 0, 0, 0.38)" filter={`url(#${uid}-contact-blur)`} />
+    </g>
+
+    <!-- 2. Physical Book Body Group (lifts realistically on hover) -->
+    <g class="book-mockup-body">
+      <!-- Hardcover Back Shell (Dark structural base) -->
+      <rect x="35" y="21" width="380" height="238" rx="4.5" fill="#151618" stroke="rgba(255, 255, 255, 0.08)" stroke-width="0.75" />
+
+      <!-- Paper Thickness - Bottom Page Edge -->
+      <path d="M 50 254 L 412 254 L 419 259 L 57 259 Z" fill={`url(#${uid}-pages-bottom)`} />
+      <!-- Delicate bottom page line striations -->
+      <line x1="52" y1="255.5" x2="414" y2="255.5" stroke="rgba(0, 0, 0, 0.14)" stroke-width="0.5" />
+      <line x1="54" y1="257.2" x2="416" y2="257.2" stroke="rgba(0, 0, 0, 0.16)" stroke-width="0.5" />
+
+      <!-- Paper Thickness - Right Page Edge -->
+      <path d="M 412 21 L 419 26 L 419 259 L 412 254 Z" fill={`url(#${uid}-pages-right)`} />
+      <!-- Delicate right page line striations -->
+      <line x1="414.5" y1="23" x2="414.5" y2="255" stroke="rgba(0, 0, 0, 0.14)" stroke-width="0.5" />
+      <line x1="416.8" y1="25" x2="416.8" y2="257" stroke="rgba(0, 0, 0, 0.16)" stroke-width="0.5" />
+
+      <!-- Front Cover Artwork -->
+      <g clip-path={`url(#${uid}-cover-clip)`}>
+        <image
+          href={cover}
+          xlink:href={cover}
+          x="36"
+          y="20"
+          width="376"
+          height="234"
+          preserveAspectRatio="xMidYMid slice"
+        />
+        <!-- Tactile Spine Overlay on cover -->
+        <rect x="36" y="20" width="30" height="234" fill={`url(#${uid}-spine)`} />
+      </g>
+
+      <!-- Spine Crease & Hinge Groove -->
+      <line x1="64" y1="20" x2="64" y2="254" stroke="rgba(0, 0, 0, 0.28)" stroke-width="1.2" />
+      <line x1="65.2" y1="20" x2="65.2" y2="254" stroke="rgba(255, 255, 255, 0.28)" stroke-width="0.8" />
+
+      <!-- Paper Sheen / Natural Lighting across cover -->
+      <rect x="36" y="20" width="376" height="234" rx="4" fill={`url(#${uid}-sheen)`} pointer-events="none" />
+
+      <!-- Crisp Outer Rim Highlight -->
+      <rect
+        x="36.5"
+        y="20.5"
+        width="375"
+        height="233"
+        rx="3.5"
+        fill="none"
+        stroke="rgba(255, 255, 255, 0.32)"
+        stroke-width="0.8"
+        pointer-events="none"
+      />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .book-mockup-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2) var(--space-1);
+    background: transparent;
+    overflow: hidden;
+  }
+
+  .book-mockup-svg {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .book-mockup-body {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: 226px 240px;
+    will-change: transform;
+  }
+
+  .book-mockup-shadow {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+    transform-origin: 236px 265px;
+    will-change: transform, opacity;
+  }
+
+  /* Interactive Hover Physics: Book body lifts up smoothly, floor shadow softens */
+  :global(.event-card:hover) .book-mockup-body {
+    transform: translateY(-7px) scale(1.018);
+  }
+
+  :global(.event-card:hover) .book-mockup-shadow {
+    transform: scale(0.96) translateY(2px);
+    opacity: 0.8;
+  }
+
+  [data-theme="dark"] .book-mockup-stage {
+    background: transparent;
+  }
+
+  @media (max-width: 640px) {
+    .book-mockup-stage {
+      padding: var(--space-1) 0;
+    }
+  }
+</style>

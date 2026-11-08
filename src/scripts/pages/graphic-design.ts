@@ -4,78 +4,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 function initGraphicDesign() {
   const container = document.getElementById('graphic-design-hub');
-  if (!container) return;
+  if (!container || (container as any)._initialized) return;
+  (container as any)._initialized = true;
 
-  // ── Failsafe to ensure elements are never stuck hidden ──
-  function ensureVisibility() {
-    document.querySelectorAll<HTMLElement>('.event-card, .reveal, .reveal-line, .graphic-design-title, .work-big-title, .work-lead, .cell-img').forEach((el) => {
-      el.style.visibility = 'visible';
-    });
-  }
-  setTimeout(ensureVisibility, 300);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── Entrance Animations ─────────────────────────────────
-  // Title slide-up
-  const title = container.querySelector('.graphic-design-title, .work-big-title');
-  if (title) {
-    gsap.fromTo(title, 
-      { y: 24, autoAlpha: 0 }, 
-      { y: 0, autoAlpha: 1, duration: 0.7, ease: 'power3.out' }
-    );
-  }
-
-  // Brandbook cards entrance
-  const cards = gsap.utils.toArray<HTMLElement>('.event-card');
-  if (cards.length) {
-    gsap.fromTo(cards, 
-      { autoAlpha: 0, y: 24 }, 
-      { 
-        autoAlpha: 1, 
-        y: 0, 
-        duration: 0.5, 
-        stagger: 0.07, 
-        ease: 'power3.out',
-        delay: 0.1,
-        onComplete: ensureVisibility
-      }
-    );
-
-    // Hover effect on brandbook cards
-    cards.forEach((card) => {
-      const img = card.querySelector<HTMLElement>('.event-card__thumb-strip img');
-      const arrow = card.querySelector<HTMLElement>('.arrow');
-      card.addEventListener('mouseenter', () => {
-        if (img) gsap.to(img, { scale: 1.04, duration: 0.4, ease: 'power2.out' });
-        if (arrow) gsap.to(arrow, { x: 4, duration: 0.25, ease: 'power2.out' });
-      });
-      card.addEventListener('mouseleave', () => {
-        if (img) gsap.to(img, { scale: 1, duration: 0.35, ease: 'power2.inOut' });
-        if (arrow) gsap.to(arrow, { x: 0, duration: 0.25, ease: 'power2.inOut' });
-      });
-    });
-  }
-
-  // Reveal texts and dividers
-  const reveals = gsap.utils.toArray<HTMLElement>('.reveal');
-  if (reveals.length) {
-    gsap.fromTo(reveals, 
-      { autoAlpha: 0, y: 14 }, 
-      { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.05, ease: 'power2.out' }
-    );
-  }
-  const lines = gsap.utils.toArray<HTMLElement>('.reveal-line');
-  if (lines.length) {
-    gsap.fromTo(lines, 
-      { scaleX: 0, transformOrigin: 'left center' }, 
-      { scaleX: 1, duration: 0.6, ease: 'power3.out' }
-    );
-  }
+  // ── Entrance Animations ──
+  // Astro View Transitions handle page cross-fading seamlessly.
+  // We avoid setting opacity:0 on above-the-fold content to eliminate page refresh flashing.
 
   // ── Gallery Items & Lightbox ─────────────────────────────
-  const cells = document.querySelectorAll<HTMLElement>('.gallery-cell');
+  const cells = container.querySelectorAll<HTMLElement>('.gallery-cell');
 
-  // Prime video elements
-  document.querySelectorAll<HTMLVideoElement>('.cell-video').forEach((video) => {
+  // Prime video elements for instant poster playback
+  container.querySelectorAll<HTMLVideoElement>('.cell-video').forEach((video) => {
     video.muted = true;
     if (video.readyState < 2) {
       video.load();
@@ -83,7 +25,7 @@ function initGraphicDesign() {
   });
 
   // Video hover preview
-  document.querySelectorAll<HTMLVideoElement>('[data-hover-video]').forEach((video) => {
+  container.querySelectorAll<HTMLVideoElement>('[data-hover-video]').forEach((video) => {
     const cell = video.closest('.gallery-cell');
     if (!cell) return;
     cell.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
@@ -193,26 +135,30 @@ function initGraphicDesign() {
   lbPrev?.addEventListener('click', () => navigateLb(-1));
   lbNext?.addEventListener('click', () => navigateLb(1));
 
-  // Category section scrolls
-  document.querySelectorAll('.gallery-grid-section').forEach((section) => {
-    const gridCells = section.querySelectorAll('.gallery-cell');
-    gsap.fromTo(gridCells, 
-      { autoAlpha: 0, y: 16 }, 
-      {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.4,
-        stagger: 0.035,
+  // Category section triggers
+  if (!reduceMotion) {
+    container.querySelectorAll('.gallery-grid-section').forEach((section) => {
+      const gridCells = section.querySelectorAll('.gallery-cell');
+      gsap.from(gridCells, {
+        opacity: 0,
+        y: 16,
+        duration: 0.35,
+        stagger: 0.03,
         ease: 'power2.out',
+        clearProps: 'all',
         scrollTrigger: {
           trigger: section,
-          start: 'top 85%',
+          start: 'top 88%',
           once: true
         }
-      }
-    );
-  });
+      });
+    });
+  }
+
+  // Cleanup on Astro page transition
+  document.addEventListener('astro:before-preparation', () => {
+    closeLightbox();
+  }, { once: true });
 }
 
 document.addEventListener('astro:page-load', initGraphicDesign);
-initGraphicDesign();

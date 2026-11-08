@@ -2,38 +2,38 @@
   {
     "id": "01",
     "name": "Indra",
-    "role": "Studio Lead & Creative Director",
-    "company": "Jakarta Animation Studio",
+    "role": "Founder & Lead Instructor",
+    "company": "Eyes Wide Open Studio",
     "category": "motion",
-    "quote": "Achmad handles character rigging and animation across our episodic pipeline under strict weekly deadlines. His eye for pacing and audio timing means minimal retakes, and his oversight kept our animation team shipping on schedule.",
+    "quote": "Zayn has been a cornerstone in our episodic pipeline. He turns complex layered illustrations into fully rigged character animation under strict weekly deadlines. His eye for pacing and audio timing means minimal retakes, and his oversight kept our animation team shipping on schedule.",
     "highlight": "Kept our animation team shipping on schedule"
   },
   {
     "id": "02",
     "name": "Wahyu",
-    "role": "Motion Producer",
-    "company": "Commercial Animation",
+    "role": "Director & Founder",
+    "company": "O.O Studio",
     "category": "motion",
-    "quote": "Collaborating with Achmad on 2D animation is seamless. His rigs are built cleanly in After Effects, making scene handoffs effortless. He understands motion curves and always delivers ahead of cutoff.",
+    "quote": "Collaborating with Zayn on 2D animation is effortless. His character rigs are built cleanly in After Effects, which makes scene handoffs seamless. He understands motion curve dynamics and always delivers before the final cutoff.",
     "highlight": "Clean rigs and seamless scene handoffs"
   },
   {
     "id": "03",
     "name": "Othin",
-    "role": "Director & Founder",
+    "role": "Manager",
     "company": "PT Doktor Coffee Jaya Abadi (DR. KOFFIE)",
     "category": "graphic-design",
-    "quote": "Achmad structured our entire B2B export catalog and brand collateral. The layout met the strict documentation standards required by international buyers, giving our sales team immediate credibility.",
-    "highlight": "Gave export sales team immediate credibility"
+    "quote": "Zayn structured our entire B2B export catalog and brand collateral from the ground up. The layout was clear, professional, and met the strict technical documentation standards required by our international buyers. It gave our sales team immediate credibility.",
+    "highlight": "Gave our export sales team immediate credibility"
   },
   {
     "id": "04",
     "name": "Stevan",
-    "role": "Managing Director",
+    "role": "Founder",
     "company": "ID Card Lampung",
     "category": "graphic-design",
-    "quote": "Achmad established our visual identity and print production standards with absolute precision. The 12-page brandbook eliminated color discrepancies across our print runs and made staff onboarding straightforward.",
-    "highlight": "Eliminated print color discrepancies"
+    "quote": "Zayn established our visual identity and print production standards with absolute precision. Having a standardized 12-page brandbook eliminated color inconsistencies across our digital print runs and made onboarding our production staff straightforward.",
+    "highlight": "Eliminated print color inconsistencies"
   },
   {
     "id": "05",
@@ -41,7 +41,7 @@
     "role": "Founder & Lead Instructor",
     "company": "Kelas Struktur",
     "category": "graphic-design",
-    "quote": "Achmad translates technical engineering concepts into high-retention promotional motion and social systems. Our course launch engagement improved noticeably, and delivery was always prompt.",
+    "quote": "Zayn has an exceptional ability to translate complex technical engineering subjects into punchy, high-retention visual promos and social media systems. Our course launch engagement improved noticeably, and his delivery was always prompt.",
     "highlight": "Course launch engagement improved noticeably"
   }
 ]
