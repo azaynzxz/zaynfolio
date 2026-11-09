@@ -1,0 +1,191 @@
+%-------------------------
+% ATS-Friendly LaTeX Resume
+% Author: Achmad Zaini
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{multicol}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Ensure ATS readability
+\pdfgentounicode=1
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Achmad Zaini} \\ \vspace{4pt}
+    \small Palembang, South Sumatra, Indonesia $|$
+    \small +62 831 4379 0990 $|$
+    \href{mailto:contact@zaynfolio.com}{\underline{contact@zaynfolio.com}} $|$
+    \href{https://linkedin.com/in/azaynz}{\underline{LinkedIn}} $|$
+    \href{https://zaynfolio.com/work}{\underline{Portfolio}} $|$
+    \href{https://zaynfolio.com/work/?project=01}{\underline{Showreel}}
+\end{center}
+
+%-----------SUMMARY-----------
+\section{Summary}
+\small{Motion Graphics Designer and 2D Animator with four years of experience in character rigging, kinetic typography, and video editing with sound design. Beyond animation, I build custom After Effects scripts using AI to automate repetitive tasks and speed up production. I am comfortable handling high-volume pipelines and tight deadlines for agency and corporate clients.}
+
+%-----------CORE SKILLS-----------
+\section{Core Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{
+    \item \textbf{Motion \& Animation:} Adobe After Effects, 2D Animation, 2D Character Rigging, Kinetic Typography, Sound Design, Premiere Pro
+    \item \textbf{Design:} Adobe Photoshop, Adobe Illustrator (asset preparation)
+    \item \textbf{Workflow Tools:} After Effects \href{https://github.com/azaynzxz/after-effects-expression-panel/tree/main/Expression_Panel_V2}{\underline{Expression Panel}}, built with AI (Gemini, Claude) to speed up animation work
+    \item \textbf{Languages:} Indonesian (Native), English (Fluent)
+  }
+\end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Motion Graphics Designer / Video Editor}{Jul 2025 -- Present}
+      {PT. Mata Terbuka Lebar (Eyes Wide Open Studio)}{Palembang, Indonesia}
+      \resumeItemListStart
+        \resumeItem{Created animated explainer videos for YouTube channels as part of a team. Delivered 209 videos so far, and some videos reached 34K and 45K views.}
+        \resumeItem{Animated long videos (8 to 20 minutes) with up to 200 assets each, with a 3-day deadline. Animated the PSD layers, keyframed them, rendered, and added sound design.}
+        \resumeItem{Worked with illustrators, scriptwriters, and project managers, with up to 20 projects at the same time.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics Designer (Freelance)}{Nov 2022 -- Present}
+      {ID Card Lampung}{Lampung, Indonesia}
+      \resumeItemListStart
+        \resumeItem{Made animated reels and kinetic typography videos for Instagram and Facebook.}
+        \resumeItem{The Instagram account grew from 0 to 2,498 followers.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics Intern}{2019, 2023}
+      {Linggau Media Group, Petakumpet Creativerse, National Design Center}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Three short internships helping with motion graphics, animation, and video production.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Junior Motion Graphics Designer}{Apr 2020 -- Sep 2020}
+      {Tampia Group}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Made explainer videos, animated social media content, and promo videos in After Effects.}
+        \resumeItem{Built reusable motion templates and overlays to speed up video production.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------SELECTED PROJECTS-----------
+\section{Selected Projects}
+  \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {\textbf{Baraca Capital -- CEO Executive Interview} $|$ \emph{Eyes Wide Open Studio}}{2026}
+      \resumeItemListStart
+        \resumeItem{Edited an executive interview for Baraca Capital, a Dubai-based real estate investment firm. Used multi-camera switching, kinetic typography, VFX motion graphics, and 3D architectural renders provided for the project.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Setna (setna.aero) -- Kinetic Typography Ads} $|$ \emph{Freelance, Upwork}}{2026}
+      \resumeItemListStart
+        \resumeItem{Made a 45-second looping kinetic typography billboard ad for Setna, a global aviation parts, repair, and leasing company. Used fast cuts and textures.}
+        \resumeItem{Made 3 loopable 15-second street-art style kinetic typography videos for the \href{https://www.setna.aero/setnix}{\underline{SETNIX}} and \href{https://www.setna.aero/zulu-global}{\underline{ZULU GLOBAL}} pages.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Educational Motion Graphics Series (Cultural Heritage Animation)}}{2024}
+      \resumeItemListStart
+        \resumeItem{Made an explainer series with 2D character rigging and kinetic data visualization about cultural stories.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Sumatera Institute of Technology (ITERA)}{Lampung, Indonesia}
+      {Bachelor of Visual Communication Design, GPA 3.78 / 4.00}{2020 -- 2024}
+  \resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS-----------
+\section{Achievements}
+  \resumeSubHeadingListStart
+    \resumeItem{\textbf{Bank Indonesia Scholarship Awardee:} Selected as one of the top 50 out of 700 scholarship students for academic excellence and leadership impact.}
+    \resumeItem{\textbf{1st Place, Poster Design Competitions:} World Earth Day (2023) and Processed Fish Food (2023).}
+    \resumeItem{\textbf{Motion Graphics Teaching Assistant, ITERA (Sep--Dec 2021):} Taught 70+ students After Effects workflow basics.}
+  \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

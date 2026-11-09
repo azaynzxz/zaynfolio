@@ -1,0 +1,189 @@
+%-------------------------
+% ATS-Friendly LaTeX Resume
+% Author: Achmad Zaini
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{multicol}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Ensure ATS readability
+\pdfgentounicode=1
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Achmad Zaini} \\ \vspace{4pt}
+    \small Palembang, South Sumatra, Indonesia $|$
+    \small +62 831 4379 0990 $|$
+    \href{mailto:contact@zaynfolio.com}{\underline{contact@zaynfolio.com}} $|$
+    \href{https://linkedin.com/in/azaynz}{\underline{LinkedIn}} $|$
+    \href{https://zaynfolio.com/graphic-design}{\underline{Portfolio}}
+\end{center}
+
+%-----------SUMMARY-----------
+\section{Summary}
+\small{Graphic Designer with four years of experience in brand identity, print production, and social media design. Experienced in creating brand guidelines, B2B catalogs, packaging, and marketing visuals. I also use AI image generation to generate model poses, retouch product photos, and speed up visual production for agency and business clients.}
+
+%-----------CORE SKILLS-----------
+\section{Core Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{
+    \item \textbf{Brand \& Print:} Adobe Illustrator, Photoshop, InDesign, Brand Guidelines, Editorial Layout, Print Production
+    \item \textbf{Digital \& Motion:} Social Media Design, Ad Creatives, Vector Illustration, Adobe After Effects
+    \item \textbf{AI \& Retouching:} AI image generation for generating model poses and product photo retouching
+    \item \textbf{Languages:} Indonesian (Native), English (Fluent)
+  }
+\end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Graphic \& Motion Designer (Freelance)}{Nov 2022 -- Present}
+      {ID Card Lampung}{Lampung, Indonesia}
+      \resumeItemListStart
+        \resumeItem{Designed the 12-page brandbook, print-ready ID card layouts, and marketing collateral in Illustrator and Photoshop.}
+        \resumeItem{Built automated batch workflows and templates to standardize print production and speed up client approvals.}
+        \resumeItem{Created social media feed systems and promo visuals, growing Instagram from 0 to 2,498 followers.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Motion Graphics Designer / Visual Artist}{Jul 2025 -- Present}
+      {PT. Mata Terbuka Lebar (Eyes Wide Open Studio)}{Palembang, Indonesia}
+      \resumeItemListStart
+        \resumeItem{Prepared layered PSD and vector assets for 209 animated explainer videos on YouTube.}
+        \resumeItem{Worked with illustrators and project managers on up to 20 projects at the same time.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Graphic Design Intern}{2019, 2023}
+      {Linggau Media Group, Petakumpet Creativerse, National Design Center}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Three short internships helping with brand guidelines, social media graphics, and print layouts.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Junior Graphic \& Motion Designer}{Apr 2020 -- Sep 2020}
+      {Tampia Group}{Indonesia}
+      \resumeItemListStart
+        \resumeItem{Designed social media visuals, ad creatives, and promo graphics in Illustrator and Photoshop.}
+        \resumeItem{Built reusable graphic templates and brand toolkits to speed up daily content production.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------SELECTED PROJECTS-----------
+\section{Selected Projects}
+  \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {\textbf{DR. KOFFIE -- B2B Export Collateral \& Brand Catalog} $|$ \emph{PT Doktor Coffee Jaya Abadi}}{2025}
+      \resumeItemListStart
+        \resumeItem{Designed a 13-page B2B export catalog and brand presentation for international coffee buyers.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Place Branding GKU 2 Twin Building} $|$ \emph{Sumatera Institute of Technology}}{2023}
+      \resumeItemListStart
+        \resumeItem{Created a 99-page environmental brand identity guideline covering logos, signage, and wayfinding.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Brand Identity Guidelines} $|$ \emph{PDIN Yogyakarta, IMB Group, Lombok Coconut Oil}}{2023 -- 2024}
+      \resumeItemListStart
+        \resumeItem{Designed brandbooks (26 to 52 pages) defining logo usage, typography, color, and print standards.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Sumatera Institute of Technology (ITERA)}{Lampung, Indonesia}
+      {Bachelor of Visual Communication Design, GPA 3.78 / 4.00}{2020 -- 2024}
+  \resumeSubHeadingListEnd
+
+%-----------ACHIEVEMENTS-----------
+\section{Achievements}
+  \resumeSubHeadingListStart
+    \resumeItem{\textbf{Bank Indonesia Scholarship Awardee:} Selected as one of the top 50 out of 700 scholarship students for academic excellence and leadership impact.}
+    \resumeItem{\textbf{1st Place, Poster Design Competitions:} World Earth Day (2023) and Processed Fish Food (2023).}
+    \resumeItem{\textbf{Motion Graphics Teaching Assistant, ITERA (Sep--Dec 2021):} Taught 70+ students design and After Effects basics.}
+  \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

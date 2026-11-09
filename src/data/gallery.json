@@ -1,71 +1,84 @@
 [
   {
-    "id": "g13",
-    "title": "Product Mockup",
-    "description": "ID card product showcase design",
+    "id": "g01",
+    "title": "September Campaign",
+    "description": "Marketing social media feed design",
     "client": "ID Card Lampung",
     "platform": "Instagram",
-    "format": "Feed · 1:1",
+    "format": "Feed · 4:5",
     "year": 2025,
     "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g13-idcard-lampung.webp",
+    "aspectRatio": "4:5",
+    "poster": "/assets/gallery/g01-idcard-lampung.webp",
     "isAnimated": false
   },
   {
-    "id": "g14",
-    "title": "Gelas Promo",
-    "description": "Tumbler product promotional post",
+    "id": "g02",
+    "title": "September Promo",
+    "description": "Promotional feed design layout",
     "client": "ID Card Lampung",
     "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2024,
+    "format": "Feed · 4:5",
+    "year": 2025,
     "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g14-idcard-lampung.webp",
+    "aspectRatio": "4:5",
+    "poster": "/assets/gallery/g02-idcard-lampung.webp",
     "isAnimated": false
   },
   {
-    "id": "g15",
-    "title": "Buka Puasa Post",
-    "description": "Ramadan seasonal greeting design",
+    "id": "g03",
+    "title": "October Product Showcase",
+    "description": "Product promotional feed design",
     "client": "ID Card Lampung",
     "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2024,
+    "format": "Feed · 4:5",
+    "year": 2025,
     "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g15-idcard-lampung.webp",
+    "aspectRatio": "4:5",
+    "poster": "/assets/gallery/g03-idcard-lampung.webp",
     "isAnimated": false
   },
   {
-    "id": "g16",
-    "title": "Service Promo",
-    "description": "Design service promotional content",
+    "id": "g04",
+    "title": "October Promo",
+    "description": "Promotional campaign feed design",
     "client": "ID Card Lampung",
     "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2024,
+    "format": "Feed · 4:5",
+    "year": 2025,
     "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g16-idcard-lampung.webp",
+    "aspectRatio": "4:5",
+    "poster": "/assets/gallery/g04-idcard-lampung.webp",
     "isAnimated": false
   },
   {
-    "id": "g17",
-    "title": "Do's & Don'ts",
-    "description": "Educational content post on design specs",
+    "id": "g05",
+    "title": "October Campaign",
+    "description": "Branded social media feed design",
     "client": "ID Card Lampung",
     "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2024,
+    "format": "Feed · 4:5",
+    "year": 2025,
     "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g17-idcard-lampung.webp",
+    "aspectRatio": "4:5",
+    "poster": "/assets/gallery/g05-idcard-lampung.webp",
     "isAnimated": false
   },
   {
-    "id": "g18",
+    "id": "g06",
+    "title": "October Special",
+    "description": "Marketing social media feed layout",
+    "client": "ID Card Lampung",
+    "platform": "Instagram",
+    "format": "Feed · 4:5",
+    "year": 2025,
+    "category": "ID Card Lampung",
+    "aspectRatio": "4:5",
+    "poster": "/assets/gallery/g06-idcard-lampung.webp",
+    "isAnimated": false
+  },
+  {
+    "id": "g07",
     "title": "Feed Showcase",
     "description": "Product catalog showcase for feed",
     "client": "ID Card Lampung",
@@ -78,7 +91,7 @@
     "isAnimated": false
   },
   {
-    "id": "g19",
+    "id": "g08",
     "title": "Jumat Agung",
     "description": "Good Friday seasonal greeting post",
     "client": "ID Card Lampung",
@@ -91,7 +104,7 @@
     "isAnimated": false
   },
   {
-    "id": "g20",
+    "id": "g09",
     "title": "Paskah Post",
     "description": "Easter seasonal greeting post",
     "client": "ID Card Lampung",
@@ -104,33 +117,7 @@
     "isAnimated": false
   },
   {
-    "id": "g21",
-    "title": "KKN Promo 1",
-    "description": "University program promotional design",
-    "client": "ID Card Lampung",
-    "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2024,
-    "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g21-idcard-lampung.webp",
-    "isAnimated": false
-  },
-  {
-    "id": "g22",
-    "title": "KKN Promo 2",
-    "description": "University program promotional follow-up",
-    "client": "ID Card Lampung",
-    "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2024,
-    "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g22-idcard-lampung.webp",
-    "isAnimated": false
-  },
-  {
-    "id": "g23",
+    "id": "g10",
     "title": "Showcase Produk",
     "description": "Product showcase with arrangement layout",
     "client": "ID Card Lampung",
@@ -143,7 +130,7 @@
     "isAnimated": false
   },
   {
-    "id": "g24",
+    "id": "g11",
     "title": "Stiker Promo",
     "description": "Sticker product promotion design",
     "client": "ID Card Lampung",
@@ -156,7 +143,7 @@
     "isAnimated": false
   },
   {
-    "id": "g25",
+    "id": "g12",
     "title": "Survey Post",
     "description": "Customer survey promotional design",
     "client": "ID Card Lampung",
@@ -166,19 +153,6 @@
     "category": "ID Card Lampung",
     "aspectRatio": "1:1",
     "poster": "/assets/gallery/g25-idcard-lampung.webp",
-    "isAnimated": false
-  },
-  {
-    "id": "g26",
-    "title": "Size Guide",
-    "description": "ID card sizing reference infographic",
-    "client": "ID Card Lampung",
-    "platform": "Instagram",
-    "format": "Feed · 1:1",
-    "year": 2025,
-    "category": "ID Card Lampung",
-    "aspectRatio": "1:1",
-    "poster": "/assets/gallery/g26-idcard-lampung.webp",
     "isAnimated": false
   },
   {
@@ -613,7 +587,7 @@
     "isAnimated": false
   },
   {
-    "id": "g04",
+    "id": "g13",
     "title": "Brand Showcase",
     "description": "Product showcase layout for social media",
     "client": "Fili Stuff",
@@ -626,7 +600,7 @@
     "isAnimated": false
   },
   {
-    "id": "g05",
+    "id": "g14",
     "title": "Product Layout",
     "description": "Clean product photography layout",
     "client": "Fili Stuff",
@@ -639,7 +613,7 @@
     "isAnimated": false
   },
   {
-    "id": "g06",
+    "id": "g15",
     "title": "Catalog Design",
     "description": "Product catalog card for digital channels",
     "client": "Fili Stuff",
@@ -652,7 +626,7 @@
     "isAnimated": false
   },
   {
-    "id": "g07",
+    "id": "g16",
     "title": "Collection Post",
     "description": "Collection highlight design for feed",
     "client": "Fili Stuff",
@@ -665,7 +639,7 @@
     "isAnimated": false
   },
   {
-    "id": "g08",
+    "id": "g17",
     "title": "Promo Card",
     "description": "Promotional card with brand identity",
     "client": "Fili Stuff",
@@ -678,7 +652,7 @@
     "isAnimated": false
   },
   {
-    "id": "g09",
+    "id": "g18",
     "title": "Feature Post",
     "description": "Product feature highlight for social feed",
     "client": "Fili Stuff",
@@ -691,7 +665,7 @@
     "isAnimated": false
   },
   {
-    "id": "g10",
+    "id": "g19",
     "title": "Lifestyle Shot",
     "description": "Lifestyle product photography post",
     "client": "Fili Stuff",
@@ -704,7 +678,7 @@
     "isAnimated": false
   },
   {
-    "id": "g11",
+    "id": "g20",
     "title": "Brand Post",
     "description": "Brand identity post for social channels",
     "client": "Fili Stuff",
@@ -717,7 +691,7 @@
     "isAnimated": false
   },
   {
-    "id": "g12",
+    "id": "g21",
     "title": "Pricelist Design",
     "description": "Visual pricelist layout for social media",
     "client": "Fili Stuff",
@@ -730,7 +704,7 @@
     "isAnimated": false
   },
   {
-    "id": "g01",
+    "id": "g22",
     "title": "Donation Post",
     "description": "Mosque donation campaign design for social media feed",
     "client": "At-Tanwir Mosque",
@@ -743,7 +717,7 @@
     "isAnimated": false
   },
   {
-    "id": "g02",
+    "id": "g23",
     "title": "Feed Layout",
     "description": "Social media feed grid design for mosque community",
     "client": "At-Tanwir Mosque",
@@ -756,7 +730,7 @@
     "isAnimated": false
   },
   {
-    "id": "g03",
+    "id": "g24",
     "title": "Content Post",
     "description": "Informational content post design",
     "client": "At-Tanwir Mosque",
